@@ -15,16 +15,38 @@
 	<description>Trench Crusade Builder API</description>
 	<properties>
 		<java.version>21</java.version>
+		<spring-boot.version>3.2.4</spring-boot.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
+		<!-- DATABASE -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.3</version>
+		</dependency>
+
+		<!-- TEST SCOPE -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring-boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -34,6 +56,28 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.11.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.flywaydb</groupId>
+						<artifactId>flyway-database-postgresql</artifactId>
+						<version>10.11.0</version>
+						<scope>runtime</scope>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<url>jdbc:postgresql://localhost/trench</url>
+					<user>crusader</user>
+					<password>o3&amp;9PifU</password>
+					<schemas>
+						<schema>trench</schema>
+					</schemas>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
