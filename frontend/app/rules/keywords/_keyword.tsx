@@ -3,16 +3,17 @@
 import { Sono } from "next/font/google";
 const sono = Sono({ subsets: ["latin"], weight: "400"});
 
-interface KeywordProps {
-    keyword:  string,
+export interface KeywordProps {
+    id: string
+    keyword: string,
     definition: string
 }
 
-export default function Keyword({keyword, definition}: KeywordProps) { 
+export default function Keyword(props:{keyword: KeywordProps}) { 
   return (
-    <div>
-      <p className={sono.className}>{keyword}:</p>
-      <p>{definition}</p>
+    <div id={`keyword-${props.keyword.id}`}>
+      <p className={sono.className}>{props.keyword.keyword}:</p>
+      <p>{props.keyword.definition}</p>
     </div>
   )
 }
