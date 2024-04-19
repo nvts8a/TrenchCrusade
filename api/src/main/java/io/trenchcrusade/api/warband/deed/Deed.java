@@ -1,10 +1,9 @@
-package io.trenchcrusade.api.keyword;
+package io.trenchcrusade.api.warband.deed;
 
 import jakarta.persistence.*;
 
 @Entity
-public class Keyword {
-
+public class Deed {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -14,9 +13,9 @@ public class Keyword {
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")
-    private String definition;
-    public String getDefinition() {
-        return definition;
+    private String description;
+    public String getDescription() {
+        return description;
     }
 
     private String name;

@@ -72,7 +72,6 @@
 				</dependencies>
 				<configuration>
 					<url>jdbc:postgresql://localhost/trench</url>
-					<user>crusader</user>
 					<password>o3&amp;9PifU</password>
 					<schemas>
 						<schema>trench</schema>
