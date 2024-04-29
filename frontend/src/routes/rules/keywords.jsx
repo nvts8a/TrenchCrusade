@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 export default function Keywords() {
     const [keywords, setKeywords] = useState([]);
 
-
     useEffect(() => {
         axios('http://localhost:3000/keyword/all')
         .then((response) => {
@@ -17,13 +16,10 @@ export default function Keywords() {
         });
     }, []);
 
-    
-
-
     const renderKeywords = () => {
         return keywords.map((keyword) => {
                 return(
-                    <div id={`keyword-${keyword.id}`}>
+                    <div id={`keyword-${keyword.id}`} key={keyword.id}>
                         <div>{keyword.name}:</div>
                         <div>{keyword.definition}</div>
                     </div>
@@ -32,9 +28,8 @@ export default function Keywords() {
         )
     }
 
-
     return(
-        <div> HELLO
+        <div>
             {renderKeywords()}
         </div>
     )

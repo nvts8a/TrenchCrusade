@@ -21,8 +21,8 @@ public class Troop {
     @ManyToOne(optional = false)
     @JoinColumn(name = "troop_type_id")
     private TroopType troopType;
-    public Integer getTroopType() {
-        return troopType.getId();
+    public TroopType getTroopType() {
+        return troopType;
     }
     public void setTroopType(TroopType troopType) {
         this.troopType = troopType;

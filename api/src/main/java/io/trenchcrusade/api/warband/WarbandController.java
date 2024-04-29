@@ -10,6 +10,12 @@ public class WarbandController {
     @Autowired
     private WarbandRepository warbandRepository;
 
+    @DeleteMapping("/{id}")
+    public @ResponseBody String delete(@PathVariable("id") Integer id) {
+        warbandRepository.deleteById(id);
+        return String.valueOf(id);
+    }
+
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<Warband> getAll() {
         return warbandRepository.findAll();

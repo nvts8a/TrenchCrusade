@@ -1,36 +1,51 @@
+// REACT
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Root from "./routes/root";
-import Keywords from './routes/keywords';
-import ErrorPage from "./error-page";
+// REACT-ROUTER
+import Root from './routes/root';
+import Keywords from './routes/rules/keywords';
+import Warband from './routes/builder/warband';
+import Roster from './routes/builder/warband/roster';
+import ErrorPage from './error-page';
 
+// REDUX
+import { Provider } from 'react-redux'
+import store from './store'
+
+// STYLE AND LAYOUT
+import Layout from './layout';
 import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import './index.css';
-import reportWebVitals from './reportWebVitals';
+
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Root />,
+    path: '/',
+    element: <Layout><Root /></Layout>,
     errorElement: <ErrorPage />,
   },
   {
-    path: "keywords/",
-    element: <Keywords />,
+    path: '/keywords',
+    element: <Layout><Keywords /></Layout>,
+  },
+  {
+    path: '/builder/warband/all',
+    element: <Layout><Warband /></Layout>
+  },
+  {
+    path: '/builder/warband/:id/roster',
+    element: <Layout><Roster /></Layout>
   },
 ])
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+  </Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -43,7 +43,7 @@ public class Warband {
     @JoinColumn(name = "variant_id")
     private Variant variant;
     public Integer getVariant() {
-        return variant.getId();
+        return variant == null ? null : variant.getId();
     }
     public void setVariant(Variant variant) {
         this.variant = variant;

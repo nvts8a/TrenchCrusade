@@ -1,5 +1,5 @@
 INSERT
-INTO keyword (id, keyword, definition)
+INTO keyword (id, name, definition)
 VALUES
 ( 1, '+DICE',           'Modifier for ACTION rolls. For each +DICE, add one dice to the dice pool of the 2D6 roll you are about to make. +1 DICE thus makes the roll a total of 3D6. Then roll all the dice and pick the two highest. If two +DICE are added, roll 4D6 and pick the two highest, and so on.'), 
 ( 2, '-DICE',           'Modifier for ACTION rolls. For each -DICE, add one dice to the dice pool of the 2D6 roll you are about to make. Thus -1 DICE makes the roll a total of 3D6. Then roll all the dice and pick the two lowest. If two -DICE are added, roll 4D6 and pick the two lowest, and so on.'), 
