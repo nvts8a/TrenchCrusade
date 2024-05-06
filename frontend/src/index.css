@@ -20,6 +20,7 @@ code {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --bs-nav-link-color: 220, 220, 220;
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 25, 25, 25;
     --background-end-rgb: 100, 100, 100;

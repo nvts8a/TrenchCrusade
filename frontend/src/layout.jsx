@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 const Layout =({children}) => {
     return (
         <main>
-            <nav className='navbar navbar-expand-lg bg-body-tertiary'>
-                <div className='container-fluid'>
+            <nav className='navbar navbar-expand-lg text-secondary'>
+                <div className='container-fluid '>
                     <a className='navbar-brand' href='https://www.trenchcrusade.com/' rel='noreferrer' target='_blank'>
                         <img src='/img/trench+crusade+site+logo.png' alt='Trench Crusade Logo' height='24'/>
                     </a>

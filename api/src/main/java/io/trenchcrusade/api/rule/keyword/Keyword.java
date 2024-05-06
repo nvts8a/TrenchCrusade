@@ -1,4 +1,4 @@
-package io.trenchcrusade.api.keyword;
+package io.trenchcrusade.api.rule.keyword;
 
 import jakarta.persistence.*;
 

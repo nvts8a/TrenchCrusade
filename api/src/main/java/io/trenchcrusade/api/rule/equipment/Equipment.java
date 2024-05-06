@@ -1,9 +1,13 @@
-package io.trenchcrusade.api.faction.troop_type;
+package io.trenchcrusade.api.rule.equipment;
 
+import io.trenchcrusade.api.faction.FactionTroopType;
 import jakarta.persistence.*;
 
+import java.util.Set;
+
+
 @Entity
-public class TroopType {
+public class Equipment {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -11,37 +15,23 @@ public class TroopType {
         return id;
     }
 
+    // ASSOCIATIONS
+    @OneToMany(mappedBy="equipment")
+    private Set<EquipmentModifier> modifiers;
+    public  Set<EquipmentModifier> getEquipmentModifiers() {
+        return modifiers;
+    }
+
     // COLUMNS
-    private Integer armour;
-    public Integer getArmour() {
-        return armour;
-    }
-
-    private Integer baseSize;
-    public Integer getBaseSize() {
-        return baseSize;
-    }
-
     @Column(columnDefinition = "TEXT")
     private String description;
     public String getDescription() {
         return description;
     }
 
-
-    private Integer melee;
-    public Integer getMelee() {
-        return melee;
-    }
-
-    private Integer movement;
-    public Integer getMovement() {
-        return movement;
-    }
-
-    private String movementType;
-    public String getMovementType() {
-        return movementType;
+    private String handedness;
+    public String getHandedness() {
+        return handedness;
     }
 
     private String name;

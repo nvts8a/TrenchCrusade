@@ -1,6 +1,6 @@
 package io.trenchcrusade.api.warband.troop;
 
-import io.trenchcrusade.api.faction.troop_type.TroopType;
+import io.trenchcrusade.api.rule.troop_type.TroopType;
 import io.trenchcrusade.api.warband.Warband;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;

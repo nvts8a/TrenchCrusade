@@ -4,6 +4,7 @@ import io.trenchcrusade.api.login.Login;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.faction.Faction;
 import io.trenchcrusade.api.faction.variant.Variant;
+import io.trenchcrusade.api.warband.troop.Troop;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -59,6 +60,12 @@ public class Warband {
     }
     public void setDeeds(Set<Deed> deeds) {
         this.deeds = deeds;
+    }
+
+    @OneToMany(mappedBy="warband")
+    private Set<Troop> troops;
+    public Set<Troop> getTroops() {
+        return troops;
     }
 
     // COLUMNS

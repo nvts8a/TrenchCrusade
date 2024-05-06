@@ -12,7 +12,7 @@ export const warbandSlice = createSlice({
     deleteWarband: (state, action) => {
       state.value = state.value.filter((warband) => warband.id != action.payload)
     },
-    setWarbands: (state, action) => {
+    setWarbands: (state, action) => { 
       state.value = action.payload
     }
   }
