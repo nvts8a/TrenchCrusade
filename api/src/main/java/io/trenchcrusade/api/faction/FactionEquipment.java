@@ -1,6 +1,5 @@
-package io.trenchcrusade.api.faction.variant;
+package io.trenchcrusade.api.faction;
 
-import io.trenchcrusade.api.faction.Faction;
 import io.trenchcrusade.api.rule.equipment.Equipment;
 import jakarta.persistence.*;
 
@@ -21,11 +20,13 @@ public class FactionEquipment {
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
 
+    @Column(nullable = false)
     private Integer cost;
     public Integer getCost() {
         return cost;
     }
 
+    @Column(nullable = false)
     private String currency;
     public String getCurrency() {
         return currency;
@@ -40,4 +41,6 @@ public class FactionEquipment {
     public Integer geMin() {
         return min;
     }
+
+    // TODO: Filtering?
 }

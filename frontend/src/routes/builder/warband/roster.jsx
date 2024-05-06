@@ -1,33 +1,32 @@
 
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+// REACT
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+// REDUX
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux'
+import { addRoster } from './rosterSlice';
 
 export default function Roster() {
+    const dispatch = useDispatch()
     const params = useParams();
-    const [troops, setTroops] = useState([]);
+    const rosters = useSelector(state => state.rosters.value)
 
     useEffect(() => {
-        axios(`http://localhost:3000/warband/${params.id}/troop/all`)
-        .then((response) => {
-            setTroops(response.data);
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-
-        axios(`http://localhost:3000/warband/${params.id}/troop/all`)
-        .then((response) => {
-            setTroops(response.data);
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-    }, []);
+        if (!rosters[params.id] || rosters[params.id].length === 0) {
+            axios(`/api/warband/${params.id}/troop/all`)
+              .then((response) => {
+                dispatch(addRoster({ warbandId: params.id, troops: response.data }))
+              })
+              .catch((err) => {
+                console.log(err.message)
+              })
+          }
+    }, [dispatch, params, rosters])
 
     const renderTroops = () => {
-        return troops.map((troop) => { 
+        return (rosters[params.id] ? rosters[params.id] : []).map((troop) => { 
                 return(
                     <div id={`troop-${troop.id}`} key={troop.id}>
                         <div>{troop.name}</div>

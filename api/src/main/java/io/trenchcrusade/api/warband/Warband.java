@@ -55,18 +55,9 @@ public class Warband {
             joinColumns = @JoinColumn(name = "warband_id"),
             inverseJoinColumns = @JoinColumn(name = "deed_id"))
     private Set<Deed> deeds;
-    public Set<Deed> getDeeds() {
-        return deeds;
-    }
-    public void setDeeds(Set<Deed> deeds) {
-        this.deeds = deeds;
-    }
 
     @OneToMany(mappedBy="warband")
     private Set<Troop> troops;
-    public Set<Troop> getTroops() {
-        return troops;
-    }
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")

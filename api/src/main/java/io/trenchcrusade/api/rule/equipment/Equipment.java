@@ -1,6 +1,8 @@
 package io.trenchcrusade.api.rule.equipment;
 
+import io.trenchcrusade.api.faction.FactionEquipment;
 import io.trenchcrusade.api.faction.FactionTroopType;
+import io.trenchcrusade.api.rule.keyword.Keyword;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -21,6 +23,18 @@ public class Equipment {
     public  Set<EquipmentModifier> getEquipmentModifiers() {
         return modifiers;
     }
+
+    @ManyToMany
+    @JoinTable(name = "equipment_keyword",
+            joinColumns = @JoinColumn(name = "equipment_id"),
+            inverseJoinColumns = @JoinColumn(name = "keyword_id"))
+    private Set<Keyword> keywords;
+    public Set<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    @OneToMany(mappedBy="equipment")
+    private Set<FactionEquipment> factionEquipment;
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")

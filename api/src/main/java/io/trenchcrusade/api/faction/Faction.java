@@ -1,6 +1,5 @@
 package io.trenchcrusade.api.faction;
 
-import io.trenchcrusade.api.rule.equipment.Equipment;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -22,8 +21,8 @@ public class Faction {
     }
 
     @OneToMany(mappedBy = "faction")
-    private Set<Equipment> factionEquipment;
-    public Set<Equipment> getFactionEquipment() {
+    private Set<FactionEquipment> factionEquipment;
+    public Set<FactionEquipment> getFactionEquipment() {
         return factionEquipment;
     }
 
@@ -34,6 +33,7 @@ public class Faction {
         return description;
     }
 
+    @Column(nullable = false)
     private String name;
     public String getName() {
         return name;

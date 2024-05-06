@@ -18,11 +18,13 @@ public class EquipmentModifier {
         return equipment;
     }
 
+    @Column(nullable = false)
     private String type;
     public String getType() {
         return type;
     }
 
+    @Column(nullable = false)
     private Integer value;
     public Integer getValue() {
         return value;

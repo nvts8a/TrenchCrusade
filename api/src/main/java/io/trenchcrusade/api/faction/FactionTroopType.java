@@ -20,11 +20,13 @@ public class FactionTroopType {
     @JoinColumn(name = "troop_type_id")
     private TroopType troopType;
 
+    @Column(nullable = false)
     private Integer cost;
     public Integer getCost() {
         return cost;
     }
 
+    @Column(nullable = false)
     private String currency;
     public String getCurrency() {
         return currency;
@@ -43,6 +45,4 @@ public class FactionTroopType {
     public String getType() {
         return type;
     }
-
-    // TODO: Filtering?
 }

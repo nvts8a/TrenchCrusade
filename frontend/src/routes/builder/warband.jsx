@@ -1,8 +1,12 @@
-import axios from 'axios';
+// REACT
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+// REDUX
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { addWarband, deleteWarband, setWarbands } from './warbandSlice'
-import { Link } from 'react-router-dom';
+import { addRoster, deleteRoster } from './warband/rosterSlice';
 
 
 export default function Warband() {
@@ -10,7 +14,7 @@ export default function Warband() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (warbands.length == 0) {
+        if (warbands.length === 0) {
             axios('/api/warband/all')
               .then((response) => {
                 dispatch(setWarbands(response.data))
@@ -19,12 +23,16 @@ export default function Warband() {
                 console.log(err.message)
               })
           }
-    }, [])
+    }, [dispatch, warbands])
 
     const createWarband = () => {
         axios.post('/api/warband', { "faction": { "id": 1 }, "name": "New Warband", "login": { "id": 1 } })
             .then((response) => {
             dispatch(addWarband(response.data))
+            dispatch(addRoster({
+                warbandId: response.data.id, 
+                troops: []
+            }))
         })
         .catch((err) => {
             console.log(err.message)
@@ -35,6 +43,7 @@ export default function Warband() {
         axios.delete(`/api/warband/${warbandId}`)
             .then((response) => {
             dispatch(deleteWarband(response.data))
+            dispatch(deleteRoster(response.data))
         })
         .catch((err) => {
             console.log(err.message)

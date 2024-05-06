@@ -10,7 +10,7 @@ export const warbandSlice = createSlice({
       state.value.push(action.payload)
     },
     deleteWarband: (state, action) => {
-      state.value = state.value.filter((warband) => warband.id != action.payload)
+      state.value = state.value.filter((warband) => warband.id !== action.payload)
     },
     setWarbands: (state, action) => { 
       state.value = action.payload
@@ -18,7 +18,6 @@ export const warbandSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
 export const { addWarband, deleteWarband, setWarbands } = warbandSlice.actions
 
 export default warbandSlice.reducer
