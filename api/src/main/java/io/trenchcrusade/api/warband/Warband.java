@@ -2,11 +2,10 @@ package io.trenchcrusade.api.warband;
 
 import io.trenchcrusade.api.login.Login;
 import io.trenchcrusade.api.warband.deed.Deed;
-import io.trenchcrusade.api.faction.Faction;
-import io.trenchcrusade.api.faction.variant.Variant;
+import io.trenchcrusade.api.rule.faction.Faction;
+import io.trenchcrusade.api.rule.faction.Variant;
 import io.trenchcrusade.api.warband.troop.Troop;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Set;
 
@@ -26,9 +25,7 @@ public class Warband {
     @ManyToOne(optional = false)
     @JoinColumn(name = "faction_id")
     private Faction faction;
-    public Integer getFaction() {
-        return faction.getId();
-    }
+    public Faction getFaction() { return faction; }
     public void setFaction(Faction faction) {
         this.faction = faction;
     }
@@ -36,15 +33,16 @@ public class Warband {
     @ManyToOne(optional = false)
     @JoinColumn(name = "login_id")
     private Login login;
-    public Integer getLogin() {
-        return login.getId();
+
+    public Login getLogin() {
+        return login;
     }
 
     @ManyToOne
     @JoinColumn(name = "variant_id")
     private Variant variant;
-    public Integer getVariant() {
-        return variant == null ? null : variant.getId();
+    public Variant getVariant() {
+        return variant == null ? null : variant;
     }
     public void setVariant(Variant variant) {
         this.variant = variant;
@@ -58,6 +56,9 @@ public class Warband {
 
     @OneToMany(mappedBy="warband")
     private Set<Troop> troops;
+    public Set<Troop> getTroops() {
+        return troops;
+    }
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")
@@ -69,8 +70,7 @@ public class Warband {
         this.chronology = chronology;
     }
 
-    @ColumnDefault("700")
-    private Integer ducats;
+    private Integer ducats = 700;
     public Integer getDucats() {
         return ducats;
     }
@@ -78,8 +78,7 @@ public class Warband {
         this.ducats = ducats;
     }
 
-    @ColumnDefault("0")
-    private Integer glory;
+    private Integer glory = 0;
     public Integer getGlory() {
         return glory;
     }
@@ -94,5 +93,14 @@ public class Warband {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Warband update(Warband updates) {
+        if (updates.getName()       != null) setName(updates.getName());
+        if (updates.getChronology() != null) setChronology(updates.getChronology());
+        if (updates.getDucats()     != null) setDucats(updates.getDucats());
+        if (updates.getFaction()    != null) setFaction(updates.getFaction());
+        if (updates.getGlory()      != null) setGlory(updates.getGlory());
+        return this;
     }
 }

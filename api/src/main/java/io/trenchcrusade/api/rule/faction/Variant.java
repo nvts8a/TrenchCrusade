@@ -1,11 +1,9 @@
-package io.trenchcrusade.api.faction;
+package io.trenchcrusade.api.rule.faction;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
-public class Faction {
+public class Variant {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -14,17 +12,9 @@ public class Faction {
     }
 
     // ASSOCIATIONS
-    @OneToMany(mappedBy = "faction")
-    private Set<FactionTroopType> factionTroopTypes;
-    public Set<FactionTroopType> getFactionTroopType() {
-        return factionTroopTypes;
-    }
-
-    @OneToMany(mappedBy = "faction")
-    private Set<FactionEquipment> factionEquipment;
-    public Set<FactionEquipment> getFactionEquipment() {
-        return factionEquipment;
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "faction_id")
+    private Faction faction;
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")

@@ -1,36 +1,25 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-
-
+import PageLayout from '../../components/_pageLayout'
+import { useKeywords } from '../../store/loaders'
 
 export default function Keywords() {
-    const [keywords, setKeywords] = useState([]);
-
-    useEffect(() => {
-        axios('http://localhost:3000/keyword/all')
-        .then((response) => {
-            setKeywords(response.data);
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-    }, []);
+    const keywords = useKeywords()
 
     const renderKeywords = () => {
-        return keywords.map((keyword) => {
-                return(
-                    <div id={`keyword-${keyword.id}`} key={keyword.id}>
-                        <div>{keyword.name}:</div>
-                        <div>{keyword.definition}</div>
-                    </div>
-                );
-            }
-        )
+        return Object.values(keywords).map((keyword) => keywordCard(keyword))
+    }
+
+    const keywordCard = (keyword) => {
+        return(
+            <div className='row p-3' id={`keyword-${keyword.id}`} key={keyword.id}>
+                <div className='col-3 text-end font-artisan'>{keyword.name}:</div>
+                <div className='col-7 text-start'>{keyword.definition}</div>
+            </div>
+        );
     }
 
     return(
-        <div>
+        <PageLayout pageName='+ Keywords +'>
             {renderKeywords()}
-        </div>
+        </PageLayout>
     )
 }

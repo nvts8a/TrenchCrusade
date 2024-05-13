@@ -1,4 +1,4 @@
-package io.trenchcrusade.api.faction;
+package io.trenchcrusade.api.rule.equipment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path="/faction")
-public class FactionController {
+@RequestMapping(path="/equipment")
+public class EquipmentController {
     @Autowired
-    private FactionRepository factionRepository;
+    private EquipmentRepository equipmentRepository;
 
     @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Faction> getAll() {
-        return factionRepository.findAll();
+    public @ResponseBody Iterable<Equipment> all() {
+        return equipmentRepository.findAll();
     }
 }

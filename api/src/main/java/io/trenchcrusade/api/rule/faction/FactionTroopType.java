@@ -1,10 +1,10 @@
-package io.trenchcrusade.api.faction;
+package io.trenchcrusade.api.rule.faction;
 
-import io.trenchcrusade.api.rule.equipment.Equipment;
+import io.trenchcrusade.api.rule.troop_type.TroopType;
 import jakarta.persistence.*;
 
 @Entity
-public class FactionEquipment {
+public class FactionTroopType {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -17,8 +17,8 @@ public class FactionEquipment {
     private Faction faction;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "equipment_id")
-    private Equipment equipment;
+    @JoinColumn(name = "troop_type_id")
+    private TroopType troopType;
 
     @Column(nullable = false)
     private Integer cost;
@@ -41,6 +41,8 @@ public class FactionEquipment {
     public Integer geMin() {
         return min;
     }
-
-    // TODO: Filtering?
+    private String type;
+    public String getType() {
+        return type;
+    }
 }

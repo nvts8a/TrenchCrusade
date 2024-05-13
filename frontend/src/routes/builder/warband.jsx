@@ -1,74 +1,78 @@
 // REACT
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PageLayout from '../../components/_pageLayout';
 
 // REDUX
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux'
-import { addWarband, deleteWarband, setWarbands } from './warbandSlice'
-import { addRoster, deleteRoster } from './warband/rosterSlice';
-
+import { useDispatch } from 'react-redux'
+import { deleteWarband, setWarband } from '../../store/_warbandSlice'
+import { useFactions, useWarbands } from '../../store/loaders';
 
 export default function Warband() {
-    const warbands = useSelector(state => state.warbands.value)
     const dispatch = useDispatch()
+    const factions = useFactions()
+    const warbands = useWarbands()
 
-    useEffect(() => {
-        if (warbands.length === 0) {
-            axios('/api/warband/all')
-              .then((response) => {
-                dispatch(setWarbands(response.data))
-              })
-              .catch((err) => {
-                console.log(err.message)
-              })
-          }
-    }, [dispatch, warbands])
-
-    const createWarband = () => {
-        axios.post('/api/warband', { "faction": { "id": 1 }, "name": "New Warband", "login": { "id": 1 } })
-            .then((response) => {
-            dispatch(addWarband(response.data))
-            dispatch(addRoster({
-                warbandId: response.data.id, 
-                troops: []
-            }))
+    const createWarband = (factionId) => {
+        axios.post('/api/warband', { 
+            'faction':  { 'id': factionId }, 
+            'name':     factions[factionId].name,
+            'login':    { 'id': 1 } 
         })
-        .catch((err) => {
-            console.log(err.message)
-        })
+        .then((response) => dispatch(setWarband(response.data)))
+        .catch((err)     => console.log(err.message))
     }
 
     const removeWarband = (warbandId) => {
         axios.delete(`/api/warband/${warbandId}`)
-            .then((response) => {
-            dispatch(deleteWarband(response.data))
-            dispatch(deleteRoster(response.data))
-        })
-        .catch((err) => {
-            console.log(err.message)
-        })
+        .then((response) => dispatch(deleteWarband(response.data)))
+        .catch((err)     => console.log(err.message))
     }
 
     const renderWarbands = () => {
-        return warbands.map((warband) => {
+        return Object.values(warbands).map((warband) => {
             return(
-                <div className="row align-items-end" id={`warband-${warband.id}`} key={warband.id}>
-                    <div>
-                        <Link to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link>
-                        <div className="icon-link icon-link-hover" onClick={() => removeWarband(warband.id)}><i className="bi bi-trash-fill"></i></div>
-                    </div>
-                </div>
+                <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`} key={warband.id}>
+                    <li className='list-group-item col-10'><Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link></li>
+                    <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={() => removeWarband(warband.id)}><i className='bi bi-trash-fill'></i></div></li>
+                </ul>
+            );
+        })
+    }
+
+    const renderAddNewWarband = () => {
+        return(
+            <ul className='list-group list-group-horizontal row w-100 danger' id='new-warband' key='new'>
+                <li className='list-group-item list-group-item-danger col-12 dropdown font-artisan'>
+                    <button className='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                        New Warband
+                    </button>
+                    <ul className='dropdown-menu'>
+                        {renderFactionDropdownItems()}
+                    </ul>
+                </li>
+            </ul>
+        )
+    }
+
+    const renderFactionDropdownItems = () => {
+        return Object.values(factions).map((faction) => {
+            return(
+                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={() => createWarband(faction.id)}>{faction.name}</li>
             );
         })
     }
 
     return(
-        <div className='container text-center'>
-            {renderWarbands()}
-            <button aria-label="Increment value" onClick={() => createWarband()}>
-                New Warband
-            </button>
-        </div>
+        <PageLayout pageName='+ Warbands +'>
+            <div className='row'>
+                <div className='col-4'/>
+                <div className='col-4'>
+                    {renderWarbands()}
+                    {renderAddNewWarband()}
+                </div>
+                <div className='col-4'/>
+            </div>
+        </PageLayout>
     )
 }

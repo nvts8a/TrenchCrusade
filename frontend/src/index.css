@@ -1,15 +1,20 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+html, body {
+  font-family: 'Garamond', 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom right,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  background-attachment: fixed;
 }
 
 :root {
@@ -18,6 +23,26 @@ code {
   --background-end-rgb: 220, 220, 220;
 }
 
+@font-face {
+  font-family: "Artisan12";
+  src: local("Artisan12"),
+   url("./fonts/artisan12.ttf") format("truetype");
+ }
+
+ .font-artisan {
+  font-family: "Artisan12";
+ }
+
+@font-face {
+  font-family: "EnglishTowne";
+  src: local("EnglishTowne"),
+   url("./fonts/EnglishTowne.ttf") format("truetype");
+ }
+
+ .font-english-towne {
+  font-family: "EnglishTowne";
+ }
+
 @media (prefers-color-scheme: dark) {
   :root {
     --bs-nav-link-color: 220, 220, 220;
@@ -25,16 +50,6 @@ code {
     --background-start-rgb: 25, 25, 25;
     --background-end-rgb: 100, 100, 100;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom right,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {

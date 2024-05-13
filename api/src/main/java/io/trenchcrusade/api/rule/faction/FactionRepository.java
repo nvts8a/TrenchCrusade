@@ -1,4 +1,4 @@
-package io.trenchcrusade.api.faction;
+package io.trenchcrusade.api.rule.faction;
 
 import org.springframework.data.repository.CrudRepository;
 

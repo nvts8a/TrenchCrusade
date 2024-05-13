@@ -76,6 +76,7 @@
 					<schemas>
 						<schema>trench</schema>
 					</schemas>
+					<cleanDisabled>false</cleanDisabled>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1,9 +1,8 @@
 package io.trenchcrusade.api.rule.troop_type;
 
-import io.trenchcrusade.api.faction.FactionTroopType;
+import io.trenchcrusade.api.rule.faction.FactionTroopType;
 import io.trenchcrusade.api.rule.keyword.Keyword;
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Set;
 
@@ -30,8 +29,7 @@ public class TroopType {
     }
 
     // COLUMNS
-    @ColumnDefault("0")
-    private Integer armour;
+    private Integer armour = 0;
     public Integer getArmour() {
         return armour;
     }
@@ -47,8 +45,7 @@ public class TroopType {
         return description;
     }
 
-    @ColumnDefault("0")
-    private Integer melee;
+    private Integer melee = 0;
     public Integer getMelee() {
         return melee;
     }
@@ -69,8 +66,7 @@ public class TroopType {
         return name;
     }
 
-    @ColumnDefault("0")
-    private Integer range;
+    private Integer range = 0;
     public Integer getRange() {
         return range;
     }

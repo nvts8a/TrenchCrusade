@@ -36,8 +36,7 @@ public class Troop {
     }
 
     // COLUMNS
-    @ColumnDefault("0")
-    private Integer experience;
+    private Integer experience = 0;
     public Integer getExperience() {
         return experience;
     }
@@ -53,8 +52,7 @@ public class Troop {
         this.name = name;
     }
 
-    @ColumnDefault("0")
-    private Integer scars;
+    private Integer scars = 0;
     public Integer getScars() {
         return scars;
     }
