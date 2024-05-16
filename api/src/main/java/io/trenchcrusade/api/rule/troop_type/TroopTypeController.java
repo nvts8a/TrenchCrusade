@@ -1,4 +1,4 @@
-package io.trenchcrusade.api.rule.keyword;
+package io.trenchcrusade.api.rule.troop_type;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path="/keyword")
-public class KeywordController {
+@RequestMapping(path="/troop-type")
+public class TroopTypeController {
     @Autowired
-    private KeywordRepository keywordRepository;
+    private TroopTypeRepository troopTypeRepository;
 
-    @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Keyword> all() {
-        return keywordRepository.findAll();
+    @GetMapping(path="/all")
+    public @ResponseBody Iterable<TroopType> all() {
+        return troopTypeRepository.findAll();
     }
 }

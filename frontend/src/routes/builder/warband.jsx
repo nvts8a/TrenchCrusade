@@ -13,11 +13,11 @@ export default function Warband() {
     const factions = useFactions()
     const warbands = useWarbands()
 
-    const createWarband = (factionId) => {
+    const createWarband = (faction) => {
         axios.post('/api/warband', { 
-            'faction':  { 'id': factionId }, 
-            'name':     factions[factionId].name,
-            'login':    { 'id': 1 } 
+            'faction':  faction, 
+            'name':     faction.name,
+            'login':    { id: 1 } 
         })
         .then((response) => dispatch(setWarband(response.data)))
         .catch((err)     => console.log(err.message))
@@ -58,7 +58,7 @@ export default function Warband() {
     const renderFactionDropdownItems = () => {
         return Object.values(factions).map((faction) => {
             return(
-                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={() => createWarband(faction.id)}>{faction.name}</li>
+                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={() => createWarband(faction)}>{faction.name}</li>
             );
         })
     }

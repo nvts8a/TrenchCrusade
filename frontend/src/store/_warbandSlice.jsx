@@ -22,9 +22,7 @@ export const warbandSlice = createSlice({
         },
         // Roster Slice
         deleteTroop: () => {},
-        setTroop: () => {},
         // Equipment Slice
-        
     }
 })
 

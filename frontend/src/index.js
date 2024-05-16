@@ -5,12 +5,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // REACT-ROUTER
 import Root from './routes/root'
+import ErrorPage from './error-page'
+
 import Equipment from './routes/rules/equipment'
 import Factions from './routes/rules/factions'
 import Keywords from './routes/rules/keywords'
-import Warband from './routes/builder/warband'
 import Roster from './routes/builder/warband/roster'
-import ErrorPage from './error-page'
+import TroopTypes from './routes/rules/troopTypes'
+import Warband from './routes/builder/warband'
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: '/rules/keywords',
     element: <Layout><Keywords /></Layout>,
+  },
+  {
+    path: '/rules/troop-types',
+    element: <Layout><TroopTypes /></Layout>,
   },
   {
     path: '/builder/warband/all',

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -39,11 +40,14 @@ public class WarbandController {
     }
 
     @PatchMapping("/{id}")
-    public @ResponseBody Warband update(@PathVariable("id") Integer id, @RequestBody Warband warbandUpdates) {
+    public @ResponseBody Warband patch(@PathVariable("id") Integer id, @RequestBody Map<String, String> updates) {
         Optional<Warband> warband = warbandRepository.findById(id);
-        if (warband.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Warband " + warbandUpdates.getId() + "not found.");
+        if (warband.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Warband " + id + "not found.");
 
-        return warbandRepository.save(warband.get().update(warbandUpdates));
+        if (updates.containsKey("ducats")) {
+
+            warband.get().setDucats(Integer.parseInt(updates.get("ducats")));
+        }
+        return warbandRepository.save(warband.get());
     }
-
 }

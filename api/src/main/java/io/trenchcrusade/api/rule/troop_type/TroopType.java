@@ -16,7 +16,7 @@ public class TroopType {
     }
 
     // ASSOCIATIONS
-    @OneToMany(mappedBy="troopType")
+    @OneToMany(mappedBy = "troopType")
     private Set<FactionTroopType> factionTroopTypes;
 
     @ManyToMany

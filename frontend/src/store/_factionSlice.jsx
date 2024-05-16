@@ -10,7 +10,7 @@ export const factionSlice = createSlice({
         setFaction: (state, action) => {
             state.pending = false
             state.values = Object.fromEntries(
-                action.payload.map((equipable) => [equipable.id, equipable])
+                action.payload.map((faction) => [faction.id, faction])
             )
         }
     }

@@ -1,5 +1,6 @@
 package io.trenchcrusade.api.rule.faction;
 
+import io.trenchcrusade.api.rule.troop_type.TroopType;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -23,6 +24,10 @@ public class Faction {
 
     @OneToMany(mappedBy = "faction")
     private Set<FactionTroopType> factionTroopTypes;
+
+    public Set<FactionTroopType> getFactionTroopTypes() {
+        return factionTroopTypes;
+    }
 
     @OneToMany(mappedBy = "faction")
     private Set<FactionEquipment> factionEquipment;

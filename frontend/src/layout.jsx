@@ -29,6 +29,9 @@ const Layout =({children}) => {
                                     <li className='nav-item' key='keywords-nav-item'>
                                         <Link className='text-dark nav-link font-artisan' to='/rules/keywords'>Keywords</Link>
                                     </li>
+                                    <li className='nav-item' key='troop-types-nav-item'>
+                                        <Link className='text-dark nav-link font-artisan' to='/rules/troop-types'>Troop Types</Link>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

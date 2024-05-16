@@ -12,8 +12,8 @@ public class FactionController {
     @Autowired
     private FactionRepository factionRepository;
 
-    @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Faction> getAll() {
+    @GetMapping(path="/all")
+    public @ResponseBody Iterable<Faction> all() {
         return factionRepository.findAll();
     }
 }

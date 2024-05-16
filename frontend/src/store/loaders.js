@@ -4,6 +4,7 @@ import { setEquipment } from './_equipmentSlice'
 import { setKeywords }  from './_keywordSlice'
 import { setWarband, setWarbands } from './_warbandSlice';
 import { setFaction } from './_factionSlice';
+import { setTroopTypes } from './_troopTypeSlice';
 
 const get = (uri, dispatch, set) => {
     axios(uri).then((response) => {
@@ -14,7 +15,7 @@ const get = (uri, dispatch, set) => {
     })
 }
 
-export const { useEquipment, useFactions, useKeywords, useWarband, useWarbands } = {
+export const { useEquipment, useFactions, useKeywords, useTroopTypes, useWarband, useWarbands } = {
     useEquipment: () => {
         const dispatch = useDispatch()
         const equipment = useSelector(state => state.equipment) 
@@ -40,6 +41,15 @@ export const { useEquipment, useFactions, useKeywords, useWarband, useWarbands }
         if (keywords.pending) get('/api/keyword/all', dispatch, setKeywords)
         
         return keywords.values
+    },
+
+    useTroopTypes: () => {
+        const dispatch = useDispatch()
+        const troopTypes = useSelector(state => state.troopTypes) 
+
+        if (troopTypes.pending) get('/api/troop-type/all', dispatch, setTroopTypes)
+        
+        return troopTypes.values
     },
 
     useWarband: (id) => {

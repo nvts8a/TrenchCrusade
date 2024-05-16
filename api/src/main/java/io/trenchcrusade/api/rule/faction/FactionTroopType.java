@@ -19,6 +19,9 @@ public class FactionTroopType {
     @ManyToOne(optional = false)
     @JoinColumn(name = "troop_type_id")
     private TroopType troopType;
+    public TroopType getTroopType() {
+        return troopType;
+    }
 
     @Column(nullable = false)
     private Integer cost;
