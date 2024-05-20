@@ -7,12 +7,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './routes/root'
 import ErrorPage from './error-page'
 
-import Equipment from './routes/rules/equipment'
-import Factions from './routes/rules/factions'
-import Keywords from './routes/rules/keywords'
-import Roster from './routes/builder/warband/roster'
-import TroopTypes from './routes/rules/troopTypes'
 import Warband from './routes/builder/warband'
+import Roster from './routes/builder/warband/roster'
+
+import Factions from './routes/lore/factions'
+
+import Equipment from './routes/rules/equipment'
+import Keywords from './routes/rules/keywords'
+import TroopTypes from './routes/rules/troopTypes'
+
 
 // REDUX
 import { Provider } from 'react-redux'
@@ -26,6 +29,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import './fonts/artisan12.ttf'
 import './fonts/EnglishTowne.ttf'
 import './index.css'
+import Timeline from './routes/lore/timeline'
 
 
 const router = createBrowserRouter([
@@ -35,13 +39,25 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: '/builder/warband/all',
+    element: <Layout><Warband /></Layout>
+  },
+  {
+    path: '/builder/warband/:id/roster',
+    element: <Layout><Roster /></Layout>
+  },
+  {
+    path: '/lore/factions',
+    element: <Layout><Factions /></Layout>,
+  },
+  {
+    path: '/lore/timeline',
+    element: <Layout><Timeline /></Layout>,
+  },
+  {
     path: '/rules/equipment',
     element: <Layout><Equipment /></Layout>,
     
-  },
-  {
-    path: '/rules/factions',
-    element: <Layout><Factions /></Layout>,
   },
   {
     path: '/rules/keywords',
@@ -50,14 +66,6 @@ const router = createBrowserRouter([
   {
     path: '/rules/troop-types',
     element: <Layout><TroopTypes /></Layout>,
-  },
-  {
-    path: '/builder/warband/all',
-    element: <Layout><Warband /></Layout>
-  },
-  {
-    path: '/builder/warband/:id/roster',
-    element: <Layout><Roster /></Layout>
   },
 ])
 

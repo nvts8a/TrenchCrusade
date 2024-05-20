@@ -2,11 +2,10 @@ import FactionInsignia from '../../components/_factionInsignia'
 import PageLayout from '../../components/_pageLayout'
 import { useFactions } from '../../store/loaders'
 
-export default function Keywords() {
+export default function Factions() {
     const factions = useFactions()
 
     const renderVariants = (factionId) => {
-        console.log(factions[factionId])
         if (factions[factionId]) return(factions[factionId].variants.map((variant) => variantCard(variant)))
     }
 
