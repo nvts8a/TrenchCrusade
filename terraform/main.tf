@@ -51,7 +51,8 @@ resource "aws_s3_bucket_website_configuration" "www" {
   }
 }
 
-# EC2 instance for backen API 18.226.186.204 
+# EC2 instance for backen API
+# current IP: 18.226.186.204
 resource "aws_instance" "api" {
   ami = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
@@ -62,6 +63,7 @@ resource "aws_instance" "api" {
 }
 
 # RDS 
+# port: 5432
 resource "aws_db_instance" "api" {
   allocated_storage    = 10
   db_name              = "trenchcrusade"
