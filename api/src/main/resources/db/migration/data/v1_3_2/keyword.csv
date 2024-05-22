@@ -27,3 +27,4 @@ id,name,definition
 26,STRONG,A model with this Keyword ignores the rules for weapons/armour/equipment with Keyword HEAVY.
 27,SULTANATE,This model is part of the Sultanate of Iron faction.
 28,TOUGH,"TOUGH creatures treat Out of Action Injury Result as Down. Once a TOUGH Creature is Down it is treated as any other model when rolling on the Injury Chart and can be taken Out of Action as normal. If a TOUGH creature stands up after suffering a Down, it must be knocked Down again before it can be taken Out of Action."
+29,OFF-HAND,A model armed with an OFF-HAND weapon can use it in melee as well as ranged combat.

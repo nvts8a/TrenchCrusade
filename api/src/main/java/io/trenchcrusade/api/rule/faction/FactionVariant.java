@@ -3,7 +3,7 @@ package io.trenchcrusade.api.rule.faction;
 import jakarta.persistence.*;
 
 @Entity
-public class Variant {
+public class FactionVariant {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

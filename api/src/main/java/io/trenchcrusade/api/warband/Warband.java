@@ -3,7 +3,7 @@ package io.trenchcrusade.api.warband;
 import io.trenchcrusade.api.security.User;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.rule.faction.Faction;
-import io.trenchcrusade.api.rule.faction.Variant;
+import io.trenchcrusade.api.rule.faction.FactionVariant;
 import io.trenchcrusade.api.warband.troop.Troop;
 import jakarta.persistence.*;
 
@@ -39,12 +39,12 @@ public class Warband {
 
     @ManyToOne
     @JoinColumn(name = "variant_id")
-    private Variant variant;
-    public Variant getVariant() {
-        return variant == null ? null : variant;
+    private FactionVariant factionVariant;
+    public FactionVariant getVariant() {
+        return factionVariant == null ? null : factionVariant;
     }
-    public void setVariant(Variant variant) {
-        this.variant = variant;
+    public void setVariant(FactionVariant factionVariant) {
+        this.factionVariant = factionVariant;
     }
 
     @ManyToMany

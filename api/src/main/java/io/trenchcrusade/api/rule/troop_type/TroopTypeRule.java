@@ -1,6 +1,5 @@
 package io.trenchcrusade.api.rule.troop_type;
 
-import io.trenchcrusade.api.rule.faction.Faction;
 import jakarta.persistence.*;
 
 @Entity
