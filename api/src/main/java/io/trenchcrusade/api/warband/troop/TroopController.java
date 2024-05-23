@@ -13,12 +13,12 @@ public class TroopController {
     private TroopRepository troopRepository;
 
     @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Troop> all(@PathVariable Integer id) {
+    public @ResponseBody Iterable<Troop> all(@PathVariable Long id) {
         return troopRepository.findAllByWarbandId(id);
     }
 
     @PostMapping("")
-    public @ResponseBody Troop create(@RequestBody Troop troop, @PathVariable Integer id) {
+    public @ResponseBody Troop create(@RequestBody Troop troop, @PathVariable Long id) {
         //if (!Objects.equals(troop.getWarband(), id))
         return troopRepository.save(troop);
     }

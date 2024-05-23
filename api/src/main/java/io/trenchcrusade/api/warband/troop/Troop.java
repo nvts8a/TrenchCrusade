@@ -9,11 +9,11 @@ import org.hibernate.annotations.ColumnDefault;
 public class Troop {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class Troop {
     @ManyToOne(optional = false)
     @JoinColumn(name = "warband_id")
     private Warband warband;
-    public Integer getWarband() {
+    public Long getWarband() {
         return warband.getId();
     }
 
