@@ -1,6 +1,6 @@
 package io.trenchcrusade.api.warband;
 
-import io.trenchcrusade.api.login.Login;
+import io.trenchcrusade.api.security.Login;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.rule.faction.Faction;
 import io.trenchcrusade.api.rule.faction.Variant;
@@ -34,7 +34,7 @@ public class Warband {
     @JoinColumn(name = "login_id")
     private Login login;
 
-    public Login getLogin() {
+    public Login getUser() {
         return login;
     }
 
