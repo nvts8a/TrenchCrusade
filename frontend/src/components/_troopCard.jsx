@@ -1,14 +1,42 @@
+import EquipmentCard from './_equipmentCard'
+import Keyword from './_keyword'
+import Rules from './_rules'
+
 export default function TroopCard({ factionTroopType, troopType, troop }) {
     const isRoster  = !!troop && !!factionTroopType
 
     const fCost     = (isRoster) ? `(Cost: ${factionTroopType.cost} Ducats)` : ''
     const fMovement = `${troopType.movement}"/${troopType.movementType}`
-    const fRanged   = (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice`
-    const fMelee    = (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice`
+    const fRanged   = troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
+    const fMelee    = troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
     const fBaseSize = `${troopType.baseSize}mm`
 
+    const formatKeywords = (keywords) => {
+        if (keywords.length > 0) return keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
+        return '-'
+    }
+
+    const renderAbilities = (abilities) => {
+        if (abilities.length > 0) {
+            return(
+                <div className='col-9'>
+                    <div>Abilities</div>
+                    <Rules rules={troopType.rules} />
+                </div>
+            )
+        }
+
+        return(<div className='col-9'></div>)
+
+    }
+
+    const renderEquipment = (equipment) => {
+        return equipment.map((equipable) => <EquipmentCard equipable={equipable} key={equipable.id} />)
+    }
+
+
     if(troopType) return (
-      <div className='container' id={`troop-${troopType.id}`}>
+      <div className='container my-5' id={`troop-${troopType.id}`}>
         <div className='row'>
             <div className='col'><h3 className='font-english-towne'>{troopType.name}</h3></div>
             <div className='col'>{fCost}</div>
@@ -38,17 +66,17 @@ export default function TroopCard({ factionTroopType, troopType, troop }) {
             </tbody>
         </table>
         <div className='row'>
-            <div className='col'>Equipment</div>
-            <div className='col'>Abilities</div>
-            <div className='col'>
+            {renderAbilities(troopType.rules)}
+            <div className='col-3'>
                 <div>Keywords</div>
-                <div className='font-artisan'>
-                    <span>ELITE</span>
-                    <span>, </span>
-                    <span>PILGRAM</span>
+                <div>
+                    {formatKeywords(troopType.keywords)}
                 </div>
             </div>
         </div>
+
+        {renderEquipment(troopType.equipment)}
+        <hr className='my-5'/>
       </div>
     )
   }

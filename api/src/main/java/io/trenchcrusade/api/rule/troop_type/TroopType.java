@@ -1,6 +1,7 @@
 package io.trenchcrusade.api.rule.troop_type;
 
 import io.trenchcrusade.api.rule.equipment.Equipment;
+import io.trenchcrusade.api.rule.equipment.EquipmentRule;
 import io.trenchcrusade.api.rule.faction.FactionTroopType;
 import io.trenchcrusade.api.rule.keyword.Keyword;
 import jakarta.persistence.*;
@@ -19,6 +20,12 @@ public class TroopType {
     // ASSOCIATIONS
     @OneToMany(mappedBy = "troopType")
     private Set<FactionTroopType> factionTroopTypes;
+
+    @OneToMany(mappedBy="troopType")
+    private Set<TroopTypeRule> rules;
+    public  Set<TroopTypeRule> getRules() {
+        return rules;
+    }
 
     @ManyToMany
     @JoinTable(name = "troop_type_keyword",

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Alert from '../components/_alert';
 
 export default function Root() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertShow, setAlertShow] = useState(false);
     const navigate = useNavigate();
 
     const authenticate = () => {
@@ -17,7 +20,10 @@ export default function Root() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
         navigate('/builder/warband/all', { replace: true })
       })
-      .catch((err) => console.log(err.message))
+      .catch((err) => {
+        setAlertMessage(err.message)
+        setAlertShow(true)
+      })
     }
 
     const handleChange = (set) => (event) => {
@@ -42,6 +48,7 @@ export default function Root() {
           <div className='row justify-content-center m-1'>
             <button onClick={authenticate} type='button' className='btn btn-danger mb-3 w-25'>Login</button>
           </div>
+          <Alert message={alertMessage} show={alertShow} setShow={setAlertShow}/>
       </div>
     )
   }

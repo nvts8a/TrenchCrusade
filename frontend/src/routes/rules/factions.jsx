@@ -53,7 +53,7 @@ export default function Keywords() {
     }
 
     return(
-        <PageLayout pageName='+ Factions +'>
+        <PageLayout pageName='Factions'>
             {renderFactions()}
         </PageLayout>
     )

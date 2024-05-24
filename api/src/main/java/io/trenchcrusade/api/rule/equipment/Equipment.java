@@ -19,14 +19,14 @@ public class Equipment {
     // ASSOCIATIONS
     @OneToMany(mappedBy="equipment")
     private Set<EquipmentModifier> modifiers;
-    public  Set<EquipmentModifier> getEquipmentModifiers() {
+    public  Set<EquipmentModifier> getModifiers() {
         return modifiers;
     }
 
     @OneToMany(mappedBy="equipment")
-    private Set<EquipmentRule> equipmentRules;
-    public  Set<EquipmentRule> getEquipmentRules() {
-        return equipmentRules;
+    private Set<EquipmentRule> rules;
+    public  Set<EquipmentRule> getRules() {
+        return rules;
     }
 
     @ManyToMany

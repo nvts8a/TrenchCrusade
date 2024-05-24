@@ -18,7 +18,7 @@ export default function Keywords() {
     }
 
     return(
-        <PageLayout pageName='+ Keywords +'>
+        <PageLayout pageName='Keywords'>
             {renderKeywords()}
         </PageLayout>
     )

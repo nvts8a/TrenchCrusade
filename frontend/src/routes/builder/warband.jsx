@@ -64,7 +64,7 @@ export default function Warband() {
     }
 
     return(
-        <PageLayout pageName='+ Warbands +'>
+        <PageLayout pageName='Warbands'>
             <div className='row'>
                 <div className='col-4'/>
                 <div className='col-4'>
