@@ -1,6 +1,6 @@
 package io.trenchcrusade.api.warband;
 
-import io.trenchcrusade.api.login.Login;
+import io.trenchcrusade.api.security.User;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.rule.faction.Faction;
 import io.trenchcrusade.api.rule.faction.Variant;
@@ -13,11 +13,11 @@ import java.util.Set;
 public class Warband {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,11 +31,10 @@ public class Warband {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "login_id")
-    private Login login;
-
-    public Login getLogin() {
-        return login;
+    @JoinColumn(name = "user_id")
+    private User user;
+    public User getUser() {
+        return user;
     }
 
     @ManyToOne

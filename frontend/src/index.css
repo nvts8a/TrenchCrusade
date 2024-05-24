@@ -2,25 +2,24 @@ html, body {
   font-family: 'Garamond', 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   margin: 0;
   display: flex;
   flex-direction: column;
-  height: 100%;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom right,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: repeating-radial-gradient(farthest-corner at 5% 10%,
+    rgb(var(--background-start-rgb)) 0, 
+    rgb(var(--background-end-rgb)), 
+    rgb(var(--background-start-rgb)) 20%
+  );
   background-attachment: fixed;
+  height: 100%;
 }
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 155, 155, 155;
-  --background-end-rgb: 220, 220, 220;
+  --bs-nav-link-color: 220, 220, 220;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 31, 32, 32;
+  --background-end-rgb:   33, 35, 35;
 }
 
 @font-face {
@@ -42,15 +41,6 @@ html, body {
  .font-english-towne {
   font-family: "EnglishTowne";
  }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bs-nav-link-color: 220, 220, 220;
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 25, 25, 25;
-    --background-end-rgb: 100, 100, 100;
-  }
-}
 
 @layer utilities {
   .text-balance {

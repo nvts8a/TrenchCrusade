@@ -21,7 +21,7 @@ public class WarbandController {
     }
 
     @GetMapping(path = "/{id}")
-    public @ResponseBody Warband get(@PathVariable("id") Integer id) {
+    public @ResponseBody Warband get(@PathVariable("id") Long id) {
         Optional<Warband> warband = warbandRepository.findById(id);
         if (warband.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Warband " + id + "not found.");
 
@@ -34,13 +34,13 @@ public class WarbandController {
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody String delete(@PathVariable("id") Integer id) {
+    public @ResponseBody String delete(@PathVariable("id") Long id) {
         warbandRepository.deleteById(id);
         return String.valueOf(id);
     }
 
     @PatchMapping("/{id}")
-    public @ResponseBody Warband patch(@PathVariable("id") Integer id, @RequestBody Map<String, String> updates) {
+    public @ResponseBody Warband patch(@PathVariable("id") Long id, @RequestBody Map<String, String> updates) {
         Optional<Warband> warband = warbandRepository.findById(id);
         if (warband.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Warband " + id + "not found.");
 
