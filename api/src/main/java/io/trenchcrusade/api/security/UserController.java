@@ -41,10 +41,10 @@ public class UserController {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(token);
-        if (!authentication.isAuthenticated()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        if (!authentication.isAuthenticated()) return ResponseEntity.badRequest().body(login);
 
         User user = userRepository.findByUsername(login.getUsername());
-        if (user == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        if (user == null) return ResponseEntity.badRequest().body(login);
 
         user.setToken(sessionService.getAuthToken());
         userRepository.save(user);

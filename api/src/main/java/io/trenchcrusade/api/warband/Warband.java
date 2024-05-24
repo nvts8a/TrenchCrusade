@@ -1,5 +1,6 @@
 package io.trenchcrusade.api.warband;
 
+import io.trenchcrusade.api.security.User;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.rule.faction.Faction;
 import io.trenchcrusade.api.rule.faction.Variant;
@@ -27,6 +28,13 @@ public class Warband {
     public Faction getFaction() { return faction; }
     public void setFaction(Faction faction) {
         this.faction = faction;
+    }
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+    public User getUser() {
+        return user;
     }
 
     @ManyToOne

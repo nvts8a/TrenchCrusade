@@ -9,7 +9,6 @@ export default function Keywords() {
         return Object.values(troopTypes).map((troopType) => <TroopCard troopType={troopType} key={troopType.id} />)
     }
 
-    console.log(troopTypes)
     return(
         <PageLayout pageName='+ Troop Types +'>
             {renderTroopTypes()}

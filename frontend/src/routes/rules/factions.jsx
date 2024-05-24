@@ -6,7 +6,6 @@ export default function Keywords() {
     const factions = useFactions()
 
     const renderVariants = (factionId) => {
-        console.log(factions[factionId])
         if (factions[factionId]) return(factions[factionId].variants.map((variant) => variantCard(variant)))
     }
 

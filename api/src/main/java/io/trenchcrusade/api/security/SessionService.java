@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -15,20 +14,20 @@ public class SessionService {
     @Autowired
     private UserRepository userRepository;
 
+    private final String PREFIX = "Bearer ";
+
     public String getEncodeUsername(String username) {
         return Base64.getEncoder().encodeToString(username.getBytes(StandardCharsets.UTF_8));
     }
 
     public String getAuthToken() {
-        return UUID.randomUUID().toString();
+        return PREFIX + UUID.randomUUID();
     }
 
-    public UserDetails loadUserByToken(String authToken) throws UsernameNotFoundException {
+    public UserDetails loadUserByToken(String authHeader) throws UsernameNotFoundException {
+        if (!authHeader.startsWith(PREFIX)) return null;
 
-
-
-        //String username = new String(Base64.getDecoder().decode(authToken));
-        User user = userRepository.findByToken(authToken);
+        User user = userRepository.findByToken(authHeader);
         if (user == null) throw new UsernameNotFoundException("User not found");
 
         return new UserDetailsImpl(user);

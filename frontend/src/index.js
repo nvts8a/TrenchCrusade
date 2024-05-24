@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // REACT-ROUTER
 import Root from './routes/root'
-import ErrorPage from './error-page'
 
 import Equipment from './routes/rules/equipment'
 import Factions from './routes/rules/factions'
@@ -27,12 +26,15 @@ import './fonts/artisan12.ttf'
 import './fonts/EnglishTowne.ttf'
 import './index.css'
 
+// API AND AUTH
+import axios from 'axios'
+//axios.defaults.baseURL = '/api'
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout><Root /></Layout>,
-    errorElement: <ErrorPage />,
   },
   {
     path: '/rules/equipment',
