@@ -23,6 +23,12 @@ public class Equipment {
         return modifiers;
     }
 
+    @OneToMany(mappedBy="equipment")
+    private Set<EquipmentRule> equipmentRules;
+    public  Set<EquipmentRule> getEquipmentRules() {
+        return equipmentRules;
+    }
+
     @ManyToMany
     @JoinTable(name="equipment_keyword",
             joinColumns = @JoinColumn(name="equipment_id"),

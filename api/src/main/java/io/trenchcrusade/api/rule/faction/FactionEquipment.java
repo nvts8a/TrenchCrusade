@@ -26,7 +26,6 @@ public class FactionEquipment {
         return cost;
     }
 
-    @Column(nullable = false)
     private String currency;
     public String getCurrency() {
         return currency;
@@ -38,9 +37,12 @@ public class FactionEquipment {
     }
 
     private Integer min;
-    public Integer geMin() {
+    public Integer getMin() {
         return min;
     }
 
-    // TODO: Filtering?
+    private String filter;
+    public String getFilter() {
+        return filter;
+    }
 }
