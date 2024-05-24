@@ -15,9 +15,9 @@ export default function Warband() {
 
     const createWarband = (faction) => {
         axios.post('/api/warband', { 
-            'faction':  faction, 
-            'name':     faction.name,
-            'login':    { id: 1 } 
+            'faction': { id: faction.id }, 
+            'name':    faction.name,
+            'user':    { id: 1 } 
         })
         .then((response) => dispatch(setWarband(response.data)))
         .catch((err)     => console.log(err.message))
