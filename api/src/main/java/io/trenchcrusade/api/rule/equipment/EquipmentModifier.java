@@ -8,7 +8,7 @@ import java.util.Set;
 public class EquipmentModifier {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     // ASSOCIATIONS
     @ManyToOne

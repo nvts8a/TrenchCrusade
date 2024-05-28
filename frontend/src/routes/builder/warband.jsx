@@ -1,4 +1,5 @@
 // REACT
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import PageLayout from '../../components/_pageLayout';
 
@@ -10,17 +11,19 @@ import { useFactions, useWarbands } from '../../store/loaders';
 
 export default function Warband() {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     const factions = useFactions()
     const warbands = useWarbands()
 
     const createWarband = (faction) => {
         axios.post('/api/warband', { 
-            'faction': { id: faction.id }, 
-            'name':    faction.name,
-            'user':    { id: 1 } 
+            'factionId': faction.id
         })
-        .then((response) => dispatch(setWarband(response.data)))
-        .catch((err)     => console.log(err.message))
+        .then((response) => {
+            dispatch(setWarband(response.data))
+            navigate(`/builder/warband/${response.data.id}/roster`, { replace: true })
+        })
+        .catch((err) => console.log(err.message))
     }
 
     const removeWarband = (warbandId) => {

@@ -8,9 +8,12 @@ import java.util.Set;
 public class Faction {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     // ASSOCIATIONS
@@ -30,6 +33,10 @@ public class Faction {
 
     @OneToMany(mappedBy = "faction")
     private Set<FactionEquipment> factionEquipment;
+
+    public Set<FactionEquipment> getFactionEquipment() {
+        return factionEquipment;
+    }
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")

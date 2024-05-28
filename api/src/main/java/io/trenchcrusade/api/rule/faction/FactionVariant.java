@@ -6,9 +6,12 @@ import jakarta.persistence.*;
 public class FactionVariant {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     // ASSOCIATIONS

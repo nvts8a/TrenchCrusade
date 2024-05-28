@@ -1,6 +1,10 @@
 package io.trenchcrusade.api.warband;
 
+import io.trenchcrusade.api.rule.faction.FactionRepository;
+import io.trenchcrusade.api.security.SessionService;
+import io.trenchcrusade.api.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +16,12 @@ import java.util.Optional;
 @Controller
 @RequestMapping(path="/warband")
 public class WarbandController {
+    @Autowired
+    private FactionRepository factionRepository;
+
+    @Autowired
+    private SessionService sessionService;
+
     @Autowired
     private WarbandRepository warbandRepository;
 
@@ -29,8 +39,16 @@ public class WarbandController {
     }
 
     @PostMapping("")
-    public @ResponseBody Warband create(@RequestBody Warband warband) {
-        return warbandRepository.save(warband);
+    public @ResponseBody Warband create(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
+                                        @RequestBody WarbandDto warband) {
+        UserDetailsImpl userDetails = sessionService.loadUserBy(authorizationToken);
+        if (userDetails == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        warband.setUser(userDetails.getUser());
+        warband.setDucats(700);
+        warband.setGlory(0);
+        warband.setName("New Warband");
+
+        return warbandRepository.save(warband.getWarband());
     }
 
     @DeleteMapping("/{id}")
@@ -40,14 +58,13 @@ public class WarbandController {
     }
 
     @PatchMapping("/{id}")
-    public @ResponseBody Warband patch(@PathVariable("id") Long id, @RequestBody Map<String, String> updates) {
+    public @ResponseBody Warband patch(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
+                                       @PathVariable("id") Long id,
+                                       @RequestBody WarbandDto warbandDto) {
         Optional<Warband> warband = warbandRepository.findById(id);
         if (warband.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Warband " + id + "not found.");
+        sessionService.authorizeUserBy(authorizationToken, warband.get());
 
-        if (updates.containsKey("ducats")) {
-
-            warband.get().setDucats(Integer.parseInt(updates.get("ducats")));
-        }
-        return warbandRepository.save(warband.get());
+        return warbandRepository.save(warbandDto.patch(warband.get()));
     }
 }

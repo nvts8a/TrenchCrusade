@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setEquipment } from './_equipmentSlice'
 import { setKeywords }  from './_keywordSlice'
 import { setWarband, setWarbands } from './_warbandSlice';
-import { setFaction } from './_factionSlice';
+import { setFaction, setFactions } from './_factionSlice';
 import { setTroopTypes } from './_troopTypeSlice';
 
 const get = (uri, dispatch, set) => {
@@ -15,7 +15,7 @@ const get = (uri, dispatch, set) => {
     })
 }
 
-export const { useEquipment, useFactions, useKeywords, useTroopTypes, useWarband, useWarbands } = {
+export const { useEquipment, useFaction, useFactions, useKeywords, useTroopTypes, useWarband, useWarbands } = {
     useEquipment: () => {
         const dispatch = useDispatch()
         const equipment = useSelector(state => state.equipment) 
@@ -25,11 +25,20 @@ export const { useEquipment, useFactions, useKeywords, useTroopTypes, useWarband
         return equipment.values
     },
 
+    useFaction: (id) => {
+        const dispatch = useDispatch()
+        const factions = useSelector(state => state.factions) 
+
+        if (factions.pending && !factions.values[id]) get(`/api/faction/${id}`, dispatch, setFaction)
+        
+        return factions.values[id]
+    },
+
     useFactions: () => {
         const dispatch = useDispatch()
         const factions = useSelector(state => state.factions) 
 
-        if (factions.pending) get('/api/faction/all', dispatch, setFaction)
+        if (factions.pending) get('/api/faction/all', dispatch, setFactions)
         
         return factions.values
     },
@@ -54,11 +63,11 @@ export const { useEquipment, useFactions, useKeywords, useTroopTypes, useWarband
 
     useWarband: (id) => {
         const dispatch = useDispatch()
-        const warbands = useSelector(state => state.warbands) 
+        const warbands = useSelector(state => state.warbands)
 
         if (warbands.pending && !warbands.values[id]) get(`/api/warband/${id}`, dispatch, setWarband)
-
-        return warbands.values
+        
+        return warbands.values[id]
     },
 
     useWarbands: () => {

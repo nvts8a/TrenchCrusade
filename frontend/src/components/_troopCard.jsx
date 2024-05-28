@@ -2,10 +2,8 @@ import EquipmentCard from './_equipmentCard'
 import Keyword from './_keyword'
 import Rules from './_rules'
 
-export default function TroopCard({ factionTroopType, troopType, troop }) {
-    const isRoster  = !!troop && !!factionTroopType
+export default function TroopCard({troopType}) {
 
-    const fCost     = (isRoster) ? `(Cost: ${factionTroopType.cost} Ducats)` : ''
     const fMovement = `${troopType.movement}"/${troopType.movementType}`
     const fRanged   = troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const fMelee    = troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
@@ -25,9 +23,7 @@ export default function TroopCard({ factionTroopType, troopType, troop }) {
                 </div>
             )
         }
-
         return(<div className='col-9'></div>)
-
     }
 
     const renderEquipment = (equipment) => {
@@ -37,10 +33,7 @@ export default function TroopCard({ factionTroopType, troopType, troop }) {
 
     if(troopType) return (
       <div className='container my-5' id={`troop-${troopType.id}`}>
-        <div className='row'>
-            <div className='col'><h3 className='font-english-towne'>{troopType.name}</h3></div>
-            <div className='col'>{fCost}</div>
-        </div>
+
         <div className='row'>{troopType.description}</div>
 
         <table className='table'>

@@ -1,9 +1,12 @@
 package io.trenchcrusade.api.warband.troop;
 
+import io.trenchcrusade.api.rule.equipment.Equipment;
 import io.trenchcrusade.api.rule.troop_type.TroopType;
 import io.trenchcrusade.api.warband.Warband;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.Set;
 
 @Entity
 public class Troop {
@@ -33,6 +36,15 @@ public class Troop {
     private Warband warband;
     public Long getWarband() {
         return warband.getId();
+    }
+
+    @ManyToMany
+    @JoinTable(name = "troop_equipment",
+            joinColumns = @JoinColumn(name = "troop_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+    private Set<Equipment> equipment;
+    public Set<Equipment> getEquipment() {
+        return equipment;
     }
 
     // COLUMNS

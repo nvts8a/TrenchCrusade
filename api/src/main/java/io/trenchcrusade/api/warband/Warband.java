@@ -1,5 +1,6 @@
 package io.trenchcrusade.api.warband;
 
+import io.trenchcrusade.api.rule.equipment.Equipment;
 import io.trenchcrusade.api.security.User;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.rule.faction.Faction;
@@ -36,6 +37,9 @@ public class Warband {
     public User getUser() {
         return user;
     }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @ManyToOne
     @JoinColumn(name = "variant_id")
@@ -48,12 +52,24 @@ public class Warband {
     }
 
     @ManyToMany
+    @JoinTable(name = "warband_equipment",
+            joinColumns = @JoinColumn(name = "warband_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+    private Set<Equipment> equipment;
+    public Set<Equipment> getEquipment() {
+        return equipment;
+    }
+
+    @ManyToMany
     @JoinTable(name = "warband_deed",
             joinColumns = @JoinColumn(name = "warband_id"),
             inverseJoinColumns = @JoinColumn(name = "deed_id"))
     private Set<Deed> deeds;
 
-    @OneToMany(mappedBy="warband")
+    @OneToMany(
+            mappedBy = "warband",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private Set<Troop> troops;
     public Set<Troop> getTroops() {
         return troops;
@@ -69,7 +85,7 @@ public class Warband {
         this.chronology = chronology;
     }
 
-    private Integer ducats = 700;
+    private Integer ducats;
     public Integer getDucats() {
         return ducats;
     }
@@ -77,7 +93,7 @@ public class Warband {
         this.ducats = ducats;
     }
 
-    private Integer glory = 0;
+    private Integer glory;
     public Integer getGlory() {
         return glory;
     }
@@ -89,7 +105,6 @@ public class Warband {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
