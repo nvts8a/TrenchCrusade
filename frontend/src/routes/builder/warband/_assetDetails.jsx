@@ -1,7 +1,7 @@
 export default function AssetDetails({warband, updateWarband}) {
 
     return(
-        <div className='row'>
+        <>
             <div className='row'>
                 <div className='col'>
                     <div className='input-group mb-3'>
@@ -38,6 +38,6 @@ export default function AssetDetails({warband, updateWarband}) {
                     <div className=''>Martyrdom Pills</div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }

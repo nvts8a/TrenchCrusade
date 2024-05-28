@@ -1,4 +1,3 @@
-import FactionInsignia from '../../../components/_factionInsignia'
 import { useFactions } from '../../../store/loaders'
 
 export default function FactionDetails({warband, updateWarband}) {
@@ -30,9 +29,6 @@ export default function FactionDetails({warband, updateWarband}) {
                 <span className='input-group-text font-english-towne' id='basic-addon1'>Faction</span>
                 <input type='text' className='form-control' placeholder='Faction' aria-label='Warband Faction' aria-describedby='basic-addon2'
                     id='name' defaultValue={warband.faction.name} disabled/>
-            </div>
-            <div className='col'>
-                {<FactionInsignia factionId={warband.faction.id} />}
             </div>
             {renderVariants(warband, variants)}
         </div>

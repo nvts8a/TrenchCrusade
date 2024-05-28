@@ -4,7 +4,7 @@ import Rules from './_rules'
 export default function EquipmentCard({equipable}) {
     const weaponBlock = (equipable) => {
         if (equipable.type.toLowerCase() === 'melee' || equipable.type.toLowerCase() === 'range') return(
-            <table className='table'>
+            <table className='table mb-0'>
             <thead>
                 <tr className='table-danger'>
                     <th className='col-2'>Name</th>

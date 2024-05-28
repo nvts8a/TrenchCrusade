@@ -1,4 +1,4 @@
-import EquipmentCard from './_equipmentCard'
+import EquipmentRow from './_equipmentRow'
 import Keyword from './_keyword'
 import Rules from './_rules'
 
@@ -27,7 +27,28 @@ export default function TroopCard({troopType}) {
     }
 
     const renderEquipment = (equipment) => {
-        return equipment.map((equipable) => <EquipmentCard equipable={equipable} key={equipable.id} />)
+        if (equipment < 1) return (<></>)
+        const equipped = () => equipment.map((equipable) => <EquipmentRow equipable={equipable} />)
+        
+        return(
+            <div className='row '>
+                <div>Equipment</div>
+                <table className='table mb-0'>
+                    <thead>
+                        <tr className='table-danger'>
+                            <th className='col-2'>Name</th>
+                            <th className='col-2'>Type</th>
+                            <th className='col-2'>Range</th>
+                            <th className='col-2'>Modifiers</th>
+                            <th className='col-2'>Keywords</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {equipped()}
+                    </tbody>
+                </table>
+            </div>
+        )
     }
 
 
@@ -36,7 +57,7 @@ export default function TroopCard({troopType}) {
 
         <div className='row'>{troopType.description}</div>
 
-        <table className='table'>
+        <table className='table mb-3'>
             <thead>
                 <tr className='table-danger'>
                     <th className='col-2'>Name</th>
@@ -58,7 +79,7 @@ export default function TroopCard({troopType}) {
                 </tr>
             </tbody>
         </table>
-        <div className='row'>
+        <div className='row mb-3'>
             {renderAbilities(troopType.rules)}
             <div className='col-3'>
                 <div>Keywords</div>
@@ -69,6 +90,7 @@ export default function TroopCard({troopType}) {
         </div>
 
         {renderEquipment(troopType.equipment)}
+        
         <hr className='my-5'/>
       </div>
     )

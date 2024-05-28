@@ -1,5 +1,5 @@
 import { useFactions } from '../../../store/loaders'
-import RosterTroopCard from './_rosterTroopCard'
+import RosterTroopRow from './_rosterTroopRow'
 
 export default function TroopDetails({warband, createTroop, removeTroop}) {
     const factions = useFactions()
@@ -9,60 +9,55 @@ export default function TroopDetails({warband, createTroop, removeTroop}) {
      * 
      * @returns 
      */
-    const renderTroops = () => {
-        return(warband.troops.map((troop) => {
-            const factionTroopType = troopTypes(warband.faction.id).find((type) => type.id === troop.troopType.id)
+    const renderTroops = (filter) => {
+        const renderRows = () => {
+            return(
+                warband.troops
+                .map((troop) => {
+                    return({ 
+                        troop: troop,
+                        factionTroopType: troopTypes(warband.faction.id).find((type) => type.id === troop.troopType.id) 
+                    })
+                })
+                .filter((troop) => troop.factionTroopType.type === filter)
+                .map((troop) => {
+                    return(<RosterTroopRow
+                        factionTroopType={troop.factionTroopType}
+                        troop={troop.troop}
+                        warband={warband}
+                        handleDelete={removeTroop(troop.troop, troop.factionTroopType)}
+                        key={troop.troop.id} />)
+                })
+            )
+        }
 
-            return(<RosterTroopCard
-                factionTroopType={factionTroopType}
-                troop={troop}
-                warband={warband}
-                handleDelete={removeTroop(troop, factionTroopType)}
-                key={troop.id} 
-            />)
-        }))
-    }
-
-    /**
-     * 
-     * @returns 
-     */
-    const renderAddNewTroop = () => {
         return(
-            <ul className='list-group list-group-horizontal row w-100 danger' id='new-troop' key='new'>
-                <li className='list-group-item list-group-item-danger col-12 dropdown font-artisan'>
-                    <button className='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                        New Troop
-                    </button>
-                    <ul className='dropdown-menu'>
-                        {renderTroopTypeDropdownItems()}
-                    </ul>
-                </li>
-            </ul>
+            <div className='row'>
+                <table className='table mb-3 table-borderless'>
+                    <thead>
+                        <tr className='table-danger'>
+                            <th className='col-2'>Name</th>
+                            <th className='col-2'>Movement</th>
+                            <th className='col-2'>Ranged</th>
+                            <th className='col-2'>Melee</th>
+                            <th className='col-2'>Armour</th>
+                            <th className='col-2'>Keywords</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {renderRows()}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 
-    /**
-     * 
-     * @returns 
-     */
-    const renderTroopTypeDropdownItems = () => {
-        return Object.values(troopTypes(warband.faction.id)).map((factionTroopType) => {
-            const troopType = factionTroopType.troopType
-            return(
-                <li className='dropdown-item' onClick={() => createTroop(factionTroopType)} 
-                    id={`faction-${troopType.id}`} key={troopType.id}>
-                    {troopType.name}
-                </li>
-            )
-        })
-    }
-
     return(
-        <div className='row'>
-            <h5 className='font-english-towne'>Troops</h5>
-            {renderTroops()}
-            {renderAddNewTroop()}
+        <div className='mt-5'>
+            <h5 className='display-5 font-english-towne text-danger'>Elite</h5>
+            {renderTroops('elite')}
+            <h5 className='display-5 font-english-towne text-danger'>Troop</h5>
+            {renderTroops('troop')}
         </div>
     )
 }

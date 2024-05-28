@@ -10,6 +10,7 @@ import { useWarband } from '../../../store/loaders';
 import FactionDetails from './_factionDetails';
 import AssetDetails from './_assetDetails';
 import TroopDetails from './_troopDetails';
+import AddNewTroop from './_addNewTroop';
 
 
 export default function Roster() {
@@ -26,7 +27,7 @@ export default function Roster() {
         .catch((err) => console.log(err.message))
     }
 
-    const createTroop = (factionTroopType) => {
+    const createTroop = (factionTroopType) => () => {
         axios.post(`/api/warband/${warband.id}/troop`, {
             'warband':   { id: warband.id },
             'troopType': factionTroopType.troopType, 
@@ -60,9 +61,10 @@ export default function Roster() {
                                 updateWarband={updateWarband} />
 
                 <TroopDetails   warband={warband}
-                                createTroop={createTroop}
                                 removeTroop={removeTroop} />
 
+                <AddNewTroop    warband={warband}
+                                createTroop={createTroop}/>
             </PageLayout>
             )
         }
