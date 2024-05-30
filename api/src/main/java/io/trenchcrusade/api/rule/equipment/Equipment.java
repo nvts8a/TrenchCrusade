@@ -1,6 +1,6 @@
 package io.trenchcrusade.api.rule.equipment;
 
-import io.trenchcrusade.api.rule.faction.FactionEquipment;
+import io.trenchcrusade.api.rule.faction.equipment.FactionEquipment;
 import io.trenchcrusade.api.rule.keyword.Keyword;
 import jakarta.persistence.*;
 

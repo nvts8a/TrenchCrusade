@@ -1,8 +1,7 @@
 package io.trenchcrusade.api.rule.troop_type;
 
 import io.trenchcrusade.api.rule.equipment.Equipment;
-import io.trenchcrusade.api.rule.equipment.EquipmentRule;
-import io.trenchcrusade.api.rule.faction.FactionTroopType;
+import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
 import io.trenchcrusade.api.rule.keyword.Keyword;
 import jakarta.persistence.*;
 
