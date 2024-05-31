@@ -1,0 +1,64 @@
+equipment_id,rule
+49,"When resolving hits from an Infested Rifle, the modifier to injury rolls offered by a model’s armour is reduced by 1. Thus Heavy armour would only offer a -1 modifier to injury rolls, Standard Armour would offer no modifier and so on."
+50,"A Corruption Belcher hits one model within range automatically with its ranged attack ACTION. It ignores Armour. Injuries caused by a Corruption Belcher are rolled with an additional -1 DICE. It also has the Keyword GAS, so it inflicts an additional +1 BLOOD MARKER on enemies it hits."
+51,"Whenever a model suffers a BLOOD MARKER as a result of an injury caused by a hit from a Putrid Shotgun, they will gain an INFECTION MARKER instead. The Putrid Shotgun adds +1 DICE to hit on Ranged Attacks. However, injuries are rolled with -1 DICE due the low penetration power at long range."
+52,"The Viscera Cannon has additional +2 DICE on Ranged Attack rolls as even the slightest splash can kill. If it hits the enemy, roll to injure as normal. After rolling for injuries, you can boost the damage by up to three additional BLOOD MARKERS per hit by taking the same number of BLOOD MARKERS on the shooter itself."
+53,"Whenever a model suffers a BLOOD MARKER as a result of an injury caused by a hit from a Plague Blade, they will gain an INFECTION MARKER instead."
+54,"Whenever a model suffers a BLOOD MARKER as a result of an injury caused by a hit from Beelzebub’s Axe, they will gain an INFECTION MARKER instead."
+55,"Works exactly as a standard shield. In addition, if a model carrying a Black Grail Shield is targeted by a ranged attack, before rolling to hit it can immediately take an ACTION without an Activation. If successful, the missile attack suffers -2 DICE to the roll determining whether the attack hits, as the power of the Black Grail disturbs the flow of reality. If the roll is a Critical, the attack misses automatically."
+56,"If a Parasite Grenade hits a model, the Black Grail player can move this model up 3” into any direction they wish. This can be used to move the model out of cover, to fall from a high position, or even into Melee with their enemies. This additional effect does not work on models with the Keyword FEAR."
+5,A model armed with an Automatic Rifle can make two attack ACTIONS instead of one. Both attacks must be against the same target.
+9,Can make two attack ACTIONS instead of one. These can be against a single target or two separate ones.
+57,Add +1 DICE to hit rolls if shot from behind any terrain obstacles.
+12,Grenades have a blast radius of 2” – all models within this blast radius are hit.
+13,Incendiary Grenades ignore all penalties for terrain/cover.
+14,Gas Grenades ignore all penalties for cover and armour. Gas Grenades hit all enemies within 3” of a target they hit.
+15,Ignores all penalties for cover. This weapon has a blast radius of 3” – all enemies within this range are hit.
+16,"You can aim the Satchel Charge at any point on the ground as well as against an enemy model within range. Next, take a Ranged Attack ACTION. If the roll fails (i.e. you roll 6 or less), the bomb lands 1” away from its intended location, multiplied by the number representing the degree of failure (for example, if you rolled 5, the satchel charge lands 2” away, as 7-5=2). The direction is decided by your opponent. The Satchel Charge adds +1 DICE to injury rolls and has a blast radius of 3” hitting all models within this range."
+17,"Molotov Cocktails ignore all penalties for terrain/cover, as well as ignoring all armour on a Critical Attack roll."
+18,Ignores armour.
+19,"Machine Guns can make three Attack Actions instead of one. They can target separate models with each attack, as long as all targets are within 6” of each other. After taking all three attacks the Activation of the model is over regardless of any remaining ACTIONS the model might have."
+20,"A Flamethrower hits one model within range automatically with its attack ACTION, ignoring armour."
+21,Hits up to two models within range automatically with an Attack Action as long as they are within 6” of each other. Ignores armour.
+22,You can never use Unarmed Strike as a second melee attack. These rules simply cover all instances where the model fights unarmed and has no other Melee Actions in their profile.
+26,"Bayonets can only be attached to a Bolt Action Rifle, Automatic Rifle, Musket, Shotgun, Automatic Shotgun and Submachine Gun, and does not count towards the maximum Melee weapons a model can carry. Requires two hands to use in Melee."
+31,"Ignores armour modifiers. If it hits the enemy, the wielder suffers +1 BLOOD MARKER."
+32,"Models equipped with a Trench Polearm give any charging opponent -1 DICE in Melee combat when rolling to hit. This only applies when a charging model attacks, not on subsequent rounds of Melee."
+36,Ignores the armour of opponents that are Down.
+38,-1 to all Injury Chart rolls against the model. Can be combined with any shield.
+58,Ignores additional BLOOD MARKERS caused by weapons with Keyword SHRAPNEL.
+59,Negates the additional BLOOD MARKERS from weapons with SHRAPNEL Keyword. Makes the model immune to the effects of FEAR.
+60,Models with a Medi-kit can take a RISKY ACTION to remove one BLOOD MARKER from any one friendly model (including themselves) within 1” or allow one friendly model (including themselves) who is Down to regain their footing. The model who recovered from Down this way can move at full speed during its next Activation.
+61,Models with Gas Masks ignore all damage from weapons and other sources that have the keyword GAS.
+43,"The Prophet can take a RISKY ACTION with +2 DICE once during each Activation. If the action is successful, all friendly models (Including the Prophet) within 8” of the Prophet can immediately move up to 3” towards the closest enemy model they can see. This move allows them to enter combat as if they charged the enemy."
+44,"This counts as an Iron Capirote, Combat Helmet and a Gas Mask."
+45,"Each prisoner is strapped with an explosive which can be triggered one time at any point during their Activation. This counts as a ranged attack against every model (friend or foe) within 3” of the Prisoner. Everyone, including the Prisoner, is automatically hit and rolls on the Injury Chart to see what happens.Anymodelwithin1”rolls+1 DICE ontheInjurychart.Othermodels within 3” roll 2D6 as normal. The Prisoner rolls 4D6 and adds the results together to determine their Injury roll! If the explosive goes off and the Prisoner survives the battle, you can buy them a new Martyrdom Device for 35 ducats as normal, or field them without an Explosive."
+46,"The Anchorite can take a RISKY ACTION with +3 DICE with its Catherine Wheel in Melee combat as an attack. Due to the enormous weight and the skill of the Shrine Anchorite in inflicting maximum pain, the Catherine Wheel rolls on the Injury table with 3D6 (instead of usual 2D6), adding the all three dice together!"
+47,"The Anchorite may use the Bonebreaker Mace in Melee. This attack is a RISKY ACTION and has +1 DICE for rolling to hit, as well as for any Injury rolls it causes."
+48,"All weapons with keyword SHRAPNEL suffer -1 DICE on all Injury rolls against the Combat Engineer, and the SHRAPNEL attacks do not cause the extra BLOOD MARKERS on a model wearing this suit. These effects work even against attacks that ignore armour."
+62,This model starts each game with +1 BLESSING MARKER.
+63,Only usable in rifles and pistols (i.e. weapons which have the word pistol or rifle in their name). Attacks by a weapon equipped with Armour-Piercing Bullets reduce the injury roll penalty from Armour and Shields by 1.
+64,Only usable in rifles and pistols (i.e. weapons which have the Keyword pistol or rifle in their name). Attacks by a weapon equipped with Dum-Dum Bullets have the keyword CRITICAL.
+65,Only usable in rifles and pistols (i.e. weapons which have the Keyword pistol or rifle in their name). Adds the Keyword FIRE to the weapon that uses the Incendiary ammunition.
+66,Can be used with any rifle or pistol. Models using Tracer Bullets gain +1 DICE to hit enemies with Ranged Attacks.
+67,Negates the penalty for Long Range if the model has not moved during this Activation. Only usable with rifles (i.e. weapons which have the Keyword rifle in their name).
+68,"A model equipped with a Shovel always starts the game in Cover, even if placed in open terrain. As soon as the model moves, it is no longer in Cover. It also acts exactly as a Trench Club in Melee, except it requires two hands to use."
+69,Grants +1 DICE for all Morale tests as long as the model with the flag is not Down or Out of Action. Requires one hand to use.
+70,"Add -1 DICE for all injury rolls against this model. The model is immune to FEAR. If taken Out of Action, roll twice on the Permanent Injury Chart and your opponent gets to choose the result."
+71,"When a model fails in a RISKY ACTION, this does not end the Activation. Keyword: CONSUMABLE."
+72,A model equipped with an Unholy relic radiates a truly malignant aura and causes FEAR.
+73,"When a model equipped with the Blessed Icon fails in a RISKY ACTION, this does not end the Activation."
+74,This model suffers no damage from attacks with the Keyword FIRE.
+75,Can be placed on the battlefield in your deployment zone. Can be destroyed if any type of attack hits it. Acts as three models for Morale Tests. It has a base size of 40mm.
+76,"When this model is taken Out of Action, any model in melee combat with them immediately suffers +1 BLOOD MARKER unless the model ignores damage from sources with the Keyword FIRE."
+77,Any enemy Infiltrator cannot be placed closer than 16” of this model.
+78,Any friendly models within 8” of the musician who is not Down can add +1 DICE to their Dash ACTIONS. Musical Instruments take one hand to use at all times as if it were a weapon.
+79,"Choose a point on the battlefield that is visible to the model and within 36” and make a Ranged Attack ACTION. If the roll is unsuccessful, the bomb is off-target and will deviate 1” from your nominated target point for each degree of failure of the Ranged Attack ACTION in a direction determined by your opponent (for example, if you rolled 5, the bomb lands 2” away, as 7-5=2). The direction is decided by your opponent. Once the landing site of the bomb has been determined, it will detonate. Roll once on the Injury Chart for each model that is within 3” of where the bomb landed. No to hit roll is needed. If the bomb lands directly on top of any model, roll with 3D6 on the Injury Chart and add the dice together to see what happens! Other models hit by the Bomb suffer a Down result due the booming shockwave, but do not take any BLOOD MARKERS or other effects from this attack."
+80,"When this weapon is fired, draw an imaginary straight line 1mm wide and 12” long from the Brazen Bull. Every model along the path of the line is hit automatically by this attack – roll for their injuries intermediately. Armour does not protect against the Flame Cannon."
+82,"If the Assassin hits an enemy and causes at least one BLOOD MARKER, the Assassin can move away from combat with the model the Assassin wounded during this Activation without giving the opponent a chance to attack them, as the poison paralyses their enemy momentarily. Assassins can use both normal and Dash moves to do this, though this may not be used for charging."
+83,"Can be used in Melee. Enemies charging a model equipped with a Halberd-gun add -1 DICE in Melee combat when rolling to hit. This only applies when a model attacks after a charge, not on subsequent rounds of Melee."
+85,Counts as Heavy Armour and therefore grants a -2 modifier to all injury rolls made against the model wearing it. In addition it makes the Alchemist immune to all damage with the Keywords FIRE and/or GAS.
+86,Adds +1 DICE to Ranged Attack rolls on the Action Success Chart. Can only be used with Jezzails and Siege Jezzails.
+87,All ranged attacks against a model that is in cover suffer -2 DICE penalty instead of -1 DICE. All the normal rules for cover apply otherwise.
+88,"After the deployment, a model with the Wind Amulet may move up to 3” in any direction, though this move may not take them into melee combat or from the battlefield."
+90,Ignores armour.

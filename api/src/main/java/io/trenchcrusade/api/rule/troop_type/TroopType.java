@@ -1,6 +1,7 @@
 package io.trenchcrusade.api.rule.troop_type;
 
-import io.trenchcrusade.api.rule.faction.FactionTroopType;
+import io.trenchcrusade.api.rule.equipment.Equipment;
+import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
 import io.trenchcrusade.api.rule.keyword.Keyword;
 import jakarta.persistence.*;
 
@@ -10,14 +11,20 @@ import java.util.Set;
 public class TroopType {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
     }
 
     // ASSOCIATIONS
     @OneToMany(mappedBy = "troopType")
     private Set<FactionTroopType> factionTroopTypes;
+
+    @OneToMany(mappedBy="troopType")
+    private Set<TroopTypeRule> rules;
+    public  Set<TroopTypeRule> getRules() {
+        return rules;
+    }
 
     @ManyToMany
     @JoinTable(name = "troop_type_keyword",
@@ -26,6 +33,15 @@ public class TroopType {
     private Set<Keyword> keywords;
     public Set<Keyword> getKeywords() {
         return keywords;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "troop_type_equipment",
+            joinColumns = @JoinColumn(name = "troop_type_id"),
+            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+    private Set<Equipment> equipment;
+    public Set<Equipment> getEquipment() {
+        return equipment;
     }
 
     // COLUMNS

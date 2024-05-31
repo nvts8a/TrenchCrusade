@@ -2,7 +2,6 @@ package io.trenchcrusade.api.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping(path="/user")
@@ -26,14 +24,17 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping("")
-    public @ResponseBody User create(@RequestBody User user) {
+    public ResponseEntity<User> create(@RequestBody User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        user.setToken(sessionService.getAuthToken());
 
         userRepository.save(user);
 
-        return user;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", user.getToken());
+        return ResponseEntity.ok().headers(headers).body(user);
     }
 
     @PatchMapping("")
@@ -52,7 +53,6 @@ public class UserController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", user.getToken());
-
         return ResponseEntity.ok().headers(headers).body(user);
     }
 }

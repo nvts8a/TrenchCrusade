@@ -8,15 +8,12 @@ import java.util.Set;
 public class EquipmentModifier {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     // ASSOCIATIONS
     @ManyToOne
     @JoinColumn(name = "equipment_id", referencedColumnName = "id", nullable = false)
     private Equipment equipment;
-    public Equipment getEquipment() {
-        return equipment;
-    }
 
     @Column(nullable = false)
     private String type;

@@ -25,7 +25,6 @@ faction_id,troop_type_id,type,min,max,cost,currency
 4,24,elite,,1,60,ducats
 4,25,elite,,2,50,ducats
 4,26,troop,,,30,ducats
-4,27,troop,,2,40,ducats
 4,28,troop,,5,45,ducats
 4,29,troop,,2,75,ducats
 4,30,troop,,3,85,ducats

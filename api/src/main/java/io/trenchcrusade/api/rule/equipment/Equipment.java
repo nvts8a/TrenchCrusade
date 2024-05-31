@@ -1,6 +1,6 @@
 package io.trenchcrusade.api.rule.equipment;
 
-import io.trenchcrusade.api.rule.faction.FactionEquipment;
+import io.trenchcrusade.api.rule.faction.equipment.FactionEquipment;
 import io.trenchcrusade.api.rule.keyword.Keyword;
 import jakarta.persistence.*;
 
@@ -11,16 +11,22 @@ import java.util.Set;
 public class Equipment {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
     }
 
     // ASSOCIATIONS
     @OneToMany(mappedBy="equipment")
     private Set<EquipmentModifier> modifiers;
-    public  Set<EquipmentModifier> getEquipmentModifiers() {
+    public  Set<EquipmentModifier> getModifiers() {
         return modifiers;
+    }
+
+    @OneToMany(mappedBy="equipment")
+    private Set<EquipmentRule> rules;
+    public  Set<EquipmentRule> getRules() {
+        return rules;
     }
 
     @ManyToMany

@@ -10,7 +10,7 @@ export default function Keywords() {
     }
 
     return(
-        <PageLayout pageName='+ Troop Types +'>
+        <PageLayout pageName='Troop Types'>
             {renderTroopTypes()}
         </PageLayout>
     )

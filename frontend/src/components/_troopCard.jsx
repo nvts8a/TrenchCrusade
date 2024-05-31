@@ -1,21 +1,63 @@
-export default function TroopCard({ factionTroopType, troopType, troop }) {
-    const isRoster  = !!troop && !!factionTroopType
+import EquipmentRow from './_equipmentRow'
+import Keyword from './_keyword'
+import Rules from './_rules'
 
-    const fCost     = (isRoster) ? `(Cost: ${factionTroopType.cost} Ducats)` : ''
+export default function TroopCard({troopType}) {
+
     const fMovement = `${troopType.movement}"/${troopType.movementType}`
-    const fRanged   = (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice`
-    const fMelee    = (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice`
+    const fRanged   = troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
+    const fMelee    = troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
     const fBaseSize = `${troopType.baseSize}mm`
 
+    const formatKeywords = (keywords) => {
+        if (keywords.length > 0) return keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
+        return '-'
+    }
+
+    const renderAbilities = (abilities) => {
+        if (abilities.length > 0) {
+            return(
+                <div className='col-9'>
+                    <div>Abilities</div>
+                    <Rules rules={troopType.rules} />
+                </div>
+            )
+        }
+        return(<div className='col-9'></div>)
+    }
+
+    const renderEquipment = (equipment) => {
+        if (equipment < 1) return (<></>)
+        const equipped = () => equipment.map((equipable) => <EquipmentRow equipable={equipable} />)
+        
+        return(
+            <div className='row '>
+                <div>Equipment</div>
+                <table className='table mb-0'>
+                    <thead>
+                        <tr className='table-danger'>
+                            <th className='col-2'>Name</th>
+                            <th className='col-2'>Type</th>
+                            <th className='col-2'>Range</th>
+                            <th className='col-2'>Modifiers</th>
+                            <th className='col-2'>Keywords</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {equipped()}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+
+
     if(troopType) return (
-      <div className='container' id={`troop-${troopType.id}`}>
-        <div className='row'>
-            <div className='col'><h3 className='font-english-towne'>{troopType.name}</h3></div>
-            <div className='col'>{fCost}</div>
-        </div>
+      <div className='container my-5' id={`troop-${troopType.id}`}>
+
         <div className='row'>{troopType.description}</div>
 
-        <table className='table'>
+        <table className='table mb-3'>
             <thead>
                 <tr className='table-danger'>
                     <th className='col-2'>Name</th>
@@ -37,18 +79,19 @@ export default function TroopCard({ factionTroopType, troopType, troop }) {
                 </tr>
             </tbody>
         </table>
-        <div className='row'>
-            <div className='col'>Equipment</div>
-            <div className='col'>Abilities</div>
-            <div className='col'>
+        <div className='row mb-3'>
+            {renderAbilities(troopType.rules)}
+            <div className='col-3'>
                 <div>Keywords</div>
-                <div className='font-artisan'>
-                    <span>ELITE</span>
-                    <span>, </span>
-                    <span>PILGRAM</span>
+                <div>
+                    {formatKeywords(troopType.keywords)}
                 </div>
             </div>
         </div>
+
+        {renderEquipment(troopType.equipment)}
+        
+        <hr className='my-5'/>
       </div>
     )
   }

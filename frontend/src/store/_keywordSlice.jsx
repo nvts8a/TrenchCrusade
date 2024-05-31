@@ -9,9 +9,7 @@ export const keywordSlice = createSlice({
   reducers: {
         setKeywords: (state, action) => {
             state.pending = false
-            state.values = Object.fromEntries(
-                action.payload.map((keyword) => [keyword.id, keyword])
-            )
+            state.values = action.payload
         }
     }
 })

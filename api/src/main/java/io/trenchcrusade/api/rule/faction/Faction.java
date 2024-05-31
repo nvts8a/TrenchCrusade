@@ -1,6 +1,7 @@
 package io.trenchcrusade.api.rule.faction;
 
-import io.trenchcrusade.api.rule.troop_type.TroopType;
+import io.trenchcrusade.api.rule.faction.equipment.FactionEquipment;
+import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -9,25 +10,24 @@ import java.util.Set;
 public class Faction {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     // ASSOCIATIONS
     @OneToMany(mappedBy = "faction")
-    private Set<Variant> variants;
+    private Set<FactionVariant> factionVariants;
 
-    public Set<Variant> getVariants() {
-        return variants;
+    public Set<FactionVariant> getVariants() {
+        return factionVariants;
     }
 
     @OneToMany(mappedBy = "faction")
     private Set<FactionTroopType> factionTroopTypes;
-
-    public Set<FactionTroopType> getFactionTroopTypes() {
-        return factionTroopTypes;
-    }
 
     @OneToMany(mappedBy = "faction")
     private Set<FactionEquipment> factionEquipment;

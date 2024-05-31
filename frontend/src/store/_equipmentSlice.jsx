@@ -9,9 +9,7 @@ export const equipmentSlice = createSlice({
   reducers: {
         setEquipment: (state, action) => {
             state.pending = false
-            state.values = Object.fromEntries(
-                action.payload.map((equipable) => [equipable.id, equipable])
-            )
+            state.values = action.payload
         }
     }
 })

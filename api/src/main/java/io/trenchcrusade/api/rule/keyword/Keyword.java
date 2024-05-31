@@ -7,8 +7,8 @@ public class Keyword {
 
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
     }
 

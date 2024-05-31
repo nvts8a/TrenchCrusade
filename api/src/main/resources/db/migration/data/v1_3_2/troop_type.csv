@@ -1,6 +1,6 @@
 id,name,movement,movement_type,range,melee,armour,base_size,description
 1,Heretic Priest,6,Infantry,2,2,0,32,
-2,Stigmatic Nun,6,Infantry,1,2,0,32,
+2,Death Commando,6,Infantry,1,2,0,32,
 3,Chorister,6,Infantry,-2,2,0,32,
 4,Heretic Trooper,6,Infantry,0,0,0,25,
 5,Anointed Heavy Infantry,6,Infantry,1,1,0,32,
@@ -25,7 +25,6 @@ id,name,movement,movement_type,range,melee,armour,base_size,description
 24,Trench Cleric,6,Infantry,1,1,0,32,
 25,Sniper Priest,6,Infantry,2,-1,0,25,
 26,Yeoman,6,Infantry,0,0,0,25,
-27,Trench Mole,6,Infantry,0,0,0,25,
 28,Shocktrooper,6,Infantry,0,1,0,25,
 29,Combat Engineer,6,Infantry,1,0,0,25,
 30,Mechanized Heavy Infantry,6,Infantry,1,0,0,32,

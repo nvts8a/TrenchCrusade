@@ -1,5 +1,6 @@
-package io.trenchcrusade.api.rule.faction;
+package io.trenchcrusade.api.rule.faction.troop_type;
 
+import io.trenchcrusade.api.rule.faction.Faction;
 import io.trenchcrusade.api.rule.troop_type.TroopType;
 import jakarta.persistence.*;
 
@@ -7,20 +8,23 @@ import jakarta.persistence.*;
 public class FactionTroopType {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    public Integer getId() {
+    private Long id;
+    public Long getId() {
         return id;
     }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "faction_id")
     private Faction faction;
+    public Long getFactionId() {
+        return faction.getId();
+    }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "troop_type_id")
     private TroopType troopType;
-    public TroopType getTroopType() {
-        return troopType;
+    public Long getTroopTypeId() {
+        return troopType.getId();
     }
 
     @Column(nullable = false)
