@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion'
+import { useAccordionButton } from 'react-bootstrap/AccordionButton'
+import Card from 'react-bootstrap/Card';
 import RosterTroopRow from './_rosterTroopRow'
 
 export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, createTroop}) {
@@ -9,22 +11,35 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
     const handleClose     = () => setShow(false)
     const handleShow      = () => setShow(true)
 
+    function CustomToggle({ children, eventKey }) {      
+        return (
+            <>
+            <div className='d-inline-block w-75' onClick={useAccordionButton(eventKey)}>
+                {children}
+            </div>
+            </>
+        );
+      }
+
     const renderTroopTypes = (factionTroopTypes) => {
         return(Object.values(factionTroopTypes).map((factionTroopType) => {
             const troopType = troopTypes[factionTroopType.troopTypeId]
 
             return(
-                <Accordion.Item key={factionTroopType.id} eventKey={factionTroopType.id}>
-                    <Accordion.Header>
-                            <span className='icon-link icon-link-hover' onClick={createTroop(factionTroopType, troopTypes[factionTroopType.troopTypeId])}>
-                                <i className='bi bi-plus-circle'></i>
-                            </span>
-                            <span className='ms-3'>{troopType.name}</span>
-                    </Accordion.Header>
-                    <Accordion.Body>
+                <Card key={factionTroopType.id}>
+                    <Card.Header className=''>
+                        <span className='icon-link icon-link-hover me-3' onClick={createTroop(factionTroopType, troopTypes[factionTroopType.troopTypeId])}>
+                            <i className='bi bi-plus-circle'></i>
+                        </span>
+                        <CustomToggle eventKey={factionTroopType.id}>{troopType.name}</CustomToggle>
+                        <span>
+                            {factionTroopType.cost}  {factionTroopType.currency ? factionTroopType.currency : 'ducats'}
+                        </span>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={factionTroopType.id}>
                         {renderAddTroopTypeCard(factionTroopType)}
-                    </Accordion.Body>
-                </Accordion.Item>
+                    </Accordion.Collapse>
+                </Card>
             )
         }))
     }

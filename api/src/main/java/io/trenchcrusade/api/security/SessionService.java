@@ -39,15 +39,14 @@ public class SessionService {
         return new UserDetailsImpl(user);
     }
 
-    public void authorizeUserBy(String authorizationToken, Long warbandId) throws ResponseStatusException {
+    public Warband authorizeUserFor(String authorizationToken, Long warbandId) throws ResponseStatusException {
         Optional<Warband> warband = warbandRepository.findById(warbandId);
         if (warband.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Warband " + warbandId + "not found.");
-        authorizeUserBy(authorizationToken, warband.get());
-    }
 
-    public void authorizeUserBy(String authorizationToken, Warband warband) throws ResponseStatusException {
         UserDetailsImpl userDetails = loadUserBy(authorizationToken);
-        if (!userDetails.getUser().getId().equals(warband.getUserId()))
+        if (!userDetails.getUser().getId().equals(warband.get().getUserId()))
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+
+        return warband.get();
     }
 }

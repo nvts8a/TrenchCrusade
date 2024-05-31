@@ -37,6 +37,9 @@ public class Troop {
     public Long getWarbandId() {
         return warband.getId();
     }
+    public void setWarband(Warband warband) {
+        this.warband = warband;
+    }
 
     @ManyToMany
     @JoinTable(name = "troop_equipment",
