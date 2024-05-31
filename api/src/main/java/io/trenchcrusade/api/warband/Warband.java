@@ -26,7 +26,7 @@ public class Warband {
     @ManyToOne(optional = false)
     @JoinColumn(name = "faction_id")
     private Faction faction;
-    public Faction getFaction() { return faction; }
+    public Long getFactionId() { return faction.getId(); }
     public void setFaction(Faction faction) {
         this.faction = faction;
     }
@@ -34,8 +34,8 @@ public class Warband {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return user.getId();
     }
     public void setUser(User user) {
         this.user = user;
@@ -44,8 +44,8 @@ public class Warband {
     @ManyToOne
     @JoinColumn(name = "variant_id")
     private FactionVariant factionVariant;
-    public FactionVariant getVariant() {
-        return factionVariant == null ? null : factionVariant;
+    public Long getVariantId() {
+        return factionVariant == null ? null : factionVariant.getId();
     }
     public void setVariant(FactionVariant factionVariant) {
         this.factionVariant = factionVariant;
@@ -71,9 +71,6 @@ public class Warband {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private Set<Troop> troops;
-    public Set<Troop> getTroops() {
-        return troops;
-    }
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")

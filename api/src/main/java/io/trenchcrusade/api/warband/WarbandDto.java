@@ -12,10 +12,6 @@ public class WarbandDto {
         warband = new Warband();
     }
 
-    public Warband getWarband() {
-        return warband;
-    }
-
     public Long getId() {
         return warband.getId();
     }
@@ -41,13 +37,12 @@ public class WarbandDto {
         warband.setDucats(ducats);
     }
 
+    private Long factionId;
     public Long getFactionId() {
-        if (warband.getFaction() == null) return null;
-        return warband.getFaction().getId();
+        return factionId;
     }
     public void setFactionId(Long factionId) {
-        if (warband.getFaction() == null) warband.setFaction(new Faction());
-        warband.getFaction().setId(factionId);
+        this.factionId = factionId;
     }
 
     public Integer getGlory() {
@@ -64,13 +59,27 @@ public class WarbandDto {
         warband.setName(name);
     }
 
+    private Long variantId;
     public Long getVariantId() {
-        if (warband.getVariant() == null) return null;
-        return warband.getVariant().getId();
+        return variantId;
     }
     public void setVariantId(Long variantId) {
-        if (warband.getVariant() == null) warband.setVariant(new FactionVariant());
-        warband.getVariant().setId(variantId);
+        this.variantId = variantId;
+    }
+
+    public Warband build() {
+        if (getFactionId() != null) {
+            Faction faction = new Faction();
+            faction.setId(getFactionId());
+            warband.setFaction(faction);
+        }
+        if (getVariantId() != null) {
+            FactionVariant variant = new FactionVariant();
+            variant.setId(getVariantId());
+            warband.setVariant(variant);
+        }
+
+        return warband;
     }
 
     public Warband patch(Warband warband) {
@@ -78,8 +87,16 @@ public class WarbandDto {
         if (getDucats()     != null) warband.setDucats(getDucats());
         if (getGlory()      != null) warband.setGlory(getGlory());
         if (getName()       != null) warband.setName(getName());
-
-        if (this.warband.getVariant() != null) warband.setVariant(this.warband.getVariant());
+        if (getFactionId()  != null) {
+            Faction faction = new Faction();
+            faction.setId(getFactionId());
+            warband.setFaction(faction);
+        }
+        if (getVariantId()  != null) {
+            FactionVariant variant = new FactionVariant();
+            variant.setId(getVariantId());
+            warband.setVariant(variant);
+        }
 
         return warband;
     }

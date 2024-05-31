@@ -2,52 +2,74 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { setEquipment } from './_equipmentSlice'
 import { setKeywords }  from './_keywordSlice'
-import { setWarband, setWarbands } from './_warbandSlice';
-import { setFaction, setFactions } from './_factionSlice';
-import { setTroopTypes } from './_troopTypeSlice';
+import { setWarbands } from './_warbandSlice'
+import { setFactions } from './_factionSlice'
+import { setFactionEquipment } from './_factionEquipmentSlice'
+import { setFactionTroopTypes } from './_factionTroopType'
+import { setTroopTypes } from './_troopTypeSlice'
+
+console.log(axios.defaults.headers.common['Authorization'])
 
 const get = (uri, dispatch, set) => {
-    axios(uri).then((response) => {
-        dispatch(set(response.data))
-    })
-    .catch((err) => {
-        console.log(err.message)
-    })
+    axios(uri)
+    .then((response) => dispatch(set(response.data)))
+    .catch((err)     => console.log(err.message))
 }
 
-export const { useEquipment, useFaction, useFactions, useKeywords, useTroopTypes, useWarband, useWarbands } = {
+const cache = (uri, dispatch, set) => {
+    if (localStorage.getItem(uri)) {
+        dispatch(set(JSON.parse(localStorage.getItem(uri))))
+    } else {
+        axios(uri).then((response) => {
+            localStorage.setItem(uri, JSON.stringify(response.data))
+            dispatch(set(response.data))
+        })
+        .catch((err) => console.log(err.message))
+    }
+}
+
+export const { useEquipment, useFactions, useFactionEquipment, useFactionTroopTypes, useKeywords, useTroopTypes, useWarbands } = {
     useEquipment: () => {
         const dispatch = useDispatch()
         const equipment = useSelector(state => state.equipment) 
 
-        if (equipment.pending) get('/api/equipment/all', dispatch, setEquipment)
+        if (equipment.pending) cache('/api/equipment/all', dispatch, setEquipment)
         
         return equipment.values
-    },
-
-    useFaction: (id) => {
-        const dispatch = useDispatch()
-        const factions = useSelector(state => state.factions) 
-
-        if (factions.pending && !factions.values[id]) get(`/api/faction/${id}`, dispatch, setFaction)
-        
-        return factions.values[id]
     },
 
     useFactions: () => {
         const dispatch = useDispatch()
         const factions = useSelector(state => state.factions) 
 
-        if (factions.pending) get('/api/faction/all', dispatch, setFactions)
+        if (factions.pending) cache('/api/faction/all', dispatch, setFactions)
         
         return factions.values
+    },
+
+    useFactionEquipment: () => {
+        const dispatch = useDispatch()
+        const factionEquipment = useSelector(state => state.factionEquipment) 
+
+        if (factionEquipment.pending) cache('/api/faction/equipment/all', dispatch, setFactionEquipment)
+        
+        return factionEquipment.values
+    },
+
+    useFactionTroopTypes: () => {
+        const dispatch = useDispatch()
+        const factionTroopTypes = useSelector(state => state.factionTroopTypes) 
+
+        if (factionTroopTypes.pending) cache('/api/faction/troop-type/all', dispatch, setFactionTroopTypes)
+        
+        return factionTroopTypes.values
     },
 
     useKeywords: () => {
         const dispatch = useDispatch()
         const keywords = useSelector(state => state.keywords) 
 
-        if (keywords.pending) get('/api/keyword/all', dispatch, setKeywords)
+        if (keywords.pending) cache('/api/keyword/all', dispatch, setKeywords)
         
         return keywords.values
     },
@@ -56,18 +78,9 @@ export const { useEquipment, useFaction, useFactions, useKeywords, useTroopTypes
         const dispatch = useDispatch()
         const troopTypes = useSelector(state => state.troopTypes) 
 
-        if (troopTypes.pending) get('/api/troop-type/all', dispatch, setTroopTypes)
+        if (troopTypes.pending) cache('/api/troop-type/all', dispatch, setTroopTypes)
         
         return troopTypes.values
-    },
-
-    useWarband: (id) => {
-        const dispatch = useDispatch()
-        const warbands = useSelector(state => state.warbands)
-
-        if (warbands.pending && !warbands.values[id]) get(`/api/warband/${id}`, dispatch, setWarband)
-        
-        return warbands.values[id]
     },
 
     useWarbands: () => {

@@ -7,18 +7,13 @@ export const factionSlice = createSlice({
       values: {}
   },
   reducers: {
-        setFaction: (state, action) => {
-            state.values[action.payload.id] = action.payload
-        },
         setFactions: (state, action) => {
             state.pending = false
-            state.values = Object.fromEntries(
-                action.payload.map((faction) => [faction.id, faction])
-            )
+            state.values = action.payload
         }
     }
 })
 
-export const { setFaction, setFactions } = factionSlice.actions
+export const { setFactions } = factionSlice.actions
 
 export default factionSlice.reducer

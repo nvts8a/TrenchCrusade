@@ -4,10 +4,13 @@ export const warbandSlice = createSlice({
     name: 'warbands',
     initialState: {
         pending: true,
-        values: {}
+        values: {},
     },
     reducers: {
-        // Warband Slice
+        deleteWarbands: (state) => {
+            state.values = {}
+            state.pending = true
+        },
         deleteWarband: (state, action) => {
             delete state.values[action.payload]
         },
@@ -19,13 +22,10 @@ export const warbandSlice = createSlice({
             state.values = Object.fromEntries(
                 action.payload.map((warband) => [warband.id, warband])
             )
-        },
-        // Roster Slice
-        deleteTroop: () => {},
-        // Equipment Slice
+        }
     }
 })
 
-export const { deleteWarband, setWarband, setWarbands } = warbandSlice.actions
+export const { deleteWarbands, deleteWarband, setWarband, setWarbands } = warbandSlice.actions
 
 export default warbandSlice.reducer

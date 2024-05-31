@@ -47,7 +47,7 @@ public class SessionService {
 
     public void authorizeUserBy(String authorizationToken, Warband warband) throws ResponseStatusException {
         UserDetailsImpl userDetails = loadUserBy(authorizationToken);
-        if (!userDetails.getUser().getId().equals(warband.getUser().getId()))
+        if (!userDetails.getUser().getId().equals(warband.getUserId()))
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 }

@@ -9,9 +9,7 @@ export const troopTypeSlice = createSlice({
   reducers: {
         setTroopTypes: (state, action) => {
             state.pending = false
-            state.values = Object.fromEntries(
-                action.payload.map((troopType) => [troopType.id, troopType])
-            )
+            state.values = action.payload
         }
     }
 })

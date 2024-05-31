@@ -4,28 +4,22 @@ import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion'
 import RosterTroopRow from './_rosterTroopRow'
 
-export default function AddNewTroop({warband, createTroop}) {
+export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, createTroop}) {
     const [show, setShow] = useState(false)
     const handleClose     = () => setShow(false)
     const handleShow      = () => setShow(true)
-    
+
     const renderTroopTypes = (factionTroopTypes) => {
-        return(factionTroopTypes.map((factionTroopType) => {
-            const troopType = factionTroopType.troopType
-            const handleCreate = (create, close) => {
-                create()
-                close()
-            }
+        return(Object.values(factionTroopTypes).map((factionTroopType) => {
+            const troopType = troopTypes[factionTroopType.troopTypeId]
+
             return(
-                <Accordion.Item eventKey={factionTroopType.id}>
+                <Accordion.Item key={factionTroopType.id} eventKey={factionTroopType.id}>
                     <Accordion.Header>
-                        <div className='row'>
-                            <div className='col-10'>{troopType.name}</div>
-                            <div className='col-2 icon-link icon-link-hover'
-                                    onClick>
-                                <i className='bi bi-person-fill-add'></i>
-                            </div>
-                        </div>
+                            <span className='icon-link icon-link-hover' onClick={createTroop(factionTroopType, troopTypes[factionTroopType.troopTypeId])}>
+                                <i className='bi bi-plus-circle'></i>
+                            </span>
+                            <span className='ms-3'>{troopType.name}</span>
                     </Accordion.Header>
                     <Accordion.Body>
                         {renderAddTroopTypeCard(factionTroopType)}
@@ -49,7 +43,7 @@ export default function AddNewTroop({warband, createTroop}) {
                 </tr>
             </thead>
             <tbody>
-                <RosterTroopRow recruitment='true' factionTroopType={factionTroopType} />
+                <RosterTroopRow recruitment='true' troopType={troopTypes[factionTroopType.troopTypeId]} key={factionTroopType.id}/>
             </tbody>
         </table>
         )
@@ -63,7 +57,7 @@ export default function AddNewTroop({warband, createTroop}) {
             </Modal.Header>
             <Modal.Body>
                 <Accordion>
-                    {renderTroopTypes(warband.faction.factionTroopTypes)}
+                    {renderTroopTypes(allFactionTroopTypes[warband.factionId])}
                 </Accordion>
             </Modal.Body>
         </Modal>

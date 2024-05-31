@@ -15,17 +15,15 @@ import java.util.Optional;
 @RequestMapping(path="/warband")
 public class WarbandController {
     @Autowired
-    private FactionRepository factionRepository;
-
-    @Autowired
     private SessionService sessionService;
 
     @Autowired
     private WarbandRepository warbandRepository;
 
     @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Warband> all() {
-        return warbandRepository.findAll();
+    public @ResponseBody Iterable<Warband> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken) {
+        UserDetailsImpl userDetails = sessionService.loadUserBy(authorizationToken);
+        return warbandRepository.findAllByUser(userDetails.getUser());
     }
 
     @GetMapping(path = "/{id}")
@@ -46,7 +44,7 @@ public class WarbandController {
         warband.setGlory(0);
         warband.setName("New Warband");
 
-        return warbandRepository.save(warband.getWarband());
+        return warbandRepository.save(warband.build());
     }
 
     @DeleteMapping("/{id}")

@@ -1,10 +1,7 @@
-import { useFactions } from '../../../store/loaders'
+import { useFactions, useFactionTroopTypes } from '../../../store/loaders'
 import RosterTroopRow from './_rosterTroopRow'
 
-export default function TroopDetails({warband, createTroop, removeTroop}) {
-    const factions = useFactions()
-    const troopTypes = (id) => factions[id] ? factions[id].factionTroopTypes : []
-
+export default function TroopDetails({warband, troops, removeTroop}) {
     /**
      * 
      * @returns 
@@ -12,11 +9,11 @@ export default function TroopDetails({warband, createTroop, removeTroop}) {
     const renderTroops = (filter) => {
         const renderRows = () => {
             return(
-                warband.troops
+                troops
                 .map((troop) => {
                     return({ 
                         troop: troop,
-                        factionTroopType: troopTypes(warband.faction.id).find((type) => type.id === troop.troopType.id) 
+                        //factionTroopType: factionTroopTypes(warband.faction.id).find((type) => type.id === troop.troopType.id) 
                     })
                 })
                 .filter((troop) => troop.factionTroopType.type === filter)

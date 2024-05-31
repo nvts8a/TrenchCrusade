@@ -2,9 +2,7 @@ import Keyword from '../../../components/_keyword';
 import Rules from '../../../components/_rules';
 import EquipmentRow from '../../../components/_equipmentRow';
 
-export default function RosterTroopRow({factionTroopType, handleDelete, recruitment=false}) {
-    const troopType = factionTroopType.troopType
-
+export default function RosterTroopRow({factionTroopType, troopType, handleDelete, recruitment=false}) {
     const fMovement = `${troopType.movement}"/${troopType.movementType}`
     const fRanged   = troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const fMelee    = troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
@@ -53,7 +51,7 @@ export default function RosterTroopRow({factionTroopType, handleDelete, recruitm
 
     const troopEquipment = (equipment) => {
         if (equipment.length > 0) {
-            const equipped = () => equipment.map((equipable) => <EquipmentRow recruitment={recruitment} equipable={equipable} />)
+            const equipped = () => equipment.map((equipable) => <EquipmentRow recruitment={recruitment} equipable={equipable} key={equipable.id} />)
             const spacer = () => {
                 if (!recruitment) return(<td className='table-dark'></td>)
             }
