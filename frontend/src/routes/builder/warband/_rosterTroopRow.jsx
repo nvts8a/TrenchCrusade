@@ -2,10 +2,36 @@ import Keyword from '../../../components/_keyword';
 import Rules from '../../../components/_rules';
 import EquipmentRow from '../../../components/_equipmentRow';
 
-export default function RosterTroopRow({factionTroopType, troopType, handleDelete, recruitment=false}) {
+export default function RosterTroopRow({troop, factionTroopType, troopType, handleDelete, recruitment=false}) {
     const fMovement = `${troopType.movement}"/${troopType.movementType}`
     const fRanged   = troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const fMelee    = troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
+
+    const formatArmor = () => {
+        let armor = troopType.armour
+
+        if(troop && troop.equipment) {
+            troop.equipment
+            .filter((equipable) => equipable.type === 'armor')
+            .forEach(equipable => {
+                if(equipable.modifiers) equipable.modifiers.forEach((modifier) => {
+                    if(modifier.type === 'armor') armor = armor + modifier.value
+                })
+            })
+        }
+
+        if(troopType && troopType.equipment) {
+            troopType.equipment
+            .filter((equipable) => equipable.type === 'armor')
+            .forEach(equipable => {
+                if(equipable.modifiers) equipable.modifiers.forEach((modifier) => {
+                    if(modifier.type === 'armor') armor = armor + modifier.value
+                })
+            })
+        }
+        
+        return armor
+    }
 
     const formatKeywords = (keywords) => {
         if (keywords.length > 0) return keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
@@ -34,7 +60,7 @@ export default function RosterTroopRow({factionTroopType, troopType, handleDelet
                 <td>{fMovement}</td>
                 <td>{fRanged}</td>
                 <td>{fMelee}</td>
-                <td>{troopType.armour}</td>
+                <td>{formatArmor()}</td>
                 <td>{formatKeywords(troopType.keywords)}</td>
             </tr>
         )

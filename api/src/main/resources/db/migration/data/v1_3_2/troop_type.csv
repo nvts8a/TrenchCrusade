@@ -4,7 +4,7 @@ id,name,movement,movement_type,range,melee,armour,base_size,description
 3,Chorister,6,Infantry,-2,2,0,32,
 4,Heretic Trooper,6,Infantry,0,0,0,25,
 5,Anointed Heavy Infantry,6,Infantry,1,1,0,32,
-6,War Wolf Assualt Beast,8,Infantry,,3,0,50,
+6,War Wolf Assualt Beast,8,Infantry,,0,0,50,
 7,Artillery Witch,6,Infantry,0,-1,0,25,
 8,War Prophet,6,Infantry,2,2,0,32,
 9,Castigator,6,Infantry,1,1,0,32,
