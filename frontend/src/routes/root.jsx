@@ -17,7 +17,7 @@ export default function Root() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
         navigate('/builder/warband/all', { replace: true })
       }
-    }, [])
+    }, [navigate])
 
     const authenticate = () => {
       axios.patch('/api/user', { 
@@ -83,12 +83,12 @@ export default function Root() {
             </button>
           </div>
           <div className='row justify-content-center mt-1 mx-1'>
-            <button onClick={register} type='button' className={`${isLogin ? 'd-none' : ''} ${!password || (password != passwordConfirm)? 'disabled' : ''} btn btn-danger w-25`}>
+            <button onClick={register} type='button' className={`${isLogin ? 'd-none' : ''} ${!password || (password !== passwordConfirm)? 'disabled' : ''} btn btn-danger w-25`}>
               Register
             </button>
           </div>
           <div className='row text-center'>
-            <a href='#' onClick={toggleLogin}>or {isLogin ? 'Register' : 'Login'}</a>
+            <a href={`/#${isLogin ? 'Register' : 'Login'}`} onClick={toggleLogin}>or {isLogin ? 'Register' : 'Login'}</a>
           </div>
           <Alert message={alertMessage} show={alertShow} setShow={setAlertShow}/>
       </div>

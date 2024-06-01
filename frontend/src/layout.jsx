@@ -20,7 +20,7 @@ const Layout =({children}) => {
 
     useEffect(() => {
         if (!loggedIn()) navigate('/', { replace: true })
-    }, [])
+    }, [navigate])
 
     const renderNavItems = () => {
         if (loggedIn()) {

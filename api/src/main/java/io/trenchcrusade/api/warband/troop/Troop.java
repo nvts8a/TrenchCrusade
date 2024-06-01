@@ -1,6 +1,7 @@
 package io.trenchcrusade.api.warband.troop;
 
 import io.trenchcrusade.api.rule.equipment.Equipment;
+import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
 import io.trenchcrusade.api.rule.troop_type.TroopType;
 import io.trenchcrusade.api.warband.Warband;
 import jakarta.persistence.*;
@@ -29,6 +30,16 @@ public class Troop {
     }
     public void setTroopType(TroopType troopType) {
         this.troopType = troopType;
+    }
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "faction_troop_type_id")
+    private FactionTroopType factionTroopType;
+    public Long getFactionTroopTypeId() {
+        return factionTroopType.getId();
+    }
+    public void setFactionTroopType(FactionTroopType factionTroopType) {
+        this.factionTroopType = factionTroopType;
     }
 
     @ManyToOne(optional = false)

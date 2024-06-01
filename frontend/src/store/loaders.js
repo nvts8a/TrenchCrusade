@@ -8,8 +8,6 @@ import { setFactionEquipment } from './_factionEquipmentSlice'
 import { setFactionTroopTypes } from './_factionTroopType'
 import { setTroopTypes } from './_troopTypeSlice'
 
-console.log(axios.defaults.headers.common['Authorization'])
-
 const get = (uri, dispatch, set) => {
     axios(uri)
     .then((response) => dispatch(set(response.data)))

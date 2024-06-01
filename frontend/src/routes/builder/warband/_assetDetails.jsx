@@ -29,7 +29,7 @@ export default function AssetDetails({warband, updateWarband}) {
                         
                     </div>
                 </div>
-                <div key='test' className='col'>
+                <div key='test' className='col d-none'>
                     <h5 className='font-english-towne'>Armory</h5>
                     <div className=''>Standard Armor</div>
                     <div className=''>Iron Capirote</div>

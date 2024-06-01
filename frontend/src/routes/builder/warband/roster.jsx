@@ -7,7 +7,7 @@ import PageLayout from '../../../components/_pageLayout';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { setWarband } from '../../../store/_warbandSlice'
-import { useFactionEquipment, useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
+import { useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
 import FactionDetails from './_factionDetails';
 import AssetDetails from './_assetDetails';
 import TroopDetails from './_troopDetails';
@@ -21,16 +21,16 @@ export default function Roster() {
 
     const troopTypes = useTroopTypes()
     const factions = useFactions()
-    const factionEquipment = useFactionEquipment()
     const factionTroopTypes = useFactionTroopTypes()
 
-    const [troops,  setTroops]  = useState([])
+    const [troops, setTroops]  = useState([])
+    
     // Troops is always loaded and kept exclusively on this page
     useEffect(() => {
         axios(`/api/warband/${params.id}/troop/all`)
         .then((response) => setTroops(response.data))
         .catch((err)     => console.log(err.message))
-    }, [])
+    }, [params])
 
 
     if (!warbands[params.id]) return(<></>)
@@ -50,11 +50,14 @@ export default function Roster() {
     const createTroop = (factionTroopType, troopType) => (event) => {
         event.preventDefault()
         axios.post(`/api/warband/${params.id}/troop`, {
-            'warband':   { id: warband.id },
-            'troopType': troopType, 
-            'name':      troopType.name
+            'factionTroopType': factionTroopType,
+            'troopType':        troopType, 
+            'name':             troopType.name
         })
-        .then(() => updateWarband({ target: { id: 'ducats', value: warband.ducats - factionTroopType.cost }}))
+        .then((response) => {
+            updateWarband({ target: { id: 'ducats', value: warband.ducats - factionTroopType.cost }})
+            setTroops(troops.concat(response.data))
+        })
         .catch((err) => console.log(err.message))
     }
 

@@ -1,8 +1,6 @@
 export default function FactionDetails({warband, factions, updateWarband}) {
     const renderVariants = (warband, factions) => {
-        let defaultValue = 0
         const variantOptions = factions[warband.factionId].variants.map((variant) => {
-            if (warband.variant && warband.variant.id === variant.id) defaultValue = variant.id
             return(<option value={variant.id} key={variant.id}>{variant.name}</option>)
         })
 

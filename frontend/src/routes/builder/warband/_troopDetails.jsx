@@ -1,35 +1,34 @@
-import { useFactions, useFactionTroopTypes } from '../../../store/loaders'
+import { useFactionTroopTypes, useTroopTypes } from '../../../store/loaders'
 import RosterTroopRow from './_rosterTroopRow'
 
 export default function TroopDetails({warband, troops, removeTroop}) {
-    /**
-     * 
-     * @returns 
-     */
-    const renderTroops = (filter) => {
+    const troopTypes = useTroopTypes()
+    const factionTroopTypes = useFactionTroopTypes()
+    
+    const renderTroops = (troops, filter) => {
+        const filteredTroops = troops.filter((troop) => factionTroopTypes[warband.factionId][troop.factionTroopTypeId].type === filter)
+
+        if (filteredTroops.length < 1) return(<></>)
+
         const renderRows = () => {
             return(
-                troops
-                .map((troop) => {
-                    return({ 
-                        troop: troop,
-                        //factionTroopType: factionTroopTypes(warband.faction.id).find((type) => type.id === troop.troopType.id) 
-                    })
-                })
-                .filter((troop) => troop.factionTroopType.type === filter)
-                .map((troop) => {
-                    return(<RosterTroopRow
-                        factionTroopType={troop.factionTroopType}
-                        troop={troop.troop}
-                        warband={warband}
-                        handleDelete={removeTroop(troop.troop, troop.factionTroopType)}
-                        key={troop.troop.id} />)
+                filteredTroops.map((troop) => {
+                    return(
+                        <RosterTroopRow
+                            troop={troop}
+                            troopType={troopTypes[troop.troopTypeId]}
+                            factionTroopType={factionTroopTypes[warband.factionId][troop.factionTroopTypeId]}
+                            warband={warband}
+                            handleDelete={removeTroop(troop, factionTroopTypes[warband.factionId][troop.factionTroopTypeId])}
+                            key={troop.id} />
+                    )
                 })
             )
         }
 
         return(
             <div className='row'>
+                <h5 className='display-5 font-english-towne text-danger'>{filter.charAt(0).toUpperCase() + filter.slice(1)}</h5>
                 <table className='table mb-3 table-borderless'>
                     <thead>
                         <tr className='table-danger'>
@@ -51,10 +50,8 @@ export default function TroopDetails({warband, troops, removeTroop}) {
 
     return(
         <div className='mt-5'>
-            <h5 className='display-5 font-english-towne text-danger'>Elite</h5>
-            {renderTroops('elite')}
-            <h5 className='display-5 font-english-towne text-danger'>Troop</h5>
-            {renderTroops('troop')}
+            {renderTroops(troops, 'elite')}
+            {renderTroops(troops, 'troop')}
         </div>
     )
 }
