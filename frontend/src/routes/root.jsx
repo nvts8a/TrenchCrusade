@@ -20,7 +20,7 @@ export default function Root() {
     }, [navigate])
 
     const authenticate = () => {
-      axios.patch('/api/user', { 
+      axios.patch('/user', { 
           username:  username, 
           password:  password
       })
@@ -37,7 +37,7 @@ export default function Root() {
     }
 
     const register = () => {
-      axios.post('/api/user', { 
+      axios.post('/user', { 
           username:  username, 
           password:  password
       })
@@ -88,7 +88,7 @@ export default function Root() {
             </button>
           </div>
           <div className='row text-center'>
-            <a href={`/#${isLogin ? 'Register' : 'Login'}`} onClick={toggleLogin}>or {isLogin ? 'Register' : 'Login'}</a>
+            <a href={`/#${isLogin ? 'register' : 'login'}`} onClick={toggleLogin}>or {isLogin ? 'Register' : 'Login'}</a>
           </div>
           <Alert message={alertMessage} show={alertShow} setShow={setAlertShow}/>
       </div>

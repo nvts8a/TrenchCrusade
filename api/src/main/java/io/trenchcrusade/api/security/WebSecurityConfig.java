@@ -53,7 +53,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain configure(HttpSecurity http, SessionService sessionService) throws Exception {
+    public SecurityFilterChain configure(HttpSecurity http, SessionService sessionService) throws Exception {
         http    .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/user").permitAll()

@@ -38,7 +38,7 @@ export const {  createWarband, removeWarband, updateWarband,
     // WARBAND EQUIPMENT
 
     createEquipment: (warband, dispatch, equipment, updateWarband, addWarbandEquipment) => (factionEquipable) => {
-        axios.post(`/api/warband/${warband.id}/equipment`, {
+        axios.post(`/warband/${warband.id}/equipment`, {
             'factionEquipment': factionEquipable,
             'equipment':        equipment
         })
@@ -53,7 +53,7 @@ export const {  createWarband, removeWarband, updateWarband,
         const removed = findAndremoveWarbandEquipment(factionEquipable)
 
         if (removed) {
-            axios.delete(`/api/warband/${warband.id}/equipment/${removed.id}`)
+            axios.delete(`/warband/${warband.id}/equipment/${removed.id}`)
             .then(() => {
                 updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats + factionEquipable.cost}})
             })
@@ -64,7 +64,7 @@ export const {  createWarband, removeWarband, updateWarband,
     // WARBAND TROOPS
 
     createTroop: (warband, dispatch, addTroop) => (factionTroopType, troopType) => {
-        axios.post(`/api/warband/${warband.id}/troop`, {
+        axios.post(`/warband/${warband.id}/troop`, {
             'factionTroopType': factionTroopType,
             'troopType':        troopType, 
             'name':             troopType.name
@@ -77,7 +77,7 @@ export const {  createWarband, removeWarband, updateWarband,
     },
 
     removeTroop: (warband, dispatch, removeTroop) => (troopRemoved, factionTroopType) => () => {
-        axios.delete(`/api/warband/${warband.id}/troop/${troopRemoved.id}`)
+        axios.delete(`/warband/${warband.id}/troop/${troopRemoved.id}`)
         .then(() => {
             updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats + factionTroopType.cost }})
             removeTroop(troopRemoved)
