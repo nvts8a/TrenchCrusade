@@ -28,7 +28,7 @@ import './index.css'
 
 // API AND AUTH
 import axios from 'axios'
-//axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = window.location.origin.split('www').join('api') + '/api'
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
 
 const router = createBrowserRouter([

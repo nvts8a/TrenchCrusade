@@ -6,12 +6,12 @@ import PageLayout from '../../../components/_pageLayout';
 // REDUX
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { setWarband } from '../../../store/_warbandSlice'
 import { useEquipment, useFactionEquipment, useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
 import WarbandFaction from './_warbandFaction';
 import WarbandAssets from './_warbandAssets';
 import WarbandTroops from './_warbandTroops';
 import AddNewTroop from './_addNewTroop';
+import { updateWarband, createEquipment, removeEquipment, createTroop, removeTroop } from '../_builderActions';
 
 export default function Roster() {
     const dispatch = useDispatch()
@@ -25,8 +25,22 @@ export default function Roster() {
     const factionTroopTypes = useFactionTroopTypes()
 
     const [troops, setTroops]  = useState([])
+    const addTroop = (troop) => {
+        setTroops(troops.concat(troop))
+    }
+    const findAndRemoveTroop = (troopRemoved) => {
+        troops.splice(troops.findIndex((troop) => troop.id === troopRemoved.id), 1)
+    }
+
     const [warbandEquipment, setWarbandEquipment]  = useState([])
-    
+    const addWarbandEquipable = (equipable) => {
+        setWarbandEquipment(warbandEquipment.concat(equipable))
+    }
+    const findAndRemoveWarbandEquipable = (factionEquipable) => {
+        const equipmentRemovedIndex = warbandEquipment.findIndex((warbandEquipable) => warbandEquipable.equipmentId === factionEquipable.equipmentId)
+        if (equipmentRemovedIndex > 0) return warbandEquipment.splice(equipmentRemovedIndex, 1)
+    }
+
     // Troops is always loaded and kept exclusively on this page
     useEffect(() => {
         axios(`/api/warband/${params.id}/troop/all`)
@@ -42,62 +56,6 @@ export default function Roster() {
     if (!troops)              return(<></>)
 
     const warband = warbands[params.id]
-
-    const updateWarband = (event) => {
-        let updates = {}
-        updates[event.target.id] = event.target.value
-
-        axios.patch(`/api/warband/${params.id}`, updates)
-        .then((response) => dispatch(setWarband(response.data)))
-        .catch((err) => console.log(err.message))
-    }
-
-    const createEquipment = (factionEquipment, equipment) => () => {
-        axios.post(`/api/warband/${params.id}/equipment`, {
-            'factionEquipment': factionEquipment,
-            'equipment':        equipment
-        })
-        .then((response) => {
-            updateWarband({ target: { id: 'ducats', value: warband.ducats - factionEquipment.cost }})
-            setWarbandEquipment(warbandEquipment.concat(response.data))
-        })
-        .catch((err) => console.log(err.message))
-    }
-
-    const removeEquipment = (factionEquipment, equipment) => () => {
-        const equipmentRemovedIndex = warbandEquipment.findIndex((equipable) => equipable.equipmentId === equipment.id)
-
-        if (equipmentRemovedIndex > 0) {
-            axios.delete(`/api/warband/${params.id}/equipment/${warbandEquipment[equipmentRemovedIndex].id}`)
-            .then(() => {
-                updateWarband({ target: { id: 'ducats', value: warband.ducats + factionEquipment.cost}})
-                warbandEquipment.splice(equipmentRemovedIndex, 1)
-            })
-            .catch((err) => console.log(err.message))
-        }
-    }
-
-    const createTroop = (factionTroopType, troopType) => () => {
-        axios.post(`/api/warband/${params.id}/troop`, {
-            'factionTroopType': factionTroopType,
-            'troopType':        troopType, 
-            'name':             troopType.name
-        })
-        .then((response) => {
-            updateWarband({ target: { id: 'ducats', value: warband.ducats - factionTroopType.cost }})
-            setTroops(troops.concat(response.data))
-        })
-        .catch((err) => console.log(err.message))
-    }
-
-    const removeTroop = (troopRemoved, factionTroopType) => () => {
-        axios.delete(`/api/warband/${params.id}/troop/${troopRemoved.id}`)
-        .then(() => {
-            updateWarband({ target: { id: 'ducats', value: warband.ducats + factionTroopType.cost }})
-            troops.splice(troops.findIndex((troop) => troop.id === troopRemoved.id), 1)
-        })
-        .catch((err) => console.log(err.message))
-    }
     
     if (warband) {
         return(
@@ -106,30 +64,30 @@ export default function Roster() {
                     <div className='input-group mb-3'>
                         <span className='input-group-text font-english-towne' id='basic-addon1'>Warband Name</span>
                         <input type='text' className='form-control' placeholder='Warband Name' aria-label='Warband Name' aria-describedby='basic-addon2'
-                            id='name' defaultValue={warband.name} onInput={updateWarband}/>
+                            id='name' defaultValue={warband.name} onInput={updateWarband(params.id, dispatch)}/>
                     </div>
                 </div>
     
                 <WarbandFaction warband={warband}
                                 factions={factions}
-                                updateWarband={updateWarband} />
+                                updateWarband={updateWarband(params.id, dispatch)} />
 
                 <WarbandAssets  warband={warband}
                                 warbandEquipment={warbandEquipment}
                                 equipment={equipment}
                                 allFactionEquipment={factionEquipment}
-                                updateWarband={updateWarband}
-                                createEquipment={createEquipment} 
-                                removeEquipment={removeEquipment} />
+                                updateWarband={updateWarband(params.id, dispatch)}
+                                createEquipment={createEquipment(warband, dispatch, factionEquipment, updateWarband, addWarbandEquipable)} 
+                                removeEquipment={removeEquipment(warband, dispatch, factionEquipment, updateWarband, findAndRemoveWarbandEquipable)} />
 
-                <WarbandTroops   warband={warband}
+                <WarbandTroops  warband={warband}
                                 troops={troops}
-                                removeTroop={removeTroop} />
+                                removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)} />
 
                 <AddNewTroop    warband={warband}
                                 allFactionTroopTypes={factionTroopTypes}
                                 troopTypes={troopTypes}
-                                createTroop={createTroop}/>
+                                createTroop={createTroop(warband, dispatch, addTroop)}/>
 
             </PageLayout>
             )

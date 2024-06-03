@@ -1,43 +1,25 @@
 // REACT
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/_pageLayout';
 
 // REDUX
-import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { deleteWarband, setWarband } from '../../store/_warbandSlice'
 import { useFactions, useWarbands } from '../../store/loaders';
+import { createWarband, removeWarband } from './_builderActions';
 
 export default function Warband() {
     const dispatch = useDispatch()
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+
     const factions = useFactions()
     const warbands = useWarbands()
-
-    const createWarband = (faction) => {
-        axios.post('/api/warband', { 
-            'factionId': faction.id
-        })
-        .then((response) => {
-            dispatch(setWarband(response.data))
-            navigate(`/builder/warband/${response.data.id}/roster`, { replace: true })
-        })
-        .catch((err) => console.log(err.message))
-    }
-
-    const removeWarband = (warbandId) => {
-        axios.delete(`/api/warband/${warbandId}`)
-        .then((response) => dispatch(deleteWarband(response.data)))
-        .catch((err)     => console.log(err.message))
-    }
 
     const renderWarbands = () => {
         return Object.values(warbands).map((warband) => {
             return(
                 <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`} key={warband.id}>
                     <li className='list-group-item col-10'><Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link></li>
-                    <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={() => removeWarband(warband.id)}><i className='bi bi-trash-fill'></i></div></li>
+                    <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={() => removeWarband(warband.id, dispatch)}><i className='bi bi-trash-fill'></i></div></li>
                 </ul>
             )
         })
@@ -61,7 +43,7 @@ export default function Warband() {
     const renderFactionDropdownItems = () => {
         return Object.values(factions).map((faction) => {
             return(
-                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={() => createWarband(faction)}>{faction.name}</li>
+                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={() => createWarband(faction, dispatch, navigate)}>{faction.name}</li>
             );
         })
     }
