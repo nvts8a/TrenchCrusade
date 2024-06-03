@@ -1,7 +1,7 @@
 import { useFactionTroopTypes, useTroopTypes } from '../../../store/loaders'
 import RosterTroopRow from './_rosterTroopRow'
 
-export default function TroopDetails({warband, troops, removeTroop}) {
+export default function WarbandTroops({warband, troops, removeTroop}) {
     const troopTypes = useTroopTypes()
     const factionTroopTypes = useFactionTroopTypes()
     

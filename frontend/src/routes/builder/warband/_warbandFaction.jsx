@@ -1,4 +1,4 @@
-export default function FactionDetails({warband, factions, updateWarband}) {
+export default function WarbandFaction({warband, factions, updateWarband}) {
     const renderVariants = (warband, factions) => {
         const variantOptions = factions[warband.factionId].variants.map((variant) => {
             return(<option value={variant.id} key={variant.id}>{variant.name}</option>)

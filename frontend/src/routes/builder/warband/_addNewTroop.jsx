@@ -33,7 +33,7 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
                         </span>
                         <CustomToggle eventKey={factionTroopType.id}>{troopType.name}</CustomToggle>
                         <span>
-                            {factionTroopType.cost}  {factionTroopType.currency ? factionTroopType.currency : 'ducats'}
+                            {factionTroopType.cost} {factionTroopType.currency ? factionTroopType.currency : 'ducats'}
                         </span>
                     </Card.Header>
                     <Accordion.Collapse eventKey={factionTroopType.id}>

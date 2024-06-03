@@ -39,7 +39,7 @@ export default function Warband() {
                     <li className='list-group-item col-10'><Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link></li>
                     <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={() => removeWarband(warband.id)}><i className='bi bi-trash-fill'></i></div></li>
                 </ul>
-            );
+            )
         })
     }
 

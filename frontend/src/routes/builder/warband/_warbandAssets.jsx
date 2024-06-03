@@ -1,4 +1,6 @@
-export default function AssetDetails({warband, updateWarband}) {
+import AddNewEquipment from "./_addNewEquipment";
+
+export default function AssetDetails({warband, warbandEquipment, updateWarband, equipment, allFactionEquipment, createEquipment, removeEquipment}) {
 
     return(
         <>
@@ -29,13 +31,10 @@ export default function AssetDetails({warband, updateWarband}) {
                         
                     </div>
                 </div>
-                <div key='test' className='col d-none'>
-                    <h5 className='font-english-towne'>Armory</h5>
-                    <div className=''>Standard Armor</div>
-                    <div className=''>Iron Capirote</div>
-                    <div className=''>Misericordia</div>
-                    <div className=''>Anti-Tank Hammer</div>
-                    <div className=''>Martyrdom Pills</div>
+                <div key='test' className='col'>
+                    <AddNewEquipment warband={warband} warbandEquipment={warbandEquipment}
+                        equipment={equipment} allFactionEquipment={allFactionEquipment}
+                        createEquipment={createEquipment} removeEquipment={removeEquipment}/>
                 </div>
             </div>
         </>

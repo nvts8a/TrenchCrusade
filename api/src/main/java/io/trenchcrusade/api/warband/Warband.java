@@ -5,6 +5,7 @@ import io.trenchcrusade.api.security.User;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.rule.faction.Faction;
 import io.trenchcrusade.api.rule.faction.FactionVariant;
+import io.trenchcrusade.api.warband.equipment.WarbandEquipment;
 import io.trenchcrusade.api.warband.troop.Troop;
 import jakarta.persistence.*;
 
@@ -51,20 +52,19 @@ public class Warband {
         this.factionVariant = factionVariant;
     }
 
-    @ManyToMany
-    @JoinTable(name = "warband_equipment",
-            joinColumns = @JoinColumn(name = "warband_id"),
-            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
-    private Set<Equipment> equipment;
-    public Set<Equipment> getEquipment() {
-        return equipment;
-    }
+
 
     @ManyToMany
     @JoinTable(name = "warband_deed",
             joinColumns = @JoinColumn(name = "warband_id"),
             inverseJoinColumns = @JoinColumn(name = "deed_id"))
     private Set<Deed> deeds;
+
+    @OneToMany(
+            mappedBy = "warband",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<WarbandEquipment> warbandEquipment;
 
     @OneToMany(
             mappedBy = "warband",

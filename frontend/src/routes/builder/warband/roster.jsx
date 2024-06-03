@@ -7,28 +7,33 @@ import PageLayout from '../../../components/_pageLayout';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { setWarband } from '../../../store/_warbandSlice'
-import { useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
-import FactionDetails from './_factionDetails';
-import AssetDetails from './_assetDetails';
-import TroopDetails from './_troopDetails';
+import { useEquipment, useFactionEquipment, useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
+import WarbandFaction from './_warbandFaction';
+import WarbandAssets from './_warbandAssets';
+import WarbandTroops from './_warbandTroops';
 import AddNewTroop from './_addNewTroop';
-
 
 export default function Roster() {
     const dispatch = useDispatch()
     const params   = useParams()
     const warbands = useWarbands()
 
+    const equipment = useEquipment()
     const troopTypes = useTroopTypes()
     const factions = useFactions()
+    const factionEquipment = useFactionEquipment()
     const factionTroopTypes = useFactionTroopTypes()
 
     const [troops, setTroops]  = useState([])
+    const [warbandEquipment, setWarbandEquipment]  = useState([])
     
     // Troops is always loaded and kept exclusively on this page
     useEffect(() => {
         axios(`/api/warband/${params.id}/troop/all`)
         .then((response) => setTroops(response.data))
+        .catch((err)     => console.log(err.message))
+        axios(`/api/warband/${params.id}/equipment/all`)
+        .then((response) => setWarbandEquipment(response.data))
         .catch((err)     => console.log(err.message))
     }, [params])
 
@@ -47,8 +52,32 @@ export default function Roster() {
         .catch((err) => console.log(err.message))
     }
 
-    const createTroop = (factionTroopType, troopType) => (event) => {
-        event.preventDefault()
+    const createEquipment = (factionEquipment, equipment) => () => {
+        axios.post(`/api/warband/${params.id}/equipment`, {
+            'factionEquipment': factionEquipment,
+            'equipment':        equipment
+        })
+        .then((response) => {
+            updateWarband({ target: { id: 'ducats', value: warband.ducats - factionEquipment.cost }})
+            setWarbandEquipment(warbandEquipment.concat(response.data))
+        })
+        .catch((err) => console.log(err.message))
+    }
+
+    const removeEquipment = (factionEquipment, equipment) => () => {
+        const equipmentRemovedIndex = warbandEquipment.findIndex((equipable) => equipable.equipmentId === equipment.id)
+
+        if (equipmentRemovedIndex > 0) {
+            axios.delete(`/api/warband/${params.id}/equipment/${warbandEquipment[equipmentRemovedIndex].id}`)
+            .then(() => {
+                updateWarband({ target: { id: 'ducats', value: warband.ducats + factionEquipment.cost}})
+                warbandEquipment.splice(equipmentRemovedIndex, 1)
+            })
+            .catch((err) => console.log(err.message))
+        }
+    }
+
+    const createTroop = (factionTroopType, troopType) => () => {
         axios.post(`/api/warband/${params.id}/troop`, {
             'factionTroopType': factionTroopType,
             'troopType':        troopType, 
@@ -61,9 +90,12 @@ export default function Roster() {
         .catch((err) => console.log(err.message))
     }
 
-    const removeTroop = (troop, factionTroopType) => () => {
-        axios.delete(`/api/warband/${params.id}/troop/${troop.id}`)
-        .then(() => updateWarband({ target: { id: 'ducats', value: warband.ducats + factionTroopType.cost }}))
+    const removeTroop = (troopRemoved, factionTroopType) => () => {
+        axios.delete(`/api/warband/${params.id}/troop/${troopRemoved.id}`)
+        .then(() => {
+            updateWarband({ target: { id: 'ducats', value: warband.ducats + factionTroopType.cost }})
+            troops.splice(troops.findIndex((troop) => troop.id === troopRemoved.id), 1)
+        })
         .catch((err) => console.log(err.message))
     }
     
@@ -78,14 +110,19 @@ export default function Roster() {
                     </div>
                 </div>
     
-                <FactionDetails warband={warband}
+                <WarbandFaction warband={warband}
                                 factions={factions}
                                 updateWarband={updateWarband} />
 
-                <AssetDetails   warband={warband}
-                                updateWarband={updateWarband} />
+                <WarbandAssets  warband={warband}
+                                warbandEquipment={warbandEquipment}
+                                equipment={equipment}
+                                allFactionEquipment={factionEquipment}
+                                updateWarband={updateWarband}
+                                createEquipment={createEquipment} 
+                                removeEquipment={removeEquipment} />
 
-                <TroopDetails   warband={warband}
+                <WarbandTroops   warband={warband}
                                 troops={troops}
                                 removeTroop={removeTroop} />
 
