@@ -56,8 +56,8 @@ public class WebSecurityConfig {
     SecurityFilterChain configure(HttpSecurity http, SessionService sessionService) throws Exception {
         http    .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        //.requestMatchers("/user").permitAll()
-                        //.anyRequest().authenticated()
+                        .requestMatchers("/user").permitAll()
+                        .anyRequest().authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(configure -> configure
