@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(maxAge = 3600)
 @Controller
 @RequestMapping(path="/user")
 public class UserController {
@@ -24,7 +23,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @CrossOrigin("http://www.trenchcrusade.builders")
     @PostMapping("")
     public ResponseEntity<User> create(@RequestBody User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
