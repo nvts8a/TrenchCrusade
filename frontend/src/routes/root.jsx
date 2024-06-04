@@ -20,7 +20,7 @@ export default function Root() {
     }, [navigate])
 
     const authenticate = () => {
-      axios.patch('/user', { 
+      axios.patch('user', { 
           username:  username, 
           password:  password
       })
@@ -37,7 +37,7 @@ export default function Root() {
     }
 
     const register = () => {
-      axios.post('/user', { 
+      axios.post('user', { 
           username:  username, 
           password:  password
       })

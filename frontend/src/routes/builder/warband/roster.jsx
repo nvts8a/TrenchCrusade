@@ -26,10 +26,11 @@ export default function Roster() {
 
     const [troops, setTroops]  = useState([])
     const addTroop = (troop) => {
-        setTroops(troops.concat(troop))
+        dispatch(setTroops(troops.concat(troop)))
     }
     const findAndRemoveTroop = (troopRemoved) => {
         troops.splice(troops.findIndex((troop) => troop.id === troopRemoved.id), 1)
+        dispatch(setTroops(troops))
     }
 
     const [warbandEquipment, setWarbandEquipment]  = useState([])
@@ -38,15 +39,17 @@ export default function Roster() {
     }
     const findAndRemoveWarbandEquipable = (factionEquipable) => {
         const equipmentRemovedIndex = warbandEquipment.findIndex((warbandEquipable) => warbandEquipable.equipmentId === factionEquipable.equipmentId)
-        if (equipmentRemovedIndex > 0) return warbandEquipment.splice(equipmentRemovedIndex, 1)
+        
+        if (equipmentRemovedIndex > -1) return warbandEquipment.splice(equipmentRemovedIndex, 1)[0]
+        return false
     }
 
     // Troops is always loaded and kept exclusively on this page
     useEffect(() => {
-        axios(`/api/warband/${params.id}/troop/all`)
+        axios(`warband/${params.id}/troop/all`)
         .then((response) => setTroops(response.data))
         .catch((err)     => console.log(err.message))
-        axios(`/api/warband/${params.id}/equipment/all`)
+        axios(`warband/${params.id}/equipment/all`)
         .then((response) => setWarbandEquipment(response.data))
         .catch((err)     => console.log(err.message))
     }, [params])
@@ -77,8 +80,8 @@ export default function Roster() {
                                 equipment={equipment}
                                 allFactionEquipment={factionEquipment}
                                 updateWarband={updateWarband(params.id, dispatch)}
-                                createEquipment={createEquipment(warband, dispatch, factionEquipment, updateWarband, addWarbandEquipable)} 
-                                removeEquipment={removeEquipment(warband, dispatch, factionEquipment, updateWarband, findAndRemoveWarbandEquipable)} />
+                                createEquipment={createEquipment(warband, dispatch, updateWarband, addWarbandEquipable)} 
+                                removeEquipment={removeEquipment(warband, dispatch, updateWarband, findAndRemoveWarbandEquipable)} />
 
                 <WarbandTroops  warband={warband}
                                 troops={troops}

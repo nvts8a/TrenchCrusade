@@ -19,7 +19,7 @@ export default function Warband() {
             return(
                 <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`} key={warband.id}>
                     <li className='list-group-item col-10'><Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link></li>
-                    <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={() => removeWarband(warband.id, dispatch)}><i className='bi bi-trash-fill'></i></div></li>
+                    <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={removeWarband(warband.id, dispatch)}><i className='bi bi-trash-fill'></i></div></li>
                 </ul>
             )
         })
@@ -43,7 +43,7 @@ export default function Warband() {
     const renderFactionDropdownItems = () => {
         return Object.values(factions).map((faction) => {
             return(
-                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={() => createWarband(faction, dispatch, navigate)}>{faction.name}</li>
+                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={createWarband(faction, dispatch, navigate)}>{faction.name}</li>
             );
         })
     }

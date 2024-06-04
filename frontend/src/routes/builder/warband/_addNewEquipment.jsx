@@ -29,7 +29,7 @@ export default function AddNewEquipment({warband, warbandEquipment, equipment, a
             return(
                 <Card key={factionEquipable.id}>
                     <Card.Header className=''>
-                        <span className='icon-link icon-link-hover me-3' onClick={removeEquipment(factionEquipable, equipment[factionEquipable.equipmentId])}>
+                        <span className='icon-link icon-link-hover me-3' onClick={removeEquipment(factionEquipable)}>
                             <i className='bi bi-dash-circle'></i>
                         </span>
                         <span className='me-3'>

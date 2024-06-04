@@ -36,7 +36,7 @@ export const {  useFactions, useFactionEquipment, useFactionTroopTypes,
         const dispatch = useDispatch()
         const equipment = useSelector(state => state.equipment) 
 
-        if (equipment.pending) cache('/equipment/all', dispatch, setEquipment)
+        if (equipment.pending) cache('equipment/all', dispatch, setEquipment)
         
         return equipment.values
     },
@@ -45,7 +45,7 @@ export const {  useFactions, useFactionEquipment, useFactionTroopTypes,
         const dispatch = useDispatch()
         const factions = useSelector(state => state.factions) 
 
-        if (factions.pending) cache('/faction/all', dispatch, setFactions)
+        if (factions.pending) cache('faction/all', dispatch, setFactions)
         
         return factions.values
     },
@@ -54,7 +54,7 @@ export const {  useFactions, useFactionEquipment, useFactionTroopTypes,
         const dispatch = useDispatch()
         const factionEquipment = useSelector(state => state.factionEquipment) 
 
-        if (factionEquipment.pending) cache('/faction/equipment/all', dispatch, setFactionEquipment)
+        if (factionEquipment.pending) cache('faction/equipment/all', dispatch, setFactionEquipment)
         
         return factionEquipment.values
     },
@@ -63,7 +63,7 @@ export const {  useFactions, useFactionEquipment, useFactionTroopTypes,
         const dispatch = useDispatch()
         const factionTroopTypes = useSelector(state => state.factionTroopTypes) 
 
-        if (factionTroopTypes.pending) cache('/faction/troop-type/all', dispatch, setFactionTroopTypes)
+        if (factionTroopTypes.pending) cache('faction/troop-type/all', dispatch, setFactionTroopTypes)
         
         return factionTroopTypes.values
     },
@@ -72,7 +72,7 @@ export const {  useFactions, useFactionEquipment, useFactionTroopTypes,
         const dispatch = useDispatch()
         const keywords = useSelector(state => state.keywords) 
 
-        if (keywords.pending) cache('/keyword/all', dispatch, setKeywords)
+        if (keywords.pending) cache('keyword/all', dispatch, setKeywords)
         
         return keywords.values
     },
@@ -81,7 +81,7 @@ export const {  useFactions, useFactionEquipment, useFactionTroopTypes,
         const dispatch = useDispatch()
         const troopTypes = useSelector(state => state.troopTypes) 
 
-        if (troopTypes.pending) cache('/troop-type/all', dispatch, setTroopTypes)
+        if (troopTypes.pending) cache('troop-type/all', dispatch, setTroopTypes)
         
         return troopTypes.values
     },
@@ -90,7 +90,7 @@ export const {  useFactions, useFactionEquipment, useFactionTroopTypes,
         const dispatch = useDispatch()
         const warbands = useSelector(state => state.warbands) 
 
-        if (warbands.pending) get('/warband/all', dispatch, setWarbands)
+        if (warbands.pending) get('warband/all', dispatch, setWarbands)
 
         return warbands.values
     }
