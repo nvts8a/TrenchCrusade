@@ -52,7 +52,7 @@ public class WarbandController {
         return String.valueOf(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public @ResponseBody Warband patch(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                        @PathVariable("id") Long id,
                                        @RequestBody WarbandDto warbandDto) {

@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok().headers(headers).body(user);
     }
 
-    @PatchMapping("")
+    @PutMapping("")
     public ResponseEntity<User>  login(@RequestBody User login) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
 

@@ -29,7 +29,7 @@ export const {  createWarband, removeWarband, updateWarband,
         let updates = {}
         updates[event.target.id] = event.target.value
 
-        axios.patch(`warband/${warbandId}`, updates)
+        axios.put(`warband/${warbandId}`, updates)
         .then((response) => dispatch(setWarband(response.data)))
         .catch((err) => console.log(err.message))
     },
