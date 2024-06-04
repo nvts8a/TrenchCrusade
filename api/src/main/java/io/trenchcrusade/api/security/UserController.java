@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@CrossOrigin("http://www.trenchcrusade.builders")
 @RequestMapping(path="/user")
 public class UserController {
     @Autowired
