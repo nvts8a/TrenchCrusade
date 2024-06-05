@@ -1,0 +1,3 @@
+# CONNECT TO RDS
+psql -h rpg.cn20sa602to3.us-east-2.rds.amazonaws.com -p 5432 -U postgres
+
