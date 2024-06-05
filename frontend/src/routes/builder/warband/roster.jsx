@@ -62,7 +62,7 @@ export default function Roster() {
     
     if (warband) {
         return(
-            <PageLayout pageName='Warband Roster'>
+            <PageLayout pageName='Roster'>
                 <div className='row'>
                     <div className='input-group mb-3'>
                         <span className='input-group-text font-english-towne' id='basic-addon1'>Warband Name</span>

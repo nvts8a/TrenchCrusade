@@ -17,26 +17,29 @@ export default function Warband() {
     const renderWarbands = () => {
         return Object.values(warbands).map((warband) => {
             return(
-                <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`} key={warband.id}>
-                    <li className='list-group-item col-10'><Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link></li>
-                    <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={removeWarband(warband.id, dispatch)}><i className='bi bi-trash-fill'></i></div></li>
-                </ul>
+                <div className='row justify-content-center'>
+                    <div className='col-sm-12 col-md-3'>
+                        <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`} key={warband.id}>
+                            <li className='list-group-item col-10'><Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link></li>
+                            <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={removeWarband(warband.id, dispatch)}><i className='bi bi-trash-fill'></i></div></li>
+                        </ul>
+                    </div>
+                </div>
             )
         })
     }
 
     const renderAddNewWarband = () => {
         return(
-            <ul className='list-group list-group-horizontal row w-100 danger' id='new-warband' key='new'>
-                <li className='list-group-item list-group-item-danger col-12 dropdown font-artisan'>
-                    <button className='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                        New Warband
-                    </button>
-                    <ul className='dropdown-menu'>
-                        {renderFactionDropdownItems()}
-                    </ul>
-                </li>
-            </ul>
+
+            <div class='btn-group dropup font-artisan m-3' id='new-warband'>
+                <button className='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                    New Warband
+                </button>
+                <ul className='dropdown-menu'>
+                    {renderFactionDropdownItems()}
+                </ul>
+            </div>
         )
     }
 
@@ -50,14 +53,8 @@ export default function Warband() {
 
     return(
         <PageLayout pageName='Warbands'>
-            <div className='row'>
-                <div className='col-4'/>
-                <div className='col-4'>
-                    {renderWarbands()}
-                    {renderAddNewWarband()}
-                </div>
-                <div className='col-4'/>
-            </div>
+            {renderWarbands()}
+            {renderAddNewWarband()}
         </PageLayout>
     )
 }

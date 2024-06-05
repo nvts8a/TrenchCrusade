@@ -62,7 +62,7 @@ const Layout =({children}) => {
             <nav className='navbar navbar-expand-lg bg-dark border-bottom border-body'>
                 <div className='container-fluid '>
                     <Link to='/'><img className='p-1' src='/favicon.ico' alt='Trench Crusade Logo' height='36'/></Link>
-                    <button className='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+                    <button className='navbar-toggler bg-light' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
                         <span className='navbar-toggler-icon'></span>
                     </button>
                     <div className='collapse navbar-collapse' id='navbarSupportedContent'>
