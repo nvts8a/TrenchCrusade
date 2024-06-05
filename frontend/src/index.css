@@ -1,3 +1,8 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 html, body {
   font-family: 'Garamond', 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;
@@ -20,6 +25,10 @@ html, body {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 31, 32, 32;
   --background-end-rgb:   33, 35, 35;
+}
+
+.landing {
+  height: 83%;
 }
 
 @font-face {

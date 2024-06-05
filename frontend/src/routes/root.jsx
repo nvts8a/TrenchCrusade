@@ -60,37 +60,56 @@ export default function Root() {
 
     const style = {
       backgroundImage: `url('/img/login.jpg')`,
+      backgroundPosition: 'left 5%',
+      backgroundRepeat: 'no-repeat',
       backgroundSize: '115%'
     }
 
     return (
-      <div className='w-100 h-100 pt-5' style={style}>
+      <>
+      <div className='landing w-100 pt-5' style={style}>
           <div className='row justify-content-center m-1'>
-            <label htmlFor='username' className='visually-hidden'>Email</label>
-            <input onInput={handleChange(setUsername)} type='text' className='form-control w-25' id='username' placeholder='Username' />
+            <div className='col-sm-12 col-md-2'>
+              <label htmlFor='username' className='visually-hidden'>Email</label>
+              <input onInput={handleChange(setUsername)} type='text' className='form-control' id='username' placeholder='Username' />
+            </div>
           </div>
           <div className='row justify-content-center m-1'>
-            <label htmlFor='password' className='visually-hidden'>Password</label>
-            <input onInput={handleChange(setPassword)} type='password' className='form-control w-25' id='password' placeholder='Password' />
+            <div className='col-sm-12 col-md-2'>
+              <label htmlFor='password' className='visually-hidden'>Password</label>
+              <input onInput={handleChange(setPassword)} type='password' className='form-control' id='password' placeholder='Password' />
+            </div>
           </div>
           <div className='row justify-content-center m-1'>
-            <label htmlFor='password' className='visually-hidden'>Password</label>
-            <input onInput={handleChange(setPasswordConfirm)} type='password' className={`${isLogin ? 'd-none' : ''} form-control w-25`} id='passwordConfirm' placeholder='Confirm Password' />
+            <div className='col-sm-12 col-md-2'>
+              <label htmlFor='password' className='visually-hidden'>Password</label>
+              <input onInput={handleChange(setPasswordConfirm)} type='password' className={`${isLogin ? 'd-none' : ''} form-control`} id='passwordConfirm' placeholder='Confirm Password' />
+            </div>
           </div>
           <div className='row justify-content-center m-1'>
-            <button onClick={authenticate} type='button' className={`${isLogin ? '' : 'd-none'} btn btn-danger w-25`}>
-              Login
-            </button>
+            <div className='col-sm-12 col-md-2'>
+              <button onClick={authenticate} type='button' className={`${isLogin ? '' : 'd-none'} btn btn-danger w-100`}>
+                Login
+              </button>
+            </div>
           </div>
-          <div className='row justify-content-center mt-1 mx-1'>
-            <button onClick={register} type='button' className={`${isLogin ? 'd-none' : ''} ${!password || (password !== passwordConfirm)? 'disabled' : ''} btn btn-danger w-25`}>
-              Register
-            </button>
+          <div className='row justify-content-center m-1'>
+            <div className='col-sm-12 col-md-2'>
+              <button onClick={register} type='button' className={`${isLogin ? 'd-none' : ''} ${!password || (password !== passwordConfirm)? 'disabled' : ''} btn btn-danger w-100`}>
+                Register
+              </button>
+            </div>
           </div>
           <div className='row text-center'>
-            <a href={`/#${isLogin ? 'register' : 'login'}`} onClick={toggleLogin}>or {isLogin ? 'Register' : 'Login'}</a>
+            <a href={`/#${isLogin ? 'login' : 'register'}`} onClick={toggleLogin}>or {isLogin ? 'Register' : 'Login'}</a>
           </div>
           <Alert message={alertMessage} show={alertShow} setShow={setAlertShow}/>
       </div>
+      <div className='row text-center'>
+          <div className='col-12'><sub>This site is a free community project.</sub></div>
+          <div className='col-12'><sub>Trench Crusade and all artwork copyright © 2024 Mike Franchina.</sub></div>
+          <div className='col-12'><sub>Trench Crusade playtest rules copyright © 2024 Tuomas Pirinen.</sub></div>
+      </div>
+      </>
     )
   }
