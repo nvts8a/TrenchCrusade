@@ -6,10 +6,11 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Card from 'react-bootstrap/Card';
 import EquipmentCard from '../../../components/_equipmentCard'
 
-export default function AddNewTroopEquipment({warband, troop, troopEquipment, equipment, allFactionEquipment, createTroopEquipment, removeTroopEquipment}) {
+export default function AddNewTroopEquipment({warband, troopEquipment, equipment, allFactionEquipment, handleCreateEquipment, handleRemoveEquipment}) {
     const [show, setShow] = useState(false)
     const handleClose     = () => setShow(false)
     const handleShow      = () => setShow(true)
+    if (!troopEquipment) troopEquipment = []
 
     const CustomToggle = ({ children, eventKey }) => {      
         return (
@@ -24,18 +25,18 @@ export default function AddNewTroopEquipment({warband, troop, troopEquipment, eq
     const renderEquipment = (factionEquipment) => {
         return(Object.values(factionEquipment).map((factionEquipable) => {
             const equipable = equipment[factionEquipable.equipmentId]
-            const count = warbandEquipment.filter((equipable) => equipable.factionEquipmentId === factionEquipable.id).length
+            const count = troopEquipment.filter((equipable) => equipable.factionEquipmentId === factionEquipable.id).length
 
             return(
                 <Card key={factionEquipable.id}>
                     <Card.Header className=''>
-                        <span className='icon-link icon-link-hover me-3' onClick={removeEquipment(factionEquipable)}>
+                        <span className='icon-link icon-link-hover me-3' onClick={handleRemoveEquipment(factionEquipable)}>
                             <i className='bi bi-dash-circle'></i>
                         </span>
                         <span className='me-3'>
                             {count}
                         </span>
-                        <span className='icon-link icon-link-hover me-3' onClick={createEquipment(factionEquipable, equipment[factionEquipable.equipmentId])}>
+                        <span className='icon-link icon-link-hover me-3' onClick={handleCreateEquipment(factionEquipable, equipment[factionEquipable.equipmentId])}>
                             <i className='bi bi-plus-circle'></i>
                         </span>
                         <CustomToggle eventKey={factionEquipable.id}>{equipable.name}</CustomToggle>
@@ -52,10 +53,10 @@ export default function AddNewTroopEquipment({warband, troop, troopEquipment, eq
     }
 
     return(<>
-        <i class='bi bi-shield-fill-plus' onClick={handleShow}></i>
+        <i className='bi bi-shield-fill-plus' onClick={handleShow}></i>
         <Modal className='text-dark' show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
-                <Modal.Title className='font-english-towne'>Armory</Modal.Title>
+                <Modal.Title className='font-english-towne'>Troop Equipment</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Accordion>

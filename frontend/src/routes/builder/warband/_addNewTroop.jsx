@@ -7,9 +7,9 @@ import Card from 'react-bootstrap/Card';
 import RosterTroopRow from './_rosterTroopRow'
 
 export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, createTroop}) {
-    const [show, setShow] = useState(false)
-    const handleClose     = () => setShow(false)
-    const handleShow      = () => setShow(true)
+    const [showAddTroop, setShowAddTroop] = useState(false)
+    const handleClose     = () => setShowAddTroop(false)
+    const handleShow      = () => setShowAddTroop(true)
 
     function CustomToggle({ children, eventKey }) {      
         return (
@@ -65,8 +65,8 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
     }
 
     return(<>
-        <Button variant='danger' onClick={handleShow}><i class='bi bi-person-fill-add'></i></Button>
-        <Modal className='text-dark' show={show} onHide={handleClose} size='lg' centered>
+        <Button variant='danger' onClick={handleShow}><i className='bi bi-person-fill-add'></i></Button>
+        <Modal className='text-dark' show={showAddTroop} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
                 <Modal.Title className='font-english-towne'>Recruitment</Modal.Title>
             </Modal.Header>

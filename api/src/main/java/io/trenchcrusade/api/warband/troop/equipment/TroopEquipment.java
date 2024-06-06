@@ -23,7 +23,7 @@ public class TroopEquipment {
     @ManyToOne(optional = false)
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
-    public Long getEquipmentId() {
+    public Long getEquipment() {
         return equipment.getId();
     }
     public void setEquipment(Equipment equipment) {
@@ -31,13 +31,13 @@ public class TroopEquipment {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "troop_equipment_id")
-    private TroopEquipment troopEquipment;
-    public Long getTroopEquipmentId() {
-        return troopEquipment.getId();
+    @JoinColumn(name = "faction_equipment_id")
+    private FactionEquipment factionEquipment;
+    public Long getFactionEquipmentId() {
+        return factionEquipment.getId();
     }
-    public void setTroopEquipment(TroopEquipment troopEquipment) {
-        this.troopEquipment = troopEquipment;
+    public void setFactionEquipment(FactionEquipment factionEquipment) {
+        this.factionEquipment = factionEquipment;
     }
 
     @ManyToOne(optional = false)

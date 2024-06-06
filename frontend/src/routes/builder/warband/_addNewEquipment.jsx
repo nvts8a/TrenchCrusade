@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
@@ -52,7 +52,7 @@ export default function AddNewEquipment({warband, warbandEquipment, equipment, a
     }
 
     return(<>
-        <i class='bi bi-shield-fill-plus' onClick={handleShow}></i>
+        <Button variant='danger'><i className='bi bi-shield-fill-plus' onClick={handleShow}></i></Button>
         <Modal className='text-dark' show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
                 <Modal.Title className='font-english-towne'>Armory</Modal.Title>

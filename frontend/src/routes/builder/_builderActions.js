@@ -4,7 +4,8 @@ import { deleteWarband, setWarband } from '../../store/_warbandSlice'
 
 export const {  createWarband, removeWarband, updateWarband,
                 createEquipment, removeEquipment,
-                createTroop, removeTroop } = {
+                createTroop, removeTroop,
+                createTroopEquipment, removeTroopEquipment } = {
 
     // WARBANDS
 
@@ -81,5 +82,30 @@ export const {  createWarband, removeWarband, updateWarband,
             removeTroop(troopRemoved)
         })
         .catch((err) => console.log(err.message))
+    },
+
+    // WARBAND TROOP EQUIPMENT
+
+    createTroopEquipment: (warband, dispatch, updateWarband, addTroopEquipment) => (troop) => (factionEquipable, equipable) => () => {
+        axios.post(`warband/${warband.id}/troop/${troop.id}/equipment`, {
+            'factionEquipment': factionEquipable,
+            'equipment':        equipable
+        })
+        .then((response) => {
+            updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats - factionEquipable.cost }})
+            addTroopEquipment(troop, response.data)
+        })
+        .catch((err) => console.log(err.message))
+    },
+
+    removeTroopEquipment: (warband, dispatch, updateWarband, findAndRemoveTroopEquipment) => (troop) => (factionEquipable) => () => {
+        const removed = findAndRemoveTroopEquipment(factionEquipable)
+        if (removed) {
+            axios.delete(`warband/${warband.id}/troop/${troop.id}/equipment/${removed.id}`)
+            .then(() => {
+                updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats + factionEquipable.cost}})
+            })
+            .catch((err) => console.log(err.message))
+        }
     }
 }
