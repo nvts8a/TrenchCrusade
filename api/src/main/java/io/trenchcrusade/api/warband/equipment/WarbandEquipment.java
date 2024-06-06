@@ -1,4 +1,4 @@
-package io.trenchcrusade.api.warband.troop.equipment;
+package io.trenchcrusade.api.warband.equipment;
 
 import io.trenchcrusade.api.rule.equipment.Equipment;
 import io.trenchcrusade.api.rule.faction.equipment.FactionEquipment;
@@ -6,7 +6,7 @@ import io.trenchcrusade.api.warband.Warband;
 import jakarta.persistence.*;
 
 @Entity
-public class TroopEquipment {
+public class WarbandEquipment {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

@@ -27,7 +27,7 @@ public class WarbandController {
     @GetMapping(path = "/{id}")
     public @ResponseBody Warband get(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                      @PathVariable("id") Long id) {
-        return sessionService.authorizeUserFor(authorizationToken, id);
+        return sessionService.authorizeUserForWarband(authorizationToken, id);
     }
 
     @PostMapping("")
@@ -46,7 +46,7 @@ public class WarbandController {
     @DeleteMapping("/{id}")
     public @ResponseBody String delete(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                        @PathVariable("id") Long id) {
-        Warband warband = sessionService.authorizeUserFor(authorizationToken, id);
+        Warband warband = sessionService.authorizeUserForWarband(authorizationToken, id);
         warbandRepository.deleteById(warband.getId());
 
         return String.valueOf(id);
@@ -56,7 +56,7 @@ public class WarbandController {
     public @ResponseBody Warband patch(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                        @PathVariable("id") Long id,
                                        @RequestBody WarbandDto warbandDto) {
-        Warband warband = sessionService.authorizeUserFor(authorizationToken, id);
+        Warband warband = sessionService.authorizeUserForWarband(authorizationToken, id);
         return warbandRepository.save(warbandDto.patch(warband));
     }
 }

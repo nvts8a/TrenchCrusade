@@ -2,6 +2,8 @@ package io.trenchcrusade.api.security;
 
 import io.trenchcrusade.api.warband.Warband;
 import io.trenchcrusade.api.warband.WarbandRepository;
+import io.trenchcrusade.api.warband.troop.Troop;
+import io.trenchcrusade.api.warband.troop.TroopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +23,9 @@ public class SessionService {
 
     @Autowired
     private WarbandRepository warbandRepository;
+
+    @Autowired
+    private TroopRepository troopRepository;
 
     private final String PREFIX = "Bearer ";
 
@@ -39,7 +45,7 @@ public class SessionService {
         return new UserDetailsImpl(user);
     }
 
-    public Warband authorizeUserFor(String authorizationToken, Long warbandId) throws ResponseStatusException {
+    public Warband authorizeUserForWarband(String authorizationToken, Long warbandId) throws ResponseStatusException {
         Optional<Warband> warband = warbandRepository.findById(warbandId);
         if (warband.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Warband " + warbandId + "not found.");
 
@@ -48,5 +54,14 @@ public class SessionService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
         return warband.get();
+    }
+
+    public Troop authorizeUserForTroop(Long troopId, Warband warband) {
+        List<Troop> troop = troopRepository.findByIdAndWarband(troopId, warband);
+        if (troop.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Troop " + troopId + "not found.");
+
+        if (!troop.getFirst().getWarbandId().equals(warband.getId())) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+
+        return troop.getFirst();
     }
 }

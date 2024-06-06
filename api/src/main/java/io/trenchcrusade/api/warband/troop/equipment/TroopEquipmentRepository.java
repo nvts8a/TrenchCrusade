@@ -1,10 +1,10 @@
-package io.trenchcrusade.api.warband.equipment;
+package io.trenchcrusade.api.warband.troop.equipment;
 
-import io.trenchcrusade.api.warband.Warband;
+import io.trenchcrusade.api.warband.troop.Troop;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface WarbandEquipmentRepository extends CrudRepository<WarbandEquipment, Long> {
-    List<WarbandEquipment> findAllByWarband(Warband warband);
+public interface TroopEquipmentRepository extends CrudRepository<TroopEquipment, Long> {
+    List<TroopEquipment> findAllByTroop(Troop troop);
 }

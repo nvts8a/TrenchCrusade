@@ -41,11 +41,14 @@ export default function RosterTroopRow({troop, factionTroopType, troopType, hand
     const troopStats = () => {
         const handlers = () => {
             if (!recruitment) {
-                return(
-                <div className='col-2 icon-link icon-link-hover' onClick={handleDelete}>
-                    <i className='bi bi-trash-fill'></i>
-                </div>
-                )
+                return(<>
+                    <div className='col-1 icon-link icon-link-hover' onClick={handleDelete}>
+                        <i className='bi bi-shield-fill-plus'></i>
+                    </div>
+                    <div className='col-1 icon-link icon-link-hover' onClick={handleDelete}>
+                        <i className='bi bi-trash-fill'></i>
+                    </div>
+                </>)
             }
         }
 
@@ -53,7 +56,7 @@ export default function RosterTroopRow({troop, factionTroopType, troopType, hand
             <tr className='table-warning'>
                 <th >
                     <div className='row'>
-                        <div className='col-10'>{troopType.name}</div>
+                        <div className='col-9'>{troopType.name}</div>
                         {handlers()}
                     </div>
                 </th>
@@ -97,7 +100,6 @@ export default function RosterTroopRow({troop, factionTroopType, troopType, hand
             )
         }
     }
-
 
     return(
         <>

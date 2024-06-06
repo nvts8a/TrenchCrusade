@@ -1,5 +1,6 @@
 import AddNewEquipment from "./_addNewEquipment";
 import AddNewTroop from './_addNewTroop';
+import Button from 'react-bootstrap/Button'
 
 export default function AssetDetails({
                             warband, updateWarband,
@@ -25,10 +26,12 @@ export default function AssetDetails({
                     </div>
                 </div>
                 <div className='col-sm-3 col-md-1'>
+                    <Button variant='danger'>
                     <AddNewEquipment 
                         warband={warband} warbandEquipment={warbandEquipment}
                         equipment={equipment} allFactionEquipment={allFactionEquipment}
                         createEquipment={createEquipment} removeEquipment={removeEquipment}/>
+                    </Button>
                 </div>
                 <div className='col-sm-3 col-md-1'>
                     <AddNewTroop

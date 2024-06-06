@@ -4,6 +4,7 @@ import io.trenchcrusade.api.rule.equipment.Equipment;
 import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
 import io.trenchcrusade.api.rule.troop_type.TroopType;
 import io.trenchcrusade.api.warband.Warband;
+import io.trenchcrusade.api.warband.troop.equipment.TroopEquipment;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -52,14 +53,11 @@ public class Troop {
         this.warband = warband;
     }
 
-    @ManyToMany
-    @JoinTable(name = "troop_equipment",
-            joinColumns = @JoinColumn(name = "troop_id"),
-            inverseJoinColumns = @JoinColumn(name = "equipment_id"))
-    private Set<Equipment> equipment;
-    public Set<Equipment> getEquipment() {
-        return equipment;
-    }
+    @OneToMany(
+            mappedBy = "troop",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<TroopEquipment> troopEquipment;
 
     // COLUMNS
     private Integer experience = 0;

@@ -1,48 +1,58 @@
-package io.trenchcrusade.api.warband.equipment;
+package io.trenchcrusade.api.warband.troop.equipment;
 
 import io.trenchcrusade.api.security.SessionService;
 import io.trenchcrusade.api.warband.Warband;
-import io.trenchcrusade.api.warband.WarbandRepository;
+import io.trenchcrusade.api.warband.troop.Troop;
+import io.trenchcrusade.api.warband.troop.TroopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Controller
-@RequestMapping(path="/warband/{warbandId}/equipment")
-public class WarbandEquipmentController {
+@RequestMapping(path="/warband/{warbandId}/troop/{troopId}/equipment")
+public class TroopEquipmentController {
     @Autowired
     private SessionService sessionService;
 
     @Autowired
-    private WarbandEquipmentRepository warbandEquipmentRepository;
-
-    @Autowired
-    private WarbandRepository warbandRepository;
+    private TroopEquipmentRepository troopEquipmentRepository;
 
     @GetMapping(path = "/all")
-    public @ResponseBody Iterable<WarbandEquipment> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
-                                                        @PathVariable Long warbandId) {
-        Warband warband = sessionService.authorizeUserFor(authorizationToken, warbandId);
-        return warbandEquipmentRepository.findAllByWarband(warband);
+    public @ResponseBody Iterable<TroopEquipment> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
+                                                      @PathVariable Long warbandId,
+                                                      @PathVariable Long troopId) {
+        Warband warband = sessionService.authorizeUserForWarband(authorizationToken, warbandId);
+        Troop troop = sessionService.authorizeUserForTroop(troopId, warband);
+
+        return troopEquipmentRepository.findAllByTroop(troop);
     }
 
     @PostMapping("")
-    public @ResponseBody WarbandEquipment create(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
-                                                 @RequestBody WarbandEquipment warbandEquipment,
-                                                 @PathVariable Long warbandId) {
-        Warband warband = sessionService.authorizeUserFor(authorizationToken, warbandId);
-        warbandEquipment.setWarband(warband);
+    public @ResponseBody TroopEquipment create(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
+                                               @RequestBody TroopEquipment troopEquipment,
+                                               @PathVariable Long warbandId,
+                                               @PathVariable Long troopId) {
+        Warband warband = sessionService.authorizeUserForWarband(authorizationToken, warbandId);
+        Troop troop = sessionService.authorizeUserForTroop(troopId, warband);
+        troopEquipment.setTroop(troop);
 
-        return warbandEquipmentRepository.save(warbandEquipment);
+        return troopEquipmentRepository.save(troopEquipment);
     }
 
     @DeleteMapping("/{id}")
     public @ResponseBody String delete(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
-                                       @PathVariable("warbandId") Long warbandId,
-                                       @PathVariable("id") Long id) {
-        sessionService.authorizeUserFor(authorizationToken, warbandId);
-        warbandEquipmentRepository.deleteById(id);
+                                       @PathVariable Long warbandId,
+                                       @PathVariable Long troopId,
+                                       @PathVariable Long id) {
+        Warband warband = sessionService.authorizeUserForWarband(authorizationToken, warbandId);
+        sessionService.authorizeUserForTroop(troopId, warband);
+
+        troopEquipmentRepository.deleteById(id);
         return String.valueOf(id);
     }
 }

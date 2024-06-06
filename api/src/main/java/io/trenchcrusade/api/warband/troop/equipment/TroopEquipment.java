@@ -1,14 +1,14 @@
-package io.trenchcrusade.api.warband.equipment;
+package io.trenchcrusade.api.warband.troop.equipment;
 
 import io.trenchcrusade.api.rule.equipment.Equipment;
 import io.trenchcrusade.api.rule.faction.equipment.FactionEquipment;
-import io.trenchcrusade.api.warband.Warband;
+import io.trenchcrusade.api.warband.troop.Troop;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
-public class WarbandEquipment {
+public class TroopEquipment {
     @Id // KEY
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -31,22 +31,22 @@ public class WarbandEquipment {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "faction_equipment_id")
-    private FactionEquipment factionEquipment;
-    public Long getFactionEquipmentId() {
-        return factionEquipment.getId();
+    @JoinColumn(name = "troop_equipment_id")
+    private TroopEquipment troopEquipment;
+    public Long getTroopEquipmentId() {
+        return troopEquipment.getId();
     }
-    public void setFactionEquipment(FactionEquipment factionEquipment) {
-        this.factionEquipment = factionEquipment;
+    public void setTroopEquipment(TroopEquipment troopEquipment) {
+        this.troopEquipment = troopEquipment;
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "warband_id")
-    private Warband warband;
-    public Long getWarbandId() {
-        return warband.getId();
+    @JoinColumn(name = "troop_id")
+    private Troop troop;
+    public Long getTroopId() {
+        return troop.getId();
     }
-    public void setWarband(Warband warband) {
-        this.warband = warband;
+    public void setTroop(Troop troop) {
+        this.troop = troop;
     }
 }

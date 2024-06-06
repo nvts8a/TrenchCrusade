@@ -6,7 +6,7 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Card from 'react-bootstrap/Card';
 import EquipmentCard from '../../../components/_equipmentCard'
 
-export default function AddNewEquipment({warband, warbandEquipment, equipment, allFactionEquipment, createEquipment, removeEquipment}) {
+export default function AddNewTroopEquipment({warband, troop, troopEquipment, equipment, allFactionEquipment, createTroopEquipment, removeTroopEquipment}) {
     const [show, setShow] = useState(false)
     const handleClose     = () => setShow(false)
     const handleShow      = () => setShow(true)

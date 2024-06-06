@@ -26,36 +26,35 @@ const Layout =({children}) => {
         if (loggedIn()) {
             return(
                 <ul className='navbar-nav me-auto mb-2 mb-lg-0' key='nav-items'>
-                <li className='nav-item' key='builder-nav-item'>
-                    <Link className='text-light nav-link font-artisan' to='/builder/warband/all'>Builder</Link>
-                </li>
-                <li className='nav-item dropdown'>
-                    <div className='text-light nav-link dropdown-toggle font-artisan' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                        Rules
-                    </div>
-                    <ul className='dropdown-menu'>
-                        <li className='nav-item' key='equipment-nav-item'>
-                            <Link className='text-dark nav-link font-artisan' to='/rules/equipment'>Equipment</Link>
-                        </li>
-                        <li className='nav-item' key='factions-nav-item'>
-                            <Link className='text-dark nav-link font-artisan' to='/rules/factions'>Factions</Link>
-                        </li>
-                        <li className='nav-item' key='keywords-nav-item'>
-                            <Link className='text-dark nav-link font-artisan' to='/rules/keywords'>Keywords</Link>
-                        </li>
-                        <li className='nav-item' key='troop-types-nav-item'>
-                            <Link className='text-dark nav-link font-artisan' to='/rules/troop-types'>Troop Types</Link>
-                        </li>
-                    </ul>
-                </li>
-                <li className='nav-item' key='logout-nav-item'>
-                    <Link className='text-light nav-link font-artisan' to='/' onClick={logout} >Logout</Link>
-                </li>
+                    <li className='nav-item' key='builder-nav-item'>
+                        <Link className='text-light nav-link font-artisan' to='/builder/warband/all'>Builder</Link>
+                    </li>
+                    <li className='nav-item dropdown'>
+                        <div className='text-light nav-link dropdown-toggle font-artisan' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                            Rules
+                        </div>
+                        <ul className='dropdown-menu'>
+                            <li className='nav-item' key='equipment-nav-item'>
+                                <Link className='text-dark nav-link font-artisan' to='/rules/equipment'>Equipment</Link>
+                            </li>
+                            <li className='nav-item' key='factions-nav-item'>
+                                <Link className='text-dark nav-link font-artisan' to='/rules/factions'>Factions</Link>
+                            </li>
+                            <li className='nav-item' key='keywords-nav-item'>
+                                <Link className='text-dark nav-link font-artisan' to='/rules/keywords'>Keywords</Link>
+                            </li>
+                            <li className='nav-item' key='troop-types-nav-item'>
+                                <Link className='text-dark nav-link font-artisan' to='/rules/troop-types'>Troop Types</Link>
+                            </li>
+                        </ul>
+                    </li>
+                    <li className='nav-item' key='logout-nav-item'>
+                        <Link className='text-light nav-link font-artisan' to='/' onClick={logout} >Logout</Link>
+                    </li>
                 </ul>
             )
         }
     }
-
 
     return (
         <main className='h-100'>

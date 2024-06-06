@@ -23,7 +23,7 @@ public class TroopController {
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<Troop> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                              @PathVariable Long warbandId) {
-        Warband warband = sessionService.authorizeUserFor(authorizationToken, warbandId);
+        Warband warband = sessionService.authorizeUserForWarband(authorizationToken, warbandId);
         return troopRepository.findAllByWarband(warband);
     }
 
@@ -31,7 +31,7 @@ public class TroopController {
     public @ResponseBody Troop create(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                       @RequestBody Troop troop,
                                       @PathVariable Long warbandId) {
-        Warband warband = sessionService.authorizeUserFor(authorizationToken, warbandId);
+        Warband warband = sessionService.authorizeUserForWarband(authorizationToken, warbandId);
         troop.setWarband(warband);
 
         return troopRepository.save(troop);
@@ -41,7 +41,7 @@ public class TroopController {
     public @ResponseBody String delete(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                        @PathVariable("warbandId") Long warbandId,
                                        @PathVariable("id") Long id) {
-        sessionService.authorizeUserFor(authorizationToken, warbandId);
+        sessionService.authorizeUserForWarband(authorizationToken, warbandId);
         troopRepository.deleteById(id);
         return String.valueOf(id);
     }
