@@ -63,7 +63,7 @@ export default function Roster() {
         return(
             <PageLayout pageName='Roster'>
                 <div className='row justify-content-center'>
-                    <div className='col-sm-12 col-md-4 mb-3'>
+                    <div className='col-sm-12 col-md-5 mb-3'>
                         <div className='input-group'>
                             <span className='input-group-text font-english-towne' id='basic-addon1'>Warband Name</span>
                             <input type='text' className='form-control' placeholder='Warband Name' aria-label='Warband Name' aria-describedby='basic-addon2'

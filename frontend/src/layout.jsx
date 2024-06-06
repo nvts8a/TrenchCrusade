@@ -59,18 +59,18 @@ const Layout =({children}) => {
 
     return (
         <main className='h-100'>
-            <nav className='navbar navbar-expand-lg bg-dark border-bottom border-body'>
-                <div className='container-fluid '>
+            <nav className='navbar navbar-expand-sm bg-dark border-bottom border-body'>
+                <div className='container-fluid'>
                     <Link to='/'><img className='p-1' src='/favicon.ico' alt='Trench Crusade Logo' height='36'/></Link>
-                    <button className='navbar-toggler bg-light' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-                        <span className='navbar-toggler-icon'></span>
-                    </button>
                     <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                         {renderNavItems()}
                     </div>
                     <a className='navbar-brand' href='https://www.trenchcrusade.com/' rel='noreferrer' target='_blank'>
                         <img src='/img/trench+crusade+site+logo.png' alt='Trench Crusade Logo' height='24'/>
                     </a>
+                    <button className='navbar-toggler bg-light' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+                        <span className='navbar-toggler-icon'></span>
+                    </button>
                 </div>
             </nav>
             {children}

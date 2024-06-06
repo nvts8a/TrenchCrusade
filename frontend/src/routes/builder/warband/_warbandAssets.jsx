@@ -24,13 +24,13 @@ export default function AssetDetails({
                             id='glory' value={warband.glory} onInput={updateWarband}/>
                     </div>
                 </div>
-                <div className='col-sm-6 col-md-1'>
+                <div className='col-sm-3 col-md-1'>
                     <AddNewEquipment 
                         warband={warband} warbandEquipment={warbandEquipment}
                         equipment={equipment} allFactionEquipment={allFactionEquipment}
                         createEquipment={createEquipment} removeEquipment={removeEquipment}/>
                 </div>
-                <div className='col-sm-6 col-md-1'>
+                <div className='col-sm-3 col-md-1'>
                     <AddNewTroop
                         warband={warband}
                         allFactionTroopTypes={allFactionTroopTypes} troopTypes={troopTypes}
