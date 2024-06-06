@@ -31,7 +31,8 @@ export default function Root() {
         navigate('/builder/warband/all', { replace: true })
       })
       .catch((err) => {
-        setAlertMessage(err.message)
+        if (err.response.status === 403) setAlertMessage("Invalid login.")
+        else setAlertMessage(err.message)
         setAlertShow(true)
       })
     }

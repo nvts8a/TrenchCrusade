@@ -17,11 +17,17 @@ export default function Warband() {
     const renderWarbands = () => {
         return Object.values(warbands).map((warband) => {
             return(
-                <div className='row justify-content-center'>
+                <div className='row justify-content-center' key={warband.id}>
                     <div className='col-sm-12 col-md-3'>
-                        <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`} key={warband.id}>
-                            <li className='list-group-item col-10'><Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link></li>
-                            <li className='list-group-item col-2'><div className='icon-link icon-link-hover' onClick={removeWarband(warband.id, dispatch)}><i className='bi bi-trash-fill'></i></div></li>
+                        <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`}>
+                            <li className='list-group-item col-10'>
+                                <Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link>
+                            </li>
+                            <li className='list-group-item col-2'>
+                                <div className='icon-link icon-link-hover' onClick={removeWarband(warband.id, dispatch)}>
+                                    <i className='bi bi-trash-fill'></i>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -32,7 +38,7 @@ export default function Warband() {
     const renderAddNewWarband = () => {
         return(
 
-            <div class='btn-group dropup font-artisan m-3' id='new-warband'>
+            <div className='btn-group dropup font-artisan m-3' id='new-warband'>
                 <button className='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
                     New Warband
                 </button>
