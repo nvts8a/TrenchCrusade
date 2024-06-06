@@ -65,7 +65,7 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
     }
 
     return(<>
-        <Button variant='danger' onClick={handleShow}>Add Troop</Button>
+        <Button className='font-english-towne' variant='danger' onClick={handleShow}>Troops</Button>
         <Modal className='text-dark' show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
                 <Modal.Title className='font-english-towne'>Recruitment</Modal.Title>

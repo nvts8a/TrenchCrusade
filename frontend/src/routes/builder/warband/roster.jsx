@@ -10,7 +10,6 @@ import { useEquipment, useFactionEquipment, useFactionTroopTypes, useFactions, u
 import WarbandFaction from './_warbandFaction';
 import WarbandAssets from './_warbandAssets';
 import WarbandTroops from './_warbandTroops';
-import AddNewTroop from './_addNewTroop';
 import { updateWarband, createEquipment, removeEquipment, createTroop, removeTroop } from '../_builderActions';
 
 export default function Roster() {
@@ -63,34 +62,48 @@ export default function Roster() {
     if (warband) {
         return(
             <PageLayout pageName='Roster'>
-                <div className='row'>
-                    <div className='input-group mb-3'>
-                        <span className='input-group-text font-english-towne' id='basic-addon1'>Warband Name</span>
-                        <input type='text' className='form-control' placeholder='Warband Name' aria-label='Warband Name' aria-describedby='basic-addon2'
-                            id='name' defaultValue={warband.name} onInput={updateWarband(params.id, dispatch)}/>
+                <div className='row justify-content-center'>
+                    <div className='col-sm-12 col-md-4 mb-3'>
+                        <div className='input-group'>
+                            <span className='input-group-text font-english-towne' id='basic-addon1'>Warband Name</span>
+                            <input type='text' className='form-control' placeholder='Warband Name' aria-label='Warband Name' aria-describedby='basic-addon2'
+                                id='name' defaultValue={warband.name} onInput={updateWarband(params.id, dispatch)}/>
+                        </div>
                     </div>
                 </div>
-    
+
+                <div className='row justify-content-center'>
+                    <div className='col-sm-12 col-md-10 mb-3'>
+                        <div className='input-group'>
+                            <span className='input-group-text font-english-towne' id='basic-addon1'>Chronology</span>
+                            <textarea type='text' className='form-control' placeholder='Written by a highly unreliable narrator' aria-label='Chronology' aria-describedby='basic-addon2'
+                                id='chronology' defaultValue={warband.chronology} onInput={updateWarband}/>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
                 <WarbandFaction warband={warband}
                                 factions={factions}
                                 updateWarband={updateWarband(params.id, dispatch)} />
 
                 <WarbandAssets  warband={warband}
-                                warbandEquipment={warbandEquipment}
+                                updateWarband={updateWarband(params.id, dispatch)}
+
+                                troopTypes={troopTypes}
+                                allFactionTroopTypes={factionTroopTypes}
+                                createTroop={createTroop(warband, dispatch, addTroop)}
+
                                 equipment={equipment}
                                 allFactionEquipment={factionEquipment}
-                                updateWarband={updateWarband(params.id, dispatch)}
+                                warbandEquipment={warbandEquipment}
                                 createEquipment={createEquipment(warband, dispatch, updateWarband, addWarbandEquipable)} 
                                 removeEquipment={removeEquipment(warband, dispatch, updateWarband, findAndRemoveWarbandEquipable)} />
 
                 <WarbandTroops  warband={warband}
                                 troops={troops}
                                 removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)} />
-
-                <AddNewTroop    warband={warband}
-                                allFactionTroopTypes={factionTroopTypes}
-                                troopTypes={troopTypes}
-                                createTroop={createTroop(warband, dispatch, addTroop)}/>
 
             </PageLayout>
             )
