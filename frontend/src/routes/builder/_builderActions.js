@@ -86,7 +86,7 @@ export const {  createWarband, removeWarband, updateWarband,
 
     // WARBAND TROOP EQUIPMENT
 
-    createTroopEquipment: (warband, dispatch, updateWarband, addTroopEquipment) => (troop) => (factionEquipable, equipable) => () => {
+    createTroopEquipment: (warband, dispatch, updateWarband) => (troop) => (addTroopEquipment) => (factionEquipable, equipable) => () => {
         axios.post(`warband/${warband.id}/troop/${troop.id}/equipment`, {
             'factionEquipment': factionEquipable,
             'equipment':        equipable
@@ -98,7 +98,7 @@ export const {  createWarband, removeWarband, updateWarband,
         .catch((err) => console.log(err.message))
     },
 
-    removeTroopEquipment: (warband, dispatch, updateWarband, findAndRemoveTroopEquipment) => (troop) => (factionEquipable) => () => {
+    removeTroopEquipment: (warband, dispatch, updateWarband) => (troop) => (findAndRemoveTroopEquipment) => (factionEquipable) => () => {
         const removed = findAndRemoveTroopEquipment(factionEquipable)
         if (removed) {
             axios.delete(`warband/${warband.id}/troop/${troop.id}/equipment/${removed.id}`)

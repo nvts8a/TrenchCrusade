@@ -105,9 +105,8 @@ export default function Roster() {
                             
                             equipment={equipment}
                             allFactionEquipment={factionEquipment}
-                            allTroopEquipment={troopEquipment}
-                            createTroopEquipment={createTroopEquipment(warband, dispatch, updateWarband, addTroopEquipable)}
-                            removeTroopEquipment={removeTroopEquipment(warband, dispatch, updateWarband, findAndRemoveTroopEquipable)} />
+                            createTroopEquipment={createTroopEquipment(warband, dispatch, updateWarband)}
+                            removeTroopEquipment={removeTroopEquipment(warband, dispatch, updateWarband)} />
 
         </PageLayout>)
 }

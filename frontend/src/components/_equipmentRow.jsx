@@ -25,14 +25,14 @@ export default function EquipmentRow({equipable, recruitment=false}) {
     }
 
     const formatModifiers = (modifiers) => {
-        if (modifiers.length > 0) {
+        if (modifiers && modifiers.length > 0) {
             return modifiers.map((modifier) => formatModifier(modifier)).join(', ')
         }
         return '-'
     }
 
     const formatKeywords = (keywords) => {
-        if (keywords.length > 0) return keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
+        if (keywords && keywords.length > 0) return keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
         return '-'
     }
 
@@ -41,7 +41,7 @@ export default function EquipmentRow({equipable, recruitment=false}) {
     }
 
     const rulesBlock = (rules) => {
-        if (rules.length > 0) return(
+        if (rules && rules.length > 0) return(
         <tr>
             {spacer()}
             <td colSpan='100%'>

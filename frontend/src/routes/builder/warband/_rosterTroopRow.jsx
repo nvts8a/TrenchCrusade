@@ -6,9 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-
-export default function RosterTroopRow({troop, allTroopEquipment, troopType, equipment, allFactionEquipment, warband,
-                                        handleDelete, handleCreateEquipment, handleRemoveEquipment, recruitment=false}) {
+export default function RosterTroopRow({troop, troopType, equipment, allFactionEquipment, warband,
+                                        handleDelete, createEquipment, removeEquipment, recruitment=false}) {
     const params   = useParams()
 
     const [troopEquipment, setTroopEquipment]  = useState([])
@@ -23,25 +22,27 @@ export default function RosterTroopRow({troop, allTroopEquipment, troopType, equ
     }
 
     useEffect(() => {
-        axios(`warband/${params.id}/troop/${troop.id}/equipment/all`)
-        .then((response) => setTroops(response.data))
+        if (troop) axios(`warband/${params.id}/troop/${troop.id}/equipment/all`)
+        .then((response) => setTroopEquipment(response.data))
         .catch((err) => console.log(err.message))
-    }, [params])
+    }, [params, troop])
 
     const fMovement = `${troopType.movement}"/${troopType.movementType}`
     const fRanged   = troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const fMelee    = troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
 
-    const formatArmor = (allTroopEquipment) => {
+    const formatArmor = (troopEquipment) => {
         let armor = troopType.armour
 
-        if(allTroopEquipment[troop.id]) {
-            allTroopEquipment[troop.id]
-            .map((troopEquipable) => equipment[troopEquipable.equipmentId])
-            .filter((equipable) => equipable.type === 'armor')
+        if(troopEquipment && troopEquipment.length > 0) {
+
+            troopEquipment
+            .filter((equipable) => equipable.equipment.type === 'armor')
             .forEach(equipable => {
-                if(equipable.modifiers) equipable.modifiers.forEach((modifier) => {
-                    if(modifier.type === 'armor') armor = armor + modifier.value
+                if(equipable.equipment.modifiers) equipable.equipment.modifiers.forEach((modifier) => {
+                    if(modifier.type === 'armor') {
+                        armor = armor + modifier.value
+                    }
                 })
             })
         }
@@ -70,9 +71,9 @@ export default function RosterTroopRow({troop, allTroopEquipment, troopType, equ
                 return(<>
                     <div className='col-1 icon-link icon-link-hover'>
                         <AddNewTroopEquipment
-                            warband={warband} troopEquipment={allTroopEquipment[troop.id]}
+                            warband={warband} troopEquipment={troopEquipment}
                             equipment={equipment} allFactionEquipment={allFactionEquipment}
-                            handleCreateEquipment={handleCreateEquipment} handleRemoveEquipment={handleRemoveEquipment}/>
+                            handleCreateEquipment={createEquipment(addTroopEquipable)} handleRemoveEquipment={removeEquipment(findAndRemoveTroopEquipable)}/>
                     </div>
                     <div className='col-1 icon-link icon-link-hover' onClick={handleDelete}>
                         <i className='bi bi-trash-fill'></i>
@@ -92,7 +93,7 @@ export default function RosterTroopRow({troop, allTroopEquipment, troopType, equ
                 <td>{fMovement}</td>
                 <td>{fRanged}</td>
                 <td>{fMelee}</td>
-                <td>{formatArmor(allTroopEquipment)}</td>
+                <td>{formatArmor(troopEquipment)}</td>
                 <td>{formatKeywords(troopType.keywords)}</td>
             </tr>
         )
@@ -110,7 +111,7 @@ export default function RosterTroopRow({troop, allTroopEquipment, troopType, equ
     const renderTroopEquipment = (equipment, troopEquipment) => {
         if (equipment.length > 0 || troopEquipment.length > 0) {
             const typeEquipped = () => equipment.map((equipable) => <EquipmentRow recruitment={recruitment} equipable={equipable} key={equipable.id} />)
-            const troopEquipped = () => troopEquipment.map((equipable) => <EquipmentRow recruitment={recruitment} equipable={equipable} key={equipable.id} />)
+            const troopEquipped = () => troopEquipment.map((equipable) => <EquipmentRow recruitment={recruitment} equipable={equipable.equipment} key={equipable.id} />)
             const spacer = () => {
                 if (!recruitment) return(<td className='table-dark'></td>)
             }
@@ -136,7 +137,7 @@ export default function RosterTroopRow({troop, allTroopEquipment, troopType, equ
         <>
             {renderTroopStats()}
             {renderTroopRules(troopType.rules)}
-            {renderTroopEquipment(troopType.equipment, allTroopEquipment[troop.id])}
+            {renderTroopEquipment(troopType.equipment, troopEquipment)}
         </>
     )
 }

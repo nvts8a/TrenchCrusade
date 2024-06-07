@@ -31,6 +31,22 @@ html, body {
   height: 83%;
 }
 
+.fs-7 {
+  font-size: 0.85rem;
+}
+
+.is-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  box-shadow: inset 4px 4px 24px rgb(0 0 0 / 50%), 4px 4px 24px rgb(0 0 0 / 15%);
+  background-color: rgb(var(--background-start-rgb)) !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 @font-face {
   font-family: "Artisan12";
   src: local("Artisan12"),

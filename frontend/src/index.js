@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // REACT-ROUTER
 import Root from './routes/root'
 
+import Core from './routes/rules/core'
 import Equipment from './routes/rules/equipment'
 import Factions from './routes/rules/factions'
 import Keywords from './routes/rules/keywords'
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout><Root /></Layout>,
+  },
+  {
+    path: 'rules/core',
+    element: <Layout><Core /></Layout>
   },
   {
     path: '/rules/equipment',
