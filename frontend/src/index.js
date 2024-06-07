@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // REACT-ROUTER
 import Root from './routes/root'
 
+import Charts from './routes/rules/charts'
 import Core from './routes/rules/core'
 import Equipment from './routes/rules/equipment'
 import Factions from './routes/rules/factions'
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout><Root /></Layout>,
+  },
+  {
+    path: 'rules/charts',
+    element: <Layout><Charts /></Layout>
   },
   {
     path: 'rules/core',

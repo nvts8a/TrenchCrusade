@@ -38,6 +38,12 @@ const Layout =({children}) => {
                                 <Link className='text-dark nav-link font-artisan' to='/rules/core'>Core Rules</Link>
                             </li>
                             <li className='nav-item' key='equipment-nav-item'>
+                                <Link className='text-dark nav-link font-artisan' to='/rules/core'>Core Rules</Link>
+                            </li>
+                            <li className='nav-item' key='equipment-nav-item'>
+                                <Link className='text-dark nav-link font-artisan' to='/rules/charts'>Charts</Link>
+                            </li>
+                            <li className='nav-item' key='equipment-nav-item'>
                                 <Link className='text-dark nav-link font-artisan' to='/rules/equipment'>Equipment</Link>
                             </li>
                             <li className='nav-item' key='factions-nav-item'>
