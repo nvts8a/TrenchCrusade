@@ -2,15 +2,15 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PageLayout from '../../../components/_pageLayout';
+import WarbandFaction from './_warbandFaction';
+import WarbandAssets from './_warbandAssets';
+import WarbandTroops from './_warbandTroops';
 
 // REDUX
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { useEquipment, useFactionEquipment, useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
-import WarbandFaction from './_warbandFaction';
-import WarbandAssets from './_warbandAssets';
-import WarbandTroops from './_warbandTroops';
-import { updateWarband, createEquipment, removeEquipment, createTroop, removeTroop, createTroopEquipment, removeTroopEquipment } from '../_builderActions';
+import { useEquipment, useFactionEquipment, useFactions, useWarbands} from '../../../store/loaders';
+import { updateWarband, createEquipment, removeEquipment } from '../_builderActions';
 
 export default function Roster() {
     const dispatch = useDispatch()
@@ -18,19 +18,8 @@ export default function Roster() {
     const warbands = useWarbands()
 
     const equipment = useEquipment()
-    const troopTypes = useTroopTypes()
     const factions = useFactions()
     const factionEquipment = useFactionEquipment()
-    const factionTroopTypes = useFactionTroopTypes()
-
-    const [troops, setTroops]  = useState([])
-    const addTroop = (troop) => {
-        dispatch(setTroops(troops.concat(troop)))
-    }
-    const findAndRemoveTroop = (troopRemoved) => {
-        troops.splice(troops.findIndex((troop) => troop.id === troopRemoved.id), 1)
-        dispatch(setTroops(troops))
-    }
 
     const [warbandEquipment, setWarbandEquipment]  = useState([])
     const addWarbandEquipable = (equipable) => {
@@ -43,23 +32,18 @@ export default function Roster() {
         return false
     }
 
-    // Troops is always loaded and kept exclusively on this page
     useEffect(() => {
-        axios(`warband/${params.id}/troop/all`)
-        .then((response) => setTroops(response.data))
-        .catch((err) => console.log(err.message))
-
         axios(`warband/${params.id}/equipment/all`)
         .then((response) => setWarbandEquipment(response.data))
         .catch((err)     => console.log(err.message))
     }, [params])
 
     if (!warbands[params.id]) return(<></>)
-    if (!troops)              return(<></>)
 
     const warband = warbands[params.id]
     
     return(
+        <>
         <PageLayout pageName='Roster'>
             <div className='row justify-content-center'>
                 <div className='col-sm-12 col-md-5 mb-3'>
@@ -89,24 +73,13 @@ export default function Roster() {
             <WarbandAssets  warband={warband}
                             updateWarband={updateWarband(params.id, dispatch)}
 
-                            troopTypes={troopTypes}
-                            allFactionTroopTypes={factionTroopTypes}
-                            createTroop={createTroop(warband, dispatch, addTroop)}
-
                             equipment={equipment}
                             allFactionEquipment={factionEquipment}
                             warbandEquipment={warbandEquipment}
                             createEquipment={createEquipment(warband, dispatch, updateWarband, addWarbandEquipable)} 
                             removeEquipment={removeEquipment(warband, dispatch, updateWarband, findAndRemoveWarbandEquipable)} />
-
-            <WarbandTroops  warband={warband}
-                            troops={troops}
-                            removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)} 
-                            
-                            equipment={equipment}
-                            allFactionEquipment={factionEquipment}
-                            createTroopEquipment={createTroopEquipment(warband, dispatch, updateWarband)}
-                            removeTroopEquipment={removeTroopEquipment(warband, dispatch, updateWarband)} />
-
-        </PageLayout>)
+        </PageLayout>
+        <WarbandTroops  warband={warband}
+                        updateWarband={updateWarband}/>
+        </>)
 }

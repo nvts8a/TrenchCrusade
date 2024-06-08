@@ -67,10 +67,10 @@ export default function Core() {
 
     const Action = ({children, title}) => {
         return(
-            <p className='px-3'>
+            <div className='px-3 m-3'>
                 <span>⛨ <strong>{title}: </strong></span>
                 {children}
-            </p>
+            </div>
         )
     }
 

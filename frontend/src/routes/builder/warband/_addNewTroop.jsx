@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Card from 'react-bootstrap/Card';
-import RosterTroopRow from './_rosterTroopRow'
+import RosterTroopRow from './_warbandTroopsCard'
 
 export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, createTroop}) {
     const [showAddTroop, setShowAddTroop] = useState(false)

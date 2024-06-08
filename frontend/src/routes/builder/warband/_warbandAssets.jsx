@@ -1,9 +1,7 @@
 import AddNewEquipment from "./_addNewEquipment";
-import AddNewTroop from './_addNewTroop';
 
 export default function AssetDetails({
                             warband, updateWarband,
-                            troopTypes, allFactionTroopTypes, createTroop,
                             equipment,  allFactionEquipment, warbandEquipment, createEquipment, removeEquipment}) {
     return(
         <>
@@ -28,12 +26,6 @@ export default function AssetDetails({
                         warband={warband} warbandEquipment={warbandEquipment}
                         equipment={equipment} allFactionEquipment={allFactionEquipment}
                         createEquipment={createEquipment} removeEquipment={removeEquipment}/>
-                </div>
-                <div className='col-sm-3 col-md-1'>
-                    <AddNewTroop
-                        warband={warband}
-                        allFactionTroopTypes={allFactionTroopTypes} troopTypes={troopTypes}
-                        createTroop={createTroop}/>
                 </div>
             </div>
         </>
