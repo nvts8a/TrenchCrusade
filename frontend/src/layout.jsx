@@ -9,6 +9,7 @@ const Layout =({children}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const uriRequiresAuth = !['/rules/charts', '/rules/core'].includes(window.location.pathname)
     const loggedIn = () => !!localStorage.getItem('authorization')
     
     const logout = () => {
@@ -19,7 +20,7 @@ const Layout =({children}) => {
     }
 
     useEffect(() => {
-        if (!loggedIn()) navigate('/', { replace: true })
+        if (uriRequiresAuth && !loggedIn()) navigate('/', { replace: true })
     }, [navigate])
 
     const renderNavItems = () => {
@@ -37,10 +38,7 @@ const Layout =({children}) => {
                             <li className='nav-item' key='core-rules-nav-item'>
                                 <Link className='text-dark nav-link font-artisan' to='/rules/core'>Core Rules</Link>
                             </li>
-                            <li className='nav-item' key='equipment-nav-item'>
-                                <Link className='text-dark nav-link font-artisan' to='/rules/core'>Core Rules</Link>
-                            </li>
-                            <li className='nav-item' key='equipment-nav-item'>
+                            <li className='nav-item' key='charts-nav-item'>
                                 <Link className='text-dark nav-link font-artisan' to='/rules/charts'>Charts</Link>
                             </li>
                             <li className='nav-item' key='equipment-nav-item'>

@@ -16,7 +16,7 @@ export default function Charts() {
 
     return(
         <PageLayout pageName='Charts'>
-            <Chart title='Action Success Chart'>
+            <Chart title='Action Success Chart' key='action-success-chart'>
                 <p>When you take an ACTION (including Melee and Ranged Attacks), roll 2D6 and add any +DICE or -DICE from the character's profile, injuries or other sources, pick the two highest (or lowest if any -DICE were applied) and consult the chart below to see if the ACTION succeeded:</p>
                 <Table bordered>
                     <tbody>
@@ -36,7 +36,7 @@ export default function Charts() {
                 </Table>
                 <p>If you succeed, you take the ACTION as described in the rules. If you fail, you can still move or take any other ACTIONS the model may have access to. If the ACTION is classed as a RISKY ACTION and you fail, the activation of the model is over and your opponent can now activate one of their models!</p>
             </Chart>
-            <Chart title='Injury Chart'>
+            <Chart title='Injury Chart' key='injury-chart'>
                 <p>If your attack hits the enemy, it is time to determine the amount of damage the attack has caused. Roll 2D6 (plus any +/-DICE from the model's profile or other sources), pick the two highest (or lowest if any -DICE were applied) and consult the following table:</p>
                 <Table bordered>
                     <tbody>
