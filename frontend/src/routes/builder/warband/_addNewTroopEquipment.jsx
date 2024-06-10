@@ -56,7 +56,7 @@ export default function AddNewTroopEquipment({warband, troopEquipment, equipment
         <i className='bi bi-shield-fill-plus' onClick={handleShow}></i>
         <Modal className='text-dark' show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
-                <Modal.Title className='font-english-towne'>Troop Equipment</Modal.Title>
+                <Modal.Title className='font-english-towne'>Armory</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Accordion>

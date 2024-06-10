@@ -23,8 +23,8 @@ export default function AssetDetails({
                 </div>
             </div>
             <AddNewEquipment 
-                warband={warband} warbandEquipment={warbandEquipment}
-                equipment={equipment} allFactionEquipment={allFactionEquipment}
+                currentEquipment={warbandEquipment}
+                equipment={equipment} factionEquipment={allFactionEquipment[warband.factionId]}
                 createEquipment={createEquipment} removeEquipment={removeEquipment}/>
         </>
     )

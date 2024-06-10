@@ -1,15 +1,23 @@
+// REACT
 import { useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import EquipableCard from '../../../components/_equipableCard'
+import Modal from 'react-bootstrap/Modal'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
-import Card from 'react-bootstrap/Card';
-import EquipmentCard from '../../../components/_equipmentCard'
 
-export default function AddNewEquipment({warband, warbandEquipment, equipment, allFactionEquipment, createEquipment, removeEquipment}) {
+// REDUX
+import { useEquipment } from '../../../store/loaders';
+
+export default function AddNewEquipment({currentEquipment, factionEquipment, createEquipment, removeEquipment}) {
     const [show, setShow] = useState(false)
     const handleClose     = () => setShow(false)
     const handleShow      = () => setShow(true)
+
+    const equipment = useEquipment()
+
+    if (!factionEquipment || !Object.keys(equipment).length) return(<></>)
 
     const CustomToggle = ({ children, eventKey }) => {      
         return (
@@ -21,10 +29,10 @@ export default function AddNewEquipment({warband, warbandEquipment, equipment, a
         )
       }
 
-    const renderEquipment = (factionEquipment) => {
+    const renderEquipment = () => {
         return(Object.values(factionEquipment).map((factionEquipable) => {
             const equipable = equipment[factionEquipable.equipmentId]
-            const count = warbandEquipment.filter((equipable) => equipable.factionEquipmentId === factionEquipable.id).length
+            const count = currentEquipment.filter((equipable) => equipable.factionEquipmentId === factionEquipable.id).length
 
             return(
                 <Card key={factionEquipable.id}>
@@ -44,7 +52,7 @@ export default function AddNewEquipment({warband, warbandEquipment, equipment, a
                         </span>
                     </Card.Header>
                     <Accordion.Collapse eventKey={factionEquipable.id}>
-                        <EquipmentCard equipable={equipment[factionEquipable.equipmentId]} />
+                        <EquipableCard equipable={equipment[factionEquipable.equipmentId]} />
                     </Accordion.Collapse>
                 </Card>
             )
@@ -59,9 +67,10 @@ export default function AddNewEquipment({warband, warbandEquipment, equipment, a
             </Modal.Header>
             <Modal.Body>
                 <Accordion>
-                    {renderEquipment(allFactionEquipment[warband.factionId])}
+                    {renderEquipment()}
                 </Accordion>
             </Modal.Body>
         </Modal>
         </>)
 }
+

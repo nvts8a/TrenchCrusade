@@ -9,7 +9,7 @@ import WarbandTroops from './_warbandTroops';
 // REDUX
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { useEquipment, useFactionEquipment, useFactions, useWarbands} from '../../../store/loaders';
+import { useFactionEquipment, useFactions, useWarbands} from '../../../store/loaders';
 import { updateWarband, createEquipment, removeEquipment } from '../_builderActions';
 
 export default function Roster() {
@@ -17,7 +17,6 @@ export default function Roster() {
     const params   = useParams()
     const warbands = useWarbands()
 
-    const equipment = useEquipment()
     const factions = useFactions()
     const factionEquipment = useFactionEquipment()
 
@@ -73,7 +72,6 @@ export default function Roster() {
             <WarbandAssets  warband={warband}
                             updateWarband={updateWarband(params.id, dispatch)}
 
-                            equipment={equipment}
                             allFactionEquipment={factionEquipment}
                             warbandEquipment={warbandEquipment}
                             createEquipment={createEquipment(warband, dispatch, updateWarband, addWarbandEquipable)} 
