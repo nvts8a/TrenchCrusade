@@ -1,10 +1,12 @@
+import ListGroup from 'react-bootstrap/ListGroup';
+
 export default function Rules({rules}) {
     const renderRule = (rule) => {
         return(
-            <li className='list-group-item text-start list-group-item-dark' key={rule.id}>    
+            <ListGroup.Item variant='dark' key={rule.id}>    
                 <span className='fw-bold'>{`⛨ ${rule.name ? rule.name : 'Rule'}: `}</span>
                 <span>{rule.rule}</span>
-            </li>
+            </ListGroup.Item>
         )
     }
 
@@ -12,9 +14,9 @@ export default function Rules({rules}) {
     const renderRules = () => rules.map((rule) => renderRule(rule))
 
     if (rules) return(
-        <ul className='list-group list-group-flush'>
+        <ListGroup>
             {renderRules()}
-        </ul>
+        </ListGroup>
     )
     
     return(<></>)

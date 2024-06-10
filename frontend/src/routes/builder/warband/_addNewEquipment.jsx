@@ -52,7 +52,7 @@ export default function AddNewEquipment({warband, warbandEquipment, equipment, a
     }
 
     return(<>
-        <Button variant='danger'><i className='bi bi-shield-fill-plus' onClick={handleShow}></i></Button>
+        <Button variant='danger'><i className='bi bi-shield-fill-plus px-5' onClick={handleShow}></i></Button>
         <Modal className='text-dark' show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
                 <Modal.Title className='font-english-towne'>Armory</Modal.Title>

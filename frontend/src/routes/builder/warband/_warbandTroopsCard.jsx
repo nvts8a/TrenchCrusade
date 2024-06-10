@@ -1,21 +1,18 @@
 // REACT
 import Accordion from 'react-bootstrap/Accordion'
-import TroopEquipment from './_warbandTroopEquipment'
 import Keyword from '../../../components/_keyword'
 import Rules from '../../../components/_rules'
-import Table from 'react-bootstrap/Table'
 
 // REDUX
-import { useEquipment, useTroopTypes } from '../../../store/loaders'
+import { useTroopTypes } from '../../../store/loaders'
+import Equipment from '../../../components/_equipment'
 
-
-export default function TroopCard({troop}) {
-    const equipment  = useEquipment()
+export default function TroopCard({troop, factionTroopType, removeTroop}) {
+    //const equipment  = useEquipment()
     const troopTypes = useTroopTypes()
+    const troopType = troopTypes[troop.troopTypeId]
 
-    if (!troop) return(<></>)
-
-    const troopType  = troopTypes[troop.troopTypeId] 
+    if (!troopType) return(<></>)
 
     /*
     const params   = useParams()
@@ -37,102 +34,64 @@ export default function TroopCard({troop}) {
         .catch((err) => console.log(err.message))
     }, [params, troop])
     */
-    const troopKeywords = () => {
-        if (troopType.keywords.length > 0) return troopType.keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
-        return '-'
-    }
+
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const troopMelee    = () => troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
     const troopArmor    = () => troopType.armour
+    const troopKeywords = () => {
+        if (troopType.keywords.length > 0) return troopType.keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
+        return '-'
+    }
     const troopRules    = () => {
         if (troopType.rules.length > 0) return(<Rules rules={troopType.rules} />)
     }
-    
-    /*
-        let armor = troopType.armour
-
-        if(troopEquipment && troopEquipment.length > 0) {
-
-            troopEquipment
-            .filter((equipable) => equipable.equipment.type === 'armor')
-            .forEach(equipable => {
-                if(equipable.equipment.modifiers) equipable.equipment.modifiers.forEach((modifier) => {
-                    if(modifier.type === 'armor') {
-                        armor = armor + modifier.value
-                    }
-                })
-            })
-        }
-
-        if(troopType && troopType.equipment) {
-            troopType.equipment
-            .filter((equipable) => equipable.type === 'armor')
-            .forEach(equipable => {
-                if(equipable.modifiers) equipable.modifiers.forEach((modifier) => {
-                    if(modifier.type === 'armor') armor = armor + modifier.value
-                })
-            })
-        }
-        
-        return armor
-    }
-    */
 
     const renderTroopEquipment = (equipment, troopEquipment) => {
         if (equipment.length > 0 || troopEquipment.length > 0) {
-            const typeEquipped = () => equipment.map((equipable) => <TroopEquipment equipable={equipable} key={equipable.id} />)
-            const troopEquipped = () => troopEquipment.map((equipable) => <TroopEquipment equipable={equipable.equipment} key={equipable.id} />)
-
             return(
-                <Table>
-                    <thead>
-                        <tr className='table-secondary'>
-                            <th>Equipment</th>
-                            <th>Type</th>
-                            <th>Range</th>
-                            <th>Modifiers</th>
-                            <th>Keywords</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {typeEquipped()}
-                        {troopEquipped()}
-                    </tbody>
-                </Table>
+                <Equipment equipment={equipment} />
             )
         }
     }
 
+    const statBlock = (label, stat) => {
+        return(
+            <div className='col-6 col-md-2 text-center fs-7 mb-2' key={label}>
+                <p className='m-0'><strong>{label}</strong></p>
+                {stat}
+            </div>
+        )
+    }
+
+    const buttons = () => {
+        const trashButton = removeTroop ? <i className='bi bi bi-trash-fill' onClick={removeTroop(troop, factionTroopType)}/> : <></>
+
+        return(           
+            <h5 className='text-center'>
+                {trashButton}
+            </h5>
+        )
+    }
+
     return(
-        <Accordion.Item eventKey={troop.id}>
+        <Accordion.Item eventKey={troopType.id}>
             <Accordion.Header>
                 <div className='row w-100'>
-                    <div className='col-sm-6 col-md-2 font-english-towne'>
-                        <h5><strong>{troop.name}</strong></h5>
+                    <div className='col-6 col-md-2 font-english-towne'>
+                        <h5><strong>{troopType.name}</strong></h5>
                     </div>
-                    <div className='col-sm-6 col-md-2 font-english-towne'>
+                    <div className='col-6 col-md-2 font-english-towne'>
                         {troopKeywords()}
                     </div>
-                    <div className='col-sm-6 col-md-2 text-center'>
-                        <p><strong>Movement</strong></p>
-                        {troopMovement()}
-                    </div>
-                    <div className='col-sm-6 col-md-2 text-center'>
-                        <p><strong>Ranged</strong></p>
-                        {troopRanged()}
-                    </div>
-                    <div className='col-sm-6 col-md-2 text-center'>
-                        <p><strong>Melee</strong></p>
-                        {troopMelee()}
-                    </div>
-                    <div className='col-sm-6 col-md-2 text-center'>
-                        <p><strong>Armour</strong></p>
-                        {troopArmor()}
-                    </div>
+                    {statBlock('Movement', troopMovement())}
+                    {statBlock('Ranged',   troopRanged())}
+                    {statBlock('Melee',    troopMelee())}
+                    {statBlock('Armour',   troopArmor())}
                 </div>
             </Accordion.Header>
-            <Accordion.Body>
+            <Accordion.Body className='fs-7'>
+                {buttons()}
                 {troopRules()}
                 {renderTroopEquipment(troopType.equipment, [])}
             </Accordion.Body>

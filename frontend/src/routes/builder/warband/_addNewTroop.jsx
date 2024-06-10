@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Card from 'react-bootstrap/Card';
-import RosterTroopRow from './_warbandTroopsCard'
+import TroopCard from './_warbandTroopsCard'
 
 export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, createTroop}) {
     const [showAddTroop, setShowAddTroop] = useState(false)
@@ -14,7 +14,7 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
     function CustomToggle({ children, eventKey }) {      
         return (
             <>
-            <div className='d-inline-block w-75' onClick={useAccordionButton(eventKey)}>
+            <div className='d-inline-block' style={{width: '66%'}} onClick={useAccordionButton(eventKey)}>
                 {children}
             </div>
             </>
@@ -37,35 +37,17 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
                         </span>
                     </Card.Header>
                     <Accordion.Collapse eventKey={factionTroopType.id}>
-                        {renderAddTroopTypeCard(factionTroopType)}
+                        <TroopCard troop={factionTroopType} />
                     </Accordion.Collapse>
                 </Card>
             )
         }))
     }
 
-    const renderAddTroopTypeCard = (factionTroopType) => {
-        return(
-            <table className='table table-borderless'>
-            <thead>
-                <tr className='table-danger'>
-                    <th className='col-2'>Movement</th>
-                    <th className='col-2'>Ranged</th>
-                    <th className='col-2'>Melee</th>
-                    <th className='col-2'>Armour</th>
-                    <th className='col-2'>Keywords</th>
-                    <th className='col-2'>Base</th>
-                </tr>
-            </thead>
-            <tbody>
-                <RosterTroopRow recruitment='true' troopType={troopTypes[factionTroopType.troopTypeId]} key={factionTroopType.id}/>
-            </tbody>
-        </table>
-        )
-    }
-
     return(<>
-        <Button variant='danger' onClick={handleShow}><i className='bi bi-person-fill-add'></i></Button>
+        <div className='container text-center'>
+            <Button className='my-2' variant='danger' onClick={handleShow}><i className='bi bi-person-fill-add px-5' /></Button>
+        </div>
         <Modal className='text-dark' show={showAddTroop} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
                 <Modal.Title className='font-english-towne'>Recruitment</Modal.Title>

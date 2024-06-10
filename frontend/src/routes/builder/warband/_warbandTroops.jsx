@@ -8,9 +8,9 @@ import Accordion from 'react-bootstrap/Accordion';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { useFactionTroopTypes, useTroopTypes } from '../../../store/loaders'
-import { createTroop } from '../_builderActions';
+import { createTroop, removeTroop } from '../_builderActions';
 
-export default function WarbandTroops({warband, updateWarband}) {
+export default function WarbandTroops({warband}) {
     const dispatch = useDispatch()
     const troopTypes = useTroopTypes()
     const factionTroopTypes = useFactionTroopTypes()
@@ -19,11 +19,11 @@ export default function WarbandTroops({warband, updateWarband}) {
     const addTroop = (troop) => {
         dispatch(setTroops(troops.concat(troop)))
     }
-    /*
+    
     const findAndRemoveTroop = (troopRemoved) => {
         troops.splice(troops.findIndex((troop) => troop.id === troopRemoved.id), 1)
         dispatch(setTroops(troops))
-    }*/
+    }
 
     useEffect(() => {
         axios(`warband/${warband.id}/troop/all`)
@@ -37,10 +37,10 @@ export default function WarbandTroops({warband, updateWarband}) {
         const filteredTroops = troops.filter((troop) => factionTroopTypes[warband.factionId][troop.factionTroopTypeId].type === filter)
         if (filteredTroops.length < 1) return(<></>)
 
-        const troopCards = () => filteredTroops.map((troop) => <TroopCard troop={troop} key={troop.id} />)
+        const troopCards = () => filteredTroops.map((troop) => <TroopCard key={troop.id} troop={troop} factionTroopType={factionTroopTypes[warband.factionId][troop.factionTroopTypeId]} removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)}/>)
         return(
             <Accordion key={filter}>
-                <h5 className='display-5 font-english-towne text-danger'>{filter.charAt(0).toUpperCase() + filter.slice(1)}</h5>
+                <h5 className='display-5 font-english-towne text-center text-danger'>{filter.charAt(0).toUpperCase() + filter.slice(1)}</h5>
                 {troopCards()}
             </Accordion>
         )
@@ -48,12 +48,10 @@ export default function WarbandTroops({warband, updateWarband}) {
 
     return(
     <>
-        <div className='col-sm-3 col-md-1' key='add-new'>
-            <AddNewTroop
-                warband={warband}
-                allFactionTroopTypes={factionTroopTypes} troopTypes={troopTypes}
-                createTroop={createTroop(warband, dispatch, addTroop)}/>
-        </div>
+        <AddNewTroop
+            warband={warband}
+            allFactionTroopTypes={factionTroopTypes} troopTypes={troopTypes}
+            createTroop={createTroop(warband, dispatch, addTroop)}/>
         {renderTroopCards(troops, 'elite')}
         {renderTroopCards(troops, 'troop')}
     </>

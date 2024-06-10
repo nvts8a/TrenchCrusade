@@ -20,7 +20,7 @@ export default function Root() {
     }, [navigate])
 
     const authenticate = () => {
-      axios.patch('user', { 
+      axios.put('user', { 
           username:  username, 
           password:  password
       })

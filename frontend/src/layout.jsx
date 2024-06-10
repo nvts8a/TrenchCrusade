@@ -9,7 +9,6 @@ const Layout =({children}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const uriRequiresAuth = !['/rules/charts', '/rules/core'].includes(window.location.pathname)
     const loggedIn = () => !!localStorage.getItem('authorization')
     
     const logout = () => {
@@ -20,6 +19,7 @@ const Layout =({children}) => {
     }
 
     useEffect(() => {
+        const uriRequiresAuth = !['/rules/charts', '/rules/core'].includes(window.location.pathname)
         if (uriRequiresAuth && !loggedIn()) navigate('/', { replace: true })
     }, [navigate])
 

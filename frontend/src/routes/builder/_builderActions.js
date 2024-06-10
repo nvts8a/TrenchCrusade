@@ -69,7 +69,15 @@ export const {  createWarband, removeWarband, updateWarband,
             'name':             troopType.name
         })
         .then((response) => {
-            updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats - factionTroopType.cost }})
+            let purchase = { target: {} }
+
+            if (factionTroopType.currency) {
+                purchase.target = { id: factionTroopType.currency, value: warband[factionTroopType.currency] - factionTroopType.cost }
+            } else {
+                purchase.target = { id: 'ducats', value: warband.ducats - factionTroopType.cost }
+            }
+
+            updateWarband(warband.id, dispatch)(purchase)
             addTroop(response.data)
         })
         .catch((err) => console.log(err.message))
@@ -78,7 +86,15 @@ export const {  createWarband, removeWarband, updateWarband,
     removeTroop: (warband, dispatch, removeTroop) => (troopRemoved, factionTroopType) => () => {
         axios.delete(`warband/${warband.id}/troop/${troopRemoved.id}`)
         .then(() => {
-            updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats + factionTroopType.cost }})
+            let refund = { target: {} }
+
+            if (factionTroopType.currency) {
+                refund.target = { id: factionTroopType.currency, value: warband[factionTroopType.currency] + factionTroopType.cost }
+            } else {
+                refund.target = { id: 'ducats', value: warband.ducats + factionTroopType.cost }
+            }
+
+            updateWarband(warband.id, dispatch)(refund)
             removeTroop(troopRemoved)
         })
         .catch((err) => console.log(err.message))
