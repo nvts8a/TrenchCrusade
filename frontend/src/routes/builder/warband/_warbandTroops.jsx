@@ -7,13 +7,10 @@ import Accordion from 'react-bootstrap/Accordion';
 // REDUX
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { useFactionTroopTypes, useTroopTypes } from '../../../store/loaders'
 import { createTroop, removeTroop } from '../_builderActions';
 
-export default function WarbandTroops({warband}) {
+export default function WarbandTroops({warband, allTroopTypes, factionTroopTypes}) {
     const dispatch = useDispatch()
-    const troopTypes = useTroopTypes()
-    const factionTroopTypes = useFactionTroopTypes()
 
     const [troops, setTroops]  = useState([])
     const addTroop = (troop) => {
@@ -31,13 +28,13 @@ export default function WarbandTroops({warband}) {
         .catch((err) => console.log(err.message))
     }, [warband])
 
-    if (!troops) return(<></>)
+    if (!troops || !allTroopTypes || !factionTroopTypes) return(<></>)
 
     const renderTroopCards = (troops, filter) => {
-        const filteredTroops = troops.filter((troop) => factionTroopTypes[warband.factionId][troop.factionTroopTypeId].type === filter)
+        const filteredTroops = troops.filter((troop) => factionTroopTypes[troop.factionTroopTypeId].type === filter)
         if (filteredTroops.length < 1) return(<></>)
 
-        const troopCards = () => filteredTroops.map((troop) => <TroopCard key={troop.id} troop={troop} factionTroopType={factionTroopTypes[warband.factionId][troop.factionTroopTypeId]} removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)}/>)
+        const troopCards = () => filteredTroops.map((troop) => <TroopCard key={troop.id} troop={troop} factionTroopType={factionTroopTypes[troop.factionTroopTypeId]} removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)}/>)
         return(
             <Accordion key={filter}>
                 <h5 className='display-5 font-english-towne text-center text-danger'>{filter.charAt(0).toUpperCase() + filter.slice(1)}</h5>
@@ -49,8 +46,8 @@ export default function WarbandTroops({warband}) {
     return(
     <>
         <AddNewTroop
-            warband={warband}
-            allFactionTroopTypes={factionTroopTypes} troopTypes={troopTypes}
+            factionTroopTypes={factionTroopTypes}
+            allTroopTypes={allTroopTypes}
             createTroop={createTroop(warband, dispatch, addTroop)}/>
         {renderTroopCards(troops, 'elite')}
         {renderTroopCards(troops, 'troop')}

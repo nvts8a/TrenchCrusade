@@ -7,17 +7,12 @@ import EquipableCard from '../../../components/_equipableCard'
 import Modal from 'react-bootstrap/Modal'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 
-// REDUX
-import { useEquipment } from '../../../store/loaders';
-
-export default function AddNewEquipment({currentEquipment, factionEquipment, createEquipment, removeEquipment}) {
+export default function AddNewEquipment({currentEquipment, factionEquipment, allEquipment, createEquipment, removeEquipment}) {
     const [show, setShow] = useState(false)
     const handleClose     = () => setShow(false)
     const handleShow      = () => setShow(true)
 
-    const equipment = useEquipment()
-
-    if (!factionEquipment || !Object.keys(equipment).length) return(<></>)
+    if (!factionEquipment || !allEquipment) return(<></>)
 
     const CustomToggle = ({ children, eventKey }) => {      
         return (
@@ -31,7 +26,7 @@ export default function AddNewEquipment({currentEquipment, factionEquipment, cre
 
     const renderEquipment = () => {
         return(Object.values(factionEquipment).map((factionEquipable) => {
-            const equipable = equipment[factionEquipable.equipmentId]
+            const equipable = allEquipment[factionEquipable.equipmentId]
             const count = currentEquipment.filter((equipable) => equipable.factionEquipmentId === factionEquipable.id).length
 
             return(
@@ -43,7 +38,7 @@ export default function AddNewEquipment({currentEquipment, factionEquipment, cre
                         <span className='me-3'>
                             {count}
                         </span>
-                        <span className='icon-link icon-link-hover me-3' onClick={createEquipment(factionEquipable, equipment[factionEquipable.equipmentId])}>
+                        <span className='icon-link icon-link-hover me-3' onClick={createEquipment(factionEquipable, allEquipment[factionEquipable.equipmentId])}>
                             <i className='bi bi-plus-circle'></i>
                         </span>
                         <CustomToggle eventKey={factionEquipable.id}>{equipable.name}</CustomToggle>
@@ -52,7 +47,7 @@ export default function AddNewEquipment({currentEquipment, factionEquipment, cre
                         </span>
                     </Card.Header>
                     <Accordion.Collapse eventKey={factionEquipable.id}>
-                        <EquipableCard equipable={equipment[factionEquipable.equipmentId]} />
+                        <EquipableCard equipable={allEquipment[factionEquipable.equipmentId]} />
                     </Accordion.Collapse>
                 </Card>
             )

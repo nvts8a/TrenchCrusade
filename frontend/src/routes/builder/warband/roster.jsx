@@ -9,7 +9,7 @@ import WarbandTroops from './_warbandTroops';
 // REDUX
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { useFactionEquipment, useFactions, useWarbands} from '../../../store/loaders';
+import { useEquipment, useFactionEquipment, useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
 import { updateWarband, createEquipment, removeEquipment } from '../_builderActions';
 
 export default function Roster() {
@@ -17,9 +17,13 @@ export default function Roster() {
     const params   = useParams()
     const warbands = useWarbands()
 
+    const troopTypes = useTroopTypes()
+    const allFactionTroopTypes = useFactionTroopTypes()
+
     const factions = useFactions()
     const factionEquipment = useFactionEquipment()
 
+    const equipment = useEquipment()
     const [warbandEquipment, setWarbandEquipment]  = useState([])
     const addWarbandEquipable = (equipable) => {
         setWarbandEquipment(warbandEquipment.concat(equipable))
@@ -40,7 +44,7 @@ export default function Roster() {
     if (!warbands[params.id]) return(<></>)
 
     const warband = warbands[params.id]
-    
+
     return(
         <>
         <PageLayout pageName='Roster'>
@@ -72,12 +76,14 @@ export default function Roster() {
             <WarbandAssets  warband={warband}
                             updateWarband={updateWarband(params.id, dispatch)}
 
+                            allEquipment={equipment}
                             allFactionEquipment={factionEquipment}
                             warbandEquipment={warbandEquipment}
                             createEquipment={createEquipment(warband, dispatch, updateWarband, addWarbandEquipable)} 
                             removeEquipment={removeEquipment(warband, dispatch, updateWarband, findAndRemoveWarbandEquipable)} />
         </PageLayout>
         <WarbandTroops  warband={warband}
-                        updateWarband={updateWarband}/>
+                        allTroopTypes={troopTypes} 
+                        factionTroopTypes={allFactionTroopTypes[warband.factionId]}/>
         </>)
 }

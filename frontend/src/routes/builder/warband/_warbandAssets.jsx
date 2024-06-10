@@ -1,8 +1,8 @@
 import AddNewEquipment from "./_addNewEquipment";
 
 export default function AssetDetails({
-                            warband, updateWarband,
-                            equipment,  allFactionEquipment, warbandEquipment, createEquipment, removeEquipment}) {
+                            warband, updateWarband, allEquipment, 
+                            allFactionEquipment, warbandEquipment, createEquipment, removeEquipment}) {
     return(
         <>
             <div className='row justify-content-center'>
@@ -24,7 +24,8 @@ export default function AssetDetails({
             </div>
             <AddNewEquipment 
                 currentEquipment={warbandEquipment}
-                equipment={equipment} factionEquipment={allFactionEquipment[warband.factionId]}
+                factionEquipment={allFactionEquipment[warband.factionId]}
+                allEquipment={allEquipment}
                 createEquipment={createEquipment} removeEquipment={removeEquipment}/>
         </>
     )

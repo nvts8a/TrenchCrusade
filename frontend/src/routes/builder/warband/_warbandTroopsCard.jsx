@@ -4,11 +4,11 @@ import Keyword from '../../../components/_keyword'
 import Rules from '../../../components/_rules'
 
 // REDUX
-import { useTroopTypes } from '../../../store/loaders'
+import { useEquipment, useTroopTypes } from '../../../store/loaders'
 import Equipment from '../../../components/_equipment'
 
 export default function TroopCard({troop, factionTroopType, removeTroop}) {
-    //const equipment  = useEquipment()
+    const equipment  = useEquipment()
     const troopTypes = useTroopTypes()
     const troopType = troopTypes[troop.troopTypeId]
 
@@ -65,11 +65,13 @@ export default function TroopCard({troop, factionTroopType, removeTroop}) {
     }
 
     const buttons = () => {
-        const trashButton = removeTroop ? <i className='bi bi bi-trash-fill' onClick={removeTroop(troop, factionTroopType)}/> : <></>
+        const trashButton  = removeTroop ? <i className='bi bi bi-trash-fill' onClick={removeTroop(troop, factionTroopType)}/> : <></>
+        const armoryButton = <i className='bi bi-shield-fill-plus'/>
 
         return(           
             <h5 className='text-center'>
                 {trashButton}
+                {armoryButton}
             </h5>
         )
     }

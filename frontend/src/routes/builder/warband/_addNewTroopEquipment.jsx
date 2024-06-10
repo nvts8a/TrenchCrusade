@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Card from 'react-bootstrap/Card';
-import EquipmentCard from '../../../components/_equipmentCard'
+import EquipmentCard from '../../../components/_equipableCard'
 
 export default function AddNewTroopEquipment({warband, troopEquipment, equipment, allFactionEquipment, handleCreateEquipment, handleRemoveEquipment}) {
     const [show, setShow] = useState(false)

@@ -6,11 +6,13 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Card from 'react-bootstrap/Card';
 import TroopCard from './_warbandTroopsCard'
 
-export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, createTroop}) {
+export default function AddNewTroop({factionTroopTypes, allTroopTypes, createTroop}) {
     const [showAddTroop, setShowAddTroop] = useState(false)
     const handleClose     = () => setShowAddTroop(false)
     const handleShow      = () => setShowAddTroop(true)
 
+    if (!factionTroopTypes || !allTroopTypes) return (<></>)
+    
     function CustomToggle({ children, eventKey }) {      
         return (
             <>
@@ -21,14 +23,14 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
         );
       }
 
-    const renderTroopTypes = (factionTroopTypes) => {
+    const renderTroopTypes = () => {
         return(Object.values(factionTroopTypes).map((factionTroopType) => {
-            const troopType = troopTypes[factionTroopType.troopTypeId]
+            const troopType = allTroopTypes[factionTroopType.troopTypeId]
 
             return(
                 <Card key={factionTroopType.id}>
                     <Card.Header className=''>
-                        <span className='icon-link icon-link-hover me-3' onClick={createTroop(factionTroopType, troopTypes[factionTroopType.troopTypeId])}>
+                        <span className='icon-link icon-link-hover me-3' onClick={createTroop(factionTroopType, allTroopTypes[factionTroopType.troopTypeId])}>
                             <i className='bi bi-plus-circle'></i>
                         </span>
                         <CustomToggle eventKey={factionTroopType.id}>{troopType.name}</CustomToggle>
@@ -54,7 +56,7 @@ export default function AddNewTroop({warband, allFactionTroopTypes, troopTypes, 
             </Modal.Header>
             <Modal.Body>
                 <Accordion>
-                    {renderTroopTypes(allFactionTroopTypes[warband.factionId])}
+                    {renderTroopTypes()}
                 </Accordion>
             </Modal.Body>
         </Modal>
