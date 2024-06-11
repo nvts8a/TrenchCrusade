@@ -21,7 +21,7 @@ export default function Layout({children}) {
     
     const logout = () => {
         dispatch(deleteWarbands())
-        localStorage.removeItem('authorization')
+        localStorage.clear()
         delete axios.defaults.headers.common['Authorization']
 
     }
