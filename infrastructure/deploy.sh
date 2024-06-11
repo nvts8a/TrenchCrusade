@@ -35,6 +35,7 @@ fi
 echo ">> Deploying code"
 cd ..
 
+ssh -i ~/.ssh/ec2-TrenchCrusade.pem ec2-user@18.226.186.204 "sudo rm -rf ~/environment/staging/frontend/*"
 scp -r -i ~/.ssh/ec2-TrenchCrusade.pem ./frontend/build/* ec2-user@18.226.186.204:~/environment/staging/frontend
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -43,6 +44,7 @@ if [ $retVal -ne 0 ]; then
    exit $retVal
 fi
 
+ssh -i ~/.ssh/ec2-TrenchCrusade.pem ec2-user@18.226.186.204 "sudo rm -rf /usr/share/nginx/html.backup"
 ssh -i ~/.ssh/ec2-TrenchCrusade.pem ec2-user@18.226.186.204 "sudo mv -f /usr/share/nginx/html /usr/share/nginx/html.backup"
 ssh -i ~/.ssh/ec2-TrenchCrusade.pem ec2-user@18.226.186.204 "sudo mkdir /usr/share/nginx/html && sudo chown nginx /usr/share/nginx/html"
 ssh -i ~/.ssh/ec2-TrenchCrusade.pem ec2-user@18.226.186.204 "sudo mv -f ~/environment/staging/frontend/* /usr/share/nginx/html"
