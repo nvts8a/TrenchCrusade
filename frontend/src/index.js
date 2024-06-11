@@ -36,32 +36,31 @@ axios.defaults.headers.common['Authorization'] = localStorage.getItem('authoriza
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout><Root /></Layout>,
+    element: <Layout><Root /></Layout>
   },
   {
-    path: 'rules/charts',
+    path: '/rules/charts',
     element: <Layout><Charts /></Layout>
   },
   {
-    path: 'rules/core',
+    path: '/rules/core',
     element: <Layout><Core /></Layout>
   },
   {
     path: '/rules/equipment',
-    element: <Layout><Equipment /></Layout>,
-    
+    element: <Layout><Equipment /></Layout>
   },
   {
     path: '/rules/factions',
-    element: <Layout><Factions /></Layout>,
+    element: <Layout><Factions /></Layout>
   },
   {
     path: '/rules/keywords',
-    element: <Layout><Keywords /></Layout>,
+    element: <Layout><Keywords /></Layout>
   },
   {
     path: '/rules/troop-types',
-    element: <Layout><TroopTypes /></Layout>,
+    element: <Layout><TroopTypes /></Layout>
   },
   {
     path: '/builder/warband/all',
