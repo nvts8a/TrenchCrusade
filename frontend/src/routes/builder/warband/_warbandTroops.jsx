@@ -7,9 +7,9 @@ import Accordion from 'react-bootstrap/Accordion';
 // REDUX
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { createTroop, removeTroop } from '../_builderActions';
+import { createTroop, removeTroop, createTroopEquipment, removeTroopEquipment, updateWarband } from '../_builderActions';
 
-export default function WarbandTroops({warband, allTroopTypes, factionTroopTypes}) {
+export default function WarbandTroops({warband, allTroopTypes, factionTroopTypes, factionEquipment}) {
     const dispatch = useDispatch()
 
     const [troops, setTroops]  = useState([])
@@ -34,11 +34,17 @@ export default function WarbandTroops({warband, allTroopTypes, factionTroopTypes
         const filteredTroops = troops.filter((troop) => factionTroopTypes[troop.factionTroopTypeId].type === filter)
         if (filteredTroops.length < 1) return(<></>)
 
-        const troopCards = () => filteredTroops.map((troop) => <TroopCard key={troop.id} troop={troop} factionTroopType={factionTroopTypes[troop.factionTroopTypeId]} removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)}/>)
+        const troopCards = filteredTroops.map((troop) => <TroopCard key={troop.id} troop={troop}
+                factionTroopType={factionTroopTypes[troop.factionTroopTypeId]}
+                removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)}
+                factionEquipment={factionEquipment}
+                createTroopEquipment={createTroopEquipment(warband, dispatch, updateWarband)} 
+                removeTroopEquipment={removeTroopEquipment(warband, dispatch, updateWarband)}/>)
+        
         return(
             <Accordion key={filter}>
                 <h5 className='display-5 font-english-towne text-center text-danger'>{filter.charAt(0).toUpperCase() + filter.slice(1)}</h5>
-                {troopCards()}
+                {troopCards}
             </Accordion>
         )
     }

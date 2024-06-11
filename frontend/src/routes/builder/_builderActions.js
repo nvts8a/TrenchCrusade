@@ -102,25 +102,40 @@ export const {  createWarband, removeWarband, updateWarband,
 
     // WARBAND TROOP EQUIPMENT
 
-    createTroopEquipment: (troop, warband, dispatch, updateWarband) => (addTroopEquipment) => (factionEquipable, equipable) => () => {
+    createTroopEquipment: (warband, dispatch, updateWarband) => (troop, addTroopEquipment) => (factionEquipable, equipable) => () => {
         axios.post(`warband/${warband.id}/troop/${troop.id}/equipment`, {
             'factionEquipment': factionEquipable,
             'equipment':        equipable
         })
         .then((response) => {
-            updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats - factionEquipable.cost }})
-            addTroopEquipment(troop, response.data)
+            let purchase = { target: {} }
+
+            if (factionEquipable.currency) {
+                purchase.target = { id: factionEquipable.currency, value: warband[factionEquipable.currency] - factionEquipable.cost }
+            } else {
+                purchase.target = { id: 'ducats', value: warband.ducats - factionEquipable.cost }
+            }
+
+            updateWarband(warband.id, dispatch)(purchase)
+            addTroopEquipment(response.data)
         })
         .catch((err) => console.log(err.message))
     },
 
-    removeTroopEquipment: (troop, warband, dispatch, updateWarband) => (findAndRemoveTroopEquipment) => (factionEquipable) => () => {
+    removeTroopEquipment: (warband, dispatch, updateWarband) => (troop, findAndRemoveTroopEquipment) => (factionEquipable) => () => {
         const removed = findAndRemoveTroopEquipment(factionEquipable)
         if (removed) {
             axios.delete(`warband/${warband.id}/troop/${troop.id}/equipment/${removed.id}`)
             .then(() => {
-                updateWarband(warband.id, dispatch)({ target: { id: 'ducats', value: warband.ducats + factionEquipable.cost}})
-            })
+                let refund = { target: {} }
+
+                if (factionEquipable.currency) {
+                    refund.target = { id: factionEquipable.currency, value: warband[factionEquipable.currency] + factionEquipable.cost }
+                } else {
+                    refund.target = { id: 'ducats', value: warband.ducats + factionEquipable.cost }
+                }
+    
+                updateWarband(warband.id, dispatch)(refund)            })
             .catch((err) => console.log(err.message))
         }
     }

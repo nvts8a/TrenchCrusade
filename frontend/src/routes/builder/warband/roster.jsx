@@ -21,7 +21,7 @@ export default function Roster() {
     const allFactionTroopTypes = useFactionTroopTypes()
 
     const factions = useFactions()
-    const factionEquipment = useFactionEquipment()
+    const allFactionEquipment = useFactionEquipment()
 
     const equipment = useEquipment()
     const [warbandEquipment, setWarbandEquipment]  = useState([])
@@ -77,13 +77,14 @@ export default function Roster() {
                             updateWarband={updateWarband(params.id, dispatch)}
 
                             allEquipment={equipment}
-                            allFactionEquipment={factionEquipment}
+                            allFactionEquipment={allFactionEquipment}
                             warbandEquipment={warbandEquipment}
                             createEquipment={createEquipment(warband, dispatch, updateWarband, addWarbandEquipable)} 
                             removeEquipment={removeEquipment(warband, dispatch, updateWarband, findAndRemoveWarbandEquipable)} />
         </PageLayout>
         <WarbandTroops  warband={warband}
                         allTroopTypes={troopTypes} 
-                        factionTroopTypes={allFactionTroopTypes[warband.factionId]}/>
+                        factionTroopTypes={allFactionTroopTypes[warband.factionId]}
+                        factionEquipment={allFactionEquipment[warband.factionId]} />
         </>)
 }

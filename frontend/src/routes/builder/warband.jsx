@@ -1,11 +1,13 @@
 // REACT
-import { Link, useNavigate } from 'react-router-dom';
-import PageLayout from '../../components/_pageLayout';
+import { Link, useNavigate } from 'react-router-dom'
+import Dropdown from 'react-bootstrap/Dropdown'
+import ListGroup from 'react-bootstrap/ListGroup'
+import PageLayout from '../../components/_pageLayout'
 
 // REDUX
 import { useDispatch } from 'react-redux'
-import { useFactions, useWarbands } from '../../store/loaders';
-import { createWarband, removeWarband } from './_builderActions';
+import { useFactions, useWarbands } from '../../store/loaders'
+import { createWarband, removeWarband } from './_builderActions'
 
 export default function Warband() {
     const dispatch = useDispatch()
@@ -18,17 +20,17 @@ export default function Warband() {
         return Object.values(warbands).map((warband) => {
             return(
                 <div className='row justify-content-center' key={warband.id}>
-                    <div className='col-sm-12 col-md-3'>
-                        <ul className='list-group list-group-horizontal row w-100' id={`warband-${warband.id}`}>
-                            <li className='list-group-item col-10'>
+                    <div className='col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4' >
+                        <ListGroup horizontal id={`warband-${warband.id}`}>
+                            <ListGroup.Item className='col-10'>
                                 <Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link>
-                            </li>
-                            <li className='list-group-item col-2'>
+                            </ListGroup.Item>
+                            <ListGroup.Item className='col-2'>
                                 <div className='icon-link icon-link-hover' onClick={removeWarband(warband.id, dispatch)}>
                                     <i className='bi bi-trash-fill'></i>
                                 </div>
-                            </li>
-                        </ul>
+                            </ListGroup.Item>
+                        </ListGroup>
                     </div>
                 </div>
             )
@@ -37,29 +39,32 @@ export default function Warband() {
 
     const renderAddNewWarband = () => {
         return(
-
-            <div className='btn-group dropup font-artisan m-3' id='new-warband'>
-                <button className='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+            <Dropdown drop='down-centered' className='font-artisan m-3' id='new-warband'>
+                <Dropdown.Toggle variant='danger'>
                     New Warband
-                </button>
-                <ul className='dropdown-menu'>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
                     {renderFactionDropdownItems()}
-                </ul>
-            </div>
+                </Dropdown.Menu>
+            </Dropdown>
         )
     }
 
     const renderFactionDropdownItems = () => {
         return Object.values(factions).map((faction) => {
             return(
-                <li className='dropdown-item' id={`faction-${faction.id}`} key={faction.id} onClick={createWarband(faction, dispatch, navigate)}>{faction.name}</li>
-            );
+                <Dropdown.Item id={`faction-${faction.id}`} key={faction.id} onClick={createWarband(faction, dispatch, navigate)}>
+                    {faction.name}
+                </Dropdown.Item>
+            )
         })
     }
 
     return(
         <PageLayout pageName='Warbands'>
-            {renderWarbands()}
+            <div className='container' style={{minHeight: '150px'}}>
+                {renderWarbands()}
+            </div>
             {renderAddNewWarband()}
         </PageLayout>
     )

@@ -1,28 +1,27 @@
 // REACT
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import AddNewEquipment from './_addNewEquipment'
 import Accordion from 'react-bootstrap/Accordion'
+import Button from 'react-bootstrap/esm/Button'
+import Equipment from '../../../components/_equipment'
 import Keyword from '../../../components/_keyword'
 import Rules from '../../../components/_rules'
 
 // REDUX
+import axios from 'axios';
 import { useEquipment, useTroopTypes } from '../../../store/loaders'
-import Equipment from '../../../components/_equipment'
 
-export default function TroopCard({troop, factionTroopType, removeTroop}) {
-    const equipment  = useEquipment()
-    const troopTypes = useTroopTypes()
-    const troopType = troopTypes[troop.troopTypeId]
-
-    if (!troopType) return(<></>)
-
-    /*
+export default function TroopCard({troop, factionTroopType, removeTroop, factionEquipment, createTroopEquipment, removeTroopEquipment}) {
     const params   = useParams()
-
+    const troopTypes = useTroopTypes()
+    const allEquipment  = useEquipment()
     const [troopEquipment, setTroopEquipment]  = useState([])
     const addTroopEquipable = (equipable) => {
         setTroopEquipment(troopEquipment.concat(equipable))
     }
     const findAndRemoveTroopEquipable = (factionEquipable) => {
-        const equipmentRemovedIndex = troopEquipment.findIndex((troopEquipable) => troopEquipable.equipmentId === factionEquipable.equipmentId)
+        const equipmentRemovedIndex = troopEquipment.findIndex((equipable) => equipable.factionEquipmentId === factionEquipable.id)
         
         if (equipmentRemovedIndex > -1) return troopEquipment.splice(equipmentRemovedIndex, 1)[0]
         return false
@@ -33,7 +32,10 @@ export default function TroopCard({troop, factionTroopType, removeTroop}) {
         .then((response) => setTroopEquipment(response.data))
         .catch((err) => console.log(err.message))
     }, [params, troop])
-    */
+
+    const troopType = troopTypes[troop.troopTypeId]
+
+    if (!troopType) return(<></>)
 
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
@@ -49,8 +51,12 @@ export default function TroopCard({troop, factionTroopType, removeTroop}) {
 
     const renderTroopEquipment = (equipment, troopEquipment) => {
         if (equipment.length > 0 || troopEquipment.length > 0) {
+            console.log(troopEquipment)
+            const mapped = troopEquipment.map((troopEquipable) => troopEquipable.equipment)
+            console.log(mapped)
+
             return(
-                <Equipment equipment={equipment} />
+                <Equipment equipment={equipment.concat(mapped)} />
             )
         }
     }
@@ -65,13 +71,18 @@ export default function TroopCard({troop, factionTroopType, removeTroop}) {
     }
 
     const buttons = () => {
-        const trashButton  = removeTroop ? <i className='bi bi bi-trash-fill' onClick={removeTroop(troop, factionTroopType)}/> : <></>
-        const armoryButton = <i className='bi bi-shield-fill-plus'/>
+        const armoryButton = createTroopEquipment && removeTroopEquipment ? <AddNewEquipment
+                                currentEquipment={troopEquipment}
+                                factionEquipment={factionEquipment}
+                                allEquipment={allEquipment}
+                                createEquipment={createTroopEquipment(troop, addTroopEquipable)}
+                                removeEquipment={removeTroopEquipment(troop, findAndRemoveTroopEquipable)} /> : <></>
+        const trashButton  = removeTroop ? <Button variant='danger ms-2'><i className='bi bi bi-trash-fill px-5' onClick={removeTroop(troop, factionTroopType)}/></Button> : <></>
 
         return(           
             <h5 className='text-center'>
-                {trashButton}
                 {armoryButton}
+                {trashButton}
             </h5>
         )
     }
@@ -95,7 +106,7 @@ export default function TroopCard({troop, factionTroopType, removeTroop}) {
             <Accordion.Body className='fs-7'>
                 {buttons()}
                 {troopRules()}
-                {renderTroopEquipment(troopType.equipment, [])}
+                {renderTroopEquipment(troopType.equipment, troopEquipment)}
             </Accordion.Body>
         </Accordion.Item>
     )
