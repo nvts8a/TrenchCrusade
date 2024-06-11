@@ -12,7 +12,7 @@ import Rules from '../../../components/_rules'
 import axios from 'axios';
 import { useEquipment, useTroopTypes } from '../../../store/loaders'
 
-export default function TroopCard({troop, factionTroopType, removeTroop, factionEquipment, createTroopEquipment, removeTroopEquipment}) {
+export default function TroopCard({troop, factionTroopType, removeTroop, factionEquipment, createTroopEquipment, removeTroopEquipment, rostered=false}) {
     const params   = useParams()
     const troopTypes = useTroopTypes()
     const allEquipment  = useEquipment()
@@ -28,7 +28,7 @@ export default function TroopCard({troop, factionTroopType, removeTroop, faction
     }
 
     useEffect(() => {
-        if (troop) axios(`warband/${params.id}/troop/${troop.id}/equipment/all`)
+        if (rostered && troop) axios(`warband/${params.id}/troop/${troop.id}/equipment/all`)
         .then((response) => setTroopEquipment(response.data))
         .catch((err) => console.log(err.message))
     }, [params, troop])
@@ -40,7 +40,21 @@ export default function TroopCard({troop, factionTroopType, removeTroop, faction
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const troopMelee    = () => troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
-    const troopArmor    = () => troopType.armour
+    const troopArmor    = () => {
+        let armor = troopType.armour
+
+        troopEquipment
+        .map((equipable) => equipable.equipment)
+        .concat(troopType.equipment)
+        .filter((equipable) => equipable.modifiers && equipable.modifiers.length > 0)
+        .forEach((equipable) => {
+            equipable.modifiers.forEach((modifier) => {
+                if(modifier.type === 'armor') armor = armor + modifier.value
+            })
+        })
+
+        return armor
+    }
     const troopKeywords = () => {
         if (troopType.keywords.length > 0) return troopType.keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
         return '-'
@@ -51,9 +65,7 @@ export default function TroopCard({troop, factionTroopType, removeTroop, faction
 
     const renderTroopEquipment = (equipment, troopEquipment) => {
         if (equipment.length > 0 || troopEquipment.length > 0) {
-            console.log(troopEquipment)
             const mapped = troopEquipment.map((troopEquipable) => troopEquipable.equipment)
-            console.log(mapped)
 
             return(
                 <Equipment equipment={equipment.concat(mapped)} />
