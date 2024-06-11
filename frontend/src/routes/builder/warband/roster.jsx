@@ -41,7 +41,7 @@ export default function Roster() {
         .catch((err)     => console.log(err.message))
     }, [params])
 
-    if (!warbands[params.id]) return(<></>)
+    if (!warbands || !troopTypes || !allFactionTroopTypes || !equipment) return(<></>)
 
     const warband = warbands[params.id]
 

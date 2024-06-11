@@ -35,6 +35,14 @@ html, body {
   font-size: 0.85rem;
 }
 
+button.nav-link {
+  color: red;
+}
+
+button.nav-link:hover {
+  color: darkslategrey;
+}
+
 .is-sticky {
   position: fixed;
   top: 0;

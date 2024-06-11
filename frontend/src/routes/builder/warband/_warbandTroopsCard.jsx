@@ -10,12 +10,11 @@ import Rules from '../../../components/_rules'
 
 // REDUX
 import axios from 'axios';
-import { useEquipment, useTroopTypes } from '../../../store/loaders'
+import { useTroopTypes } from '../../../store/loaders'
 
 export default function TroopCard({troop, factionTroopType, removeTroop, factionEquipment, createTroopEquipment, removeTroopEquipment, rostered=false}) {
     const params   = useParams()
     const troopTypes = useTroopTypes()
-    const allEquipment  = useEquipment()
     const [troopEquipment, setTroopEquipment]  = useState([])
     const addTroopEquipable = (equipable) => {
         setTroopEquipment(troopEquipment.concat(equipable))
@@ -86,7 +85,6 @@ export default function TroopCard({troop, factionTroopType, removeTroop, faction
         const armoryButton = createTroopEquipment && removeTroopEquipment ? <AddNewEquipment
                                 currentEquipment={troopEquipment}
                                 factionEquipment={factionEquipment}
-                                allEquipment={allEquipment}
                                 createEquipment={createTroopEquipment(troop, addTroopEquipable)}
                                 removeEquipment={removeTroopEquipment(troop, findAndRemoveTroopEquipable)} /> : <></>
         const trashButton  = removeTroop ? <Button variant='danger ms-2'><i className='bi bi bi-trash-fill px-5' onClick={removeTroop(troop, factionTroopType)}/></Button> : <></>

@@ -23,8 +23,8 @@ public class FactionEquipment {
     @ManyToOne(optional = false)
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
-    public Long getEquipmentId() {
-        return equipment.getId();
+    public Equipment getEquipment() {
+        return equipment;
     }
 
     @Column(nullable = false)
