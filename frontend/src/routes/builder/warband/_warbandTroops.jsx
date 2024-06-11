@@ -52,6 +52,7 @@ export default function WarbandTroops({warband, allTroopTypes, factionTroopTypes
     return(
     <>
         <AddNewTroop
+            currentTroops={troops}
             factionTroopTypes={factionTroopTypes}
             allTroopTypes={allTroopTypes}
             createTroop={createTroop(warband, dispatch, addTroop)}/>

@@ -6,37 +6,39 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Card from 'react-bootstrap/Card';
 import TroopCard from './_warbandTroopsCard'
 
-export default function AddNewTroop({factionTroopTypes, allTroopTypes, createTroop}) {
+export default function AddNewTroop({currentTroops, factionTroopTypes, allTroopTypes, createTroop}) {
     const [showAddTroop, setShowAddTroop] = useState(false)
     const handleClose     = () => setShowAddTroop(false)
     const handleShow      = () => setShowAddTroop(true)
 
     if (!factionTroopTypes || !allTroopTypes) return (<></>)
     
-    function CustomToggle({ children, eventKey }) {      
+    function CustomToggle({ eventKey, currentCount, factionTroopType, name }) {
+        const textClass = (currentCount > factionTroopType.max || currentCount < factionTroopType.min) ? 'text-danger' : ''
+        const cost      = factionTroopType.cost + ' ' + (factionTroopType.currency ? factionTroopType.currency : 'ducats' )
+        const counter   = currentCount + (factionTroopType.max ? '/' + factionTroopType.max : '')
+        
         return (
-            <>
-            <div className='d-inline-block' style={{width: '66%'}} onClick={useAccordionButton(eventKey)}>
-                {children}
+            <div className={`d-inline-block ${textClass}`} style={{width: '90%'}} onClick={useAccordionButton(eventKey)}>
+                <span className='d-inline-block' style={{width: '15%'}}>{cost}</span>
+                <span className='d-inline-block text-center' style={{minWidth: '10%'}}><strong>{counter}</strong></span>
+                <span className='d-inline-block'>{name}</span>
             </div>
-            </>
-        );
+        )
       }
 
     const renderTroopTypes = () => {
         return(Object.values(factionTroopTypes).map((factionTroopType) => {
             const troopType = allTroopTypes[factionTroopType.troopTypeId]
+            const currentCount = currentTroops.filter((troop) => troop.factionTroopTypeId === factionTroopType.id).length
 
             return(
                 <Card key={factionTroopType.id}>
-                    <Card.Header className=''>
+                    <Card.Header>
                         <span className='icon-link icon-link-hover me-3' onClick={createTroop(factionTroopType, allTroopTypes[factionTroopType.troopTypeId])}>
-                            <i className='bi bi-plus-circle'></i>
+                            <i className='bi bi-plus-square'/>
                         </span>
-                        <CustomToggle eventKey={factionTroopType.id}>{troopType.name}</CustomToggle>
-                        <span>
-                            {factionTroopType.cost} {factionTroopType.currency ? factionTroopType.currency : 'ducats'}
-                        </span>
+                        <CustomToggle eventKey={factionTroopType.id} currentCount={currentCount} factionTroopType={factionTroopType} name={troopType.name} />
                     </Card.Header>
                     <Accordion.Collapse eventKey={factionTroopType.id}>
                         <TroopCard troop={factionTroopType} />
@@ -52,7 +54,7 @@ export default function AddNewTroop({factionTroopTypes, allTroopTypes, createTro
         </div>
         <Modal className='text-dark' show={showAddTroop} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
-                <Modal.Title className='font-english-towne'>Recruitment</Modal.Title>
+                <Modal.Title className='w-100 text-center font-english-towne'>Recruitment</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Accordion>

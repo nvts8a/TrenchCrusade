@@ -58,7 +58,7 @@ export default function AddNewEquipment({currentEquipment, factionEquipment, all
         <Button variant='danger'><i className='bi bi-shield-fill-plus px-5' onClick={handleShow}></i></Button>
         <Modal className='text-dark' show={show} onHide={handleClose} size='lg' centered>
             <Modal.Header closeButton>
-                <Modal.Title className='font-english-towne'>Armory</Modal.Title>
+                <Modal.Title className='w-100 text-center font-english-towne'>Armory</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Accordion>

@@ -45,7 +45,7 @@ public class FactionTroopType {
     }
 
     private Integer min;
-    public Integer geMin() {
+    public Integer getMin() {
         return min;
     }
     private String type;

@@ -31,7 +31,7 @@ export default function TroopCard({troop, factionTroopType, removeTroop, faction
         if (rostered && troop) axios(`warband/${params.id}/troop/${troop.id}/equipment/all`)
         .then((response) => setTroopEquipment(response.data))
         .catch((err) => console.log(err.message))
-    }, [params, troop])
+    }, [params, rostered, troop])
 
     const troopType = troopTypes[troop.troopTypeId]
 
