@@ -39,6 +39,7 @@ scp -r -i ~/.ssh/ec2-TrenchCrusade.pem ./frontend/build/* ec2-user@18.226.186.20
 retVal=$?
 if [ $retVal -ne 0 ]; then
    echo "Failed to stage frontend"
+   ssh -i ~/.ssh/ec2-TrenchCrusade.pem ec2-user@18.226.186.204 "sudo rm -rf ~/environment/staging/frontend/*"
    exit $retVal
 fi
 
@@ -53,7 +54,7 @@ if [ $retVal -ne 0 ]; then
    exit $retVal
 fi
 
-scp -i ~/.ssh/ec2-TrenchCrusade.pem ./api/target/*.jar ec2-user@18.226.186.204:~/environment/staging/backend
+scp -i ~/.ssh/ec2-TrenchCrusade.pem ./api/target/api.jar ec2-user@18.226.186.204:~/environment/staging/backend
 retVal=$?
 if [ $retVal -ne 0 ]; then
    echo "<< Failed to stage backend"
@@ -74,4 +75,9 @@ if [ $retVal -ne 0 ]; then
    exit $retVal
 fi
 
-# TODO: Make spring boot a service
+ssh -i ~/.ssh/ec2-TrenchCrusade.pem ec2-user@18.226.186.204 "sudo systemctl restart api"
+retVal=$?
+if [ $retVal -ne 0 ]; then
+   echo "<< Failed to restart backend"
+   exit $retVal
+fi

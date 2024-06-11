@@ -1,13 +1,13 @@
 // REACT
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import TroopCard from './_warbandTroopsCard'
-import AddNewTroop from './_addNewTroop';
-import Accordion from 'react-bootstrap/Accordion';
+import AddNewTroop from './_addNewTroop'
+import Accordion from 'react-bootstrap/Accordion'
 
 // REDUX
-import axios from 'axios';
+import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { createTroop, removeTroop, createTroopEquipment, removeTroopEquipment, updateWarband } from '../_builderActions';
+import { createTroop, removeTroop, createTroopEquipment, removeTroopEquipment, updateWarband } from '../_builderActions'
 
 export default function WarbandTroops({warband, allTroopTypes, factionTroopTypes, factionEquipment}) {
     const dispatch = useDispatch()

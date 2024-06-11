@@ -1,0 +1,10 @@
+[Unit]
+Description=Trench Crusade Backend API
+After=syslog.target
+
+[Service]
+User=ec2-user
+ExecStart=/srv/api/api.jar SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
