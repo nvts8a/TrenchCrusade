@@ -100,7 +100,7 @@ export default function TroopCard({troop, factionTroopType, removeTroop, faction
     }
 
     return(
-        <Accordion.Item eventKey={troopType.id}>
+        <Accordion.Item eventKey={troop.id}>
             <Accordion.Header>
                 <div className='row w-100'>
                     <div className='col-6 col-md-2 font-english-towne'>
