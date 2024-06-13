@@ -14,9 +14,11 @@ export default function AddNewTroop({currentTroops, factionTroopTypes, allTroopT
     if (!factionTroopTypes || !allTroopTypes) return (<></>)
     
     function CustomToggle({ eventKey, currentCount, factionTroopType, name }) {
-        const textClass = (currentCount > factionTroopType.max || currentCount < factionTroopType.min) ? 'text-danger' : ''
-        const cost      = factionTroopType.cost + ' ' + (factionTroopType.currency ? factionTroopType.currency : 'ducats' )
-        const counter   = currentCount + (factionTroopType.max ? '/' + factionTroopType.max : '')
+        const invalidMin = factionTroopType.min && currentCount < factionTroopType.min
+        const invalidMax = factionTroopType.max && currentCount > factionTroopType.max
+        const textClass  = invalidMin || invalidMax ? 'text-danger' : ''
+        const cost       = factionTroopType.cost + ' ' + (factionTroopType.currency ? factionTroopType.currency : 'ducats' )
+        const counter    = currentCount + (factionTroopType.max ? '/' + factionTroopType.max : '')
         
         return (
             <div className={`d-inline-block ${textClass}`} style={{width: '80%'}} onClick={useAccordionButton(eventKey)}>
