@@ -1,10 +1,37 @@
+@font-face {
+  font-family: "Artisan12";
+  src: local("Artisan12"),
+   url("./fonts/artisan12.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "EnglishTowne";
+  src: local("EnglishTowne"),
+  url("./fonts/EnglishTowne.ttf") format("truetype");
+}
+
+
+@font-face {
+  font-family: "EBGaramond";
+  src: local("EBGaramond"),
+  url("./fonts/eb-garamond.12-regular.ttf") format("truetype");
+}
+
+.font-artisan {
+  font-family: "Artisan12";
+}
+
+.font-english-towne {
+  font-family: "EnglishTowne";
+}
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 html, body {
-  font-family: 'Garamond', 'Times New Roman', Times, serif;
+  font-family: "EBGaramond", "Garamond", "Times New Roman", Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
@@ -21,7 +48,7 @@ html, body {
 }
 
 button, input {
-  box-shadow: 1px 1px 8px black;
+  box-shadow: 1px 1px 4px black;
 }
 
 :root {
@@ -59,25 +86,9 @@ button.nav-link:hover {
   padding-bottom: 0px;
 }
 
-@font-face {
-  font-family: "Artisan12";
-  src: local("Artisan12"),
-   url("./fonts/artisan12.ttf") format("truetype");
- }
 
- .font-artisan {
-  font-family: "Artisan12";
- }
 
-@font-face {
-  font-family: "EnglishTowne";
-  src: local("EnglishTowne"),
-   url("./fonts/EnglishTowne.ttf") format("truetype");
- }
 
- .font-english-towne {
-  font-family: "EnglishTowne";
- }
 
 @layer utilities {
   .text-balance {
