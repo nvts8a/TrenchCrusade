@@ -27,7 +27,6 @@ export default function Root() {
       .then((response) => {
         localStorage.setItem('authorization', response.headers.getAuthorization())
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
-        console.log(localStorage.getItem('authorization'))
         navigate('/builder/warband/all', { replace: true })
       })
       .catch((err) => {
