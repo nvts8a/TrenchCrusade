@@ -53,6 +53,7 @@ export default function Roster() {
     return(
         <>
         <PageLayout pageName='Roster'>
+            <h5 className='display-5 font-english-towne text-center text-danger'>Warband</h5>
             <div className='row justify-content-center'>
                 <div className='col-sm-12 col-md-5 mb-3'>
                     <div className='input-group'>

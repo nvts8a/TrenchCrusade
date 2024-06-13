@@ -90,19 +90,21 @@ export default function Root() {
           <div className='row justify-content-center m-1'>
             <div className='col-sm-12 col-md-2'>
               <button onClick={authenticate} type='button' className={`${isLogin ? '' : 'd-none'} btn btn-danger w-100`}>
-                Login
+                <strong>Login</strong>
               </button>
             </div>
           </div>
           <div className='row justify-content-center m-1'>
             <div className='col-sm-12 col-md-2'>
               <button onClick={register} type='button' className={`${isLogin ? 'd-none' : ''} ${!password || (password !== passwordConfirm)? 'disabled' : ''} btn btn-danger w-100`}>
-                Register
+                <strong>Register</strong>
               </button>
             </div>
           </div>
           <div className='row text-center'>
-            <a href={`/#${isLogin ? 'login' : 'register'}`} onClick={toggleLogin}>or {isLogin ? 'Register' : 'Login'}</a>
+            <a className='rounded link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover link-danger' href={`/#${isLogin ? 'login' : 'register'}`} onClick={toggleLogin}>
+              <strong>or {isLogin ? 'Register' : 'Login'}</strong>
+            </a>
           </div>
           <Alert message={alertMessage} show={alertShow} setShow={setAlertShow}/>
       </div>

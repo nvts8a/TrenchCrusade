@@ -20,6 +20,10 @@ html, body {
   height: 100%;
 }
 
+button, input {
+  box-shadow: 1px 1px 8px black;
+}
+
 :root {
   --bs-nav-link-color: 220, 220, 220;
   --foreground-rgb: 255, 255, 255;
