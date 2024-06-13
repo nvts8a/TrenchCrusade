@@ -81,7 +81,7 @@ export default function AddNewEquipment({currentEquipment, factionEquipment, cre
                 <Modal.Title className='w-100 text-center font-english-towne'>Armory</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Tabs fill className='font-english-towne'>
+                <Tabs fill className='font-english-towne fs-7'>
                     {equipmentTabs}
                 </Tabs>
             </Modal.Body>
