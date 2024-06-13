@@ -71,6 +71,16 @@ export default function Layout({children}) {
         }
     }
 
+    const renderToggler = () => {
+        if (loggedIn()) {
+            return(
+                <button className='navbar-toggler bg-light' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+                    <span className='navbar-toggler-icon'></span>
+                </button>
+            )
+        }
+    }
+
     return (
         <main className='h-100'>
             <nav className='navbar navbar-expand-sm bg-dark border-bottom border-body'>
@@ -82,9 +92,7 @@ export default function Layout({children}) {
                     <a className='navbar-brand' href='https://www.trenchcrusade.com/' rel='noreferrer' target='_blank'>
                         <img src='/img/trench+crusade+site+logo.png' alt='Trench Crusade Logo' height='24'/>
                     </a>
-                    <button className='navbar-toggler bg-light' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-                        <span className='navbar-toggler-icon'></span>
-                    </button>
+                    {renderToggler()}
                 </div>
             </nav>
             {children}
