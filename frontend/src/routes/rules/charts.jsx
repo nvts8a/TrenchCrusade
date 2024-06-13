@@ -21,15 +21,15 @@ export default function Charts() {
                 <Table bordered>
                     <tbody>
                         <tr>
-                            <td><strong>2-3</strong></td>
+                            <td className='w-25'><strong>2-6</strong></td>
                             <td><strong>Failure</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>7-11</strong></td>
+                            <td className='w-25'><strong>7-11</strong></td>
                             <td><strong>Sucess</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>12+</strong></td>
+                            <td className='w-25'><strong>12+</strong></td>
                             <td><strong>Critical success: </strong>Some Ranged and Melee Attacks have additional effects if you roll a Critical Success when determining if they hit.</td>
                         </tr>
                     </tbody>
@@ -41,15 +41,15 @@ export default function Charts() {
                 <Table bordered>
                     <tbody>
                         <tr>
-                            <td><strong>1 (or less)</strong></td>
+                            <td className='w-25'><strong>1 (or less)</strong></td>
                             <td><strong>No effect</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>2-6</strong></td>
+                            <td className='w-25'><strong>2-6</strong></td>
                             <td><strong>Minor Hit</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>7-8</strong></td>
+                            <td className='w-25'><strong>7-8</strong></td>
                             <td><strong>Down</strong></td>
                         </tr>
                         <tr>
