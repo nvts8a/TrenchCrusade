@@ -19,9 +19,9 @@ export default function AddNewTroop({currentTroops, factionTroopTypes, allTroopT
         const counter   = currentCount + (factionTroopType.max ? '/' + factionTroopType.max : '')
         
         return (
-            <div className={`d-inline-block ${textClass}`} style={{width: '90%'}} onClick={useAccordionButton(eventKey)}>
-                <span className='d-inline-block' style={{width: '15%'}}>{cost}</span>
-                <span className='d-inline-block text-center' style={{minWidth: '10%'}}><strong>{counter}</strong></span>
+            <div className={`d-inline-block ${textClass}`} style={{width: '80%'}} onClick={useAccordionButton(eventKey)}>
+                <span className='d-inline-block' style={{minWidth: '25%'}}>{cost}</span>
+                <span className='d-inline-block text-center' style={{minWidth: '20%'}}><strong>{counter}</strong></span>
                 <span className='d-inline-block'>{name}</span>
             </div>
         )
