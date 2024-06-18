@@ -44,6 +44,12 @@ public class TroopType {
         return equipment;
     }
 
+    @OneToMany(mappedBy = "troop_type")
+    private Set<TroopTypeUpgrade> troopTypeUpgrades;
+    public Set<TroopTypeUpgrade> getTroopTypeUpgrades() {
+        return troopTypeUpgrades;
+    }
+
     // COLUMNS
     private Integer armour = 0;
     public Integer getArmour() {

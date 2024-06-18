@@ -2,8 +2,6 @@ package io.trenchcrusade.api.rule.equipment;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 public class EquipmentModifier {
     @Id // KEY
