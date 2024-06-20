@@ -1,3 +1,5 @@
+import Rules from '../../../components/_rules';
+
 export default function WarbandFaction({warband, factions, updateWarband}) {
     const renderVariants = (warband, factions) => {
         const variantOptions = factions[warband.factionId].variants.map((variant) => {
@@ -17,6 +19,19 @@ export default function WarbandFaction({warband, factions, updateWarband}) {
             </div>)
     }
 
+    const renderRules = (warband, factions) => {
+        if (!warband.variantId) return(<></>)
+        
+        const variant = factions[warband.factionId].variants.find((variant) => variant.id === warband.variantId)
+        
+        return(
+            <div className='text-start mb-3'>
+                <Rules rules={variant.factionVariantRules} />
+            </div>
+        )
+    }
+
+
     if (warband) return(
         <div className='row justify-content-center'>
             <div className='col-sm-12 col-md-5 mb-3'>
@@ -27,6 +42,7 @@ export default function WarbandFaction({warband, factions, updateWarband}) {
                 </div>
             </div>
             {renderVariants(warband, factions)}
+            {renderRules(warband, factions)}
         </div>
     )
 }

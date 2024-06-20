@@ -93,9 +93,12 @@ public class WarbandDto {
             warband.setFaction(faction);
         }
         if (getVariantId()  != null) {
-            FactionVariant variant = new FactionVariant();
-            variant.setId(getVariantId());
-            warband.setVariant(variant);
+            if (getVariantId() == 0) warband.setVariant(null);
+            else {
+                FactionVariant variant = new FactionVariant();
+                variant.setId(getVariantId());
+                warband.setVariant(variant);
+            }
         }
 
         return warband;
