@@ -36,3 +36,4 @@ id,name,movement,movement_type,range,melee,armour,base_size,description
 36,Grail Thrall,4,Infantry,,-1,0,25,
 37,Heralds of Beelzebub,10,Infantry,0,0,0,40,
 38,Amalgam,6,Infantry,0,0,0,60,
+39,Dervishes,6,Infantry,1,1,0,32,

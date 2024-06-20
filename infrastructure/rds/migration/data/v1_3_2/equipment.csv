@@ -90,3 +90,12 @@ id,name,type,handedness,range,description
 89,Tartarus Armour,armor,,,Nigh-impregnable.
 90,Chainmaw,melee,,,
 91,Shredding Claws,melee,,,
+92,Hallucinogen Disguise,ability,,,
+93,Thunderbolt of Alamut,ability,,,
+94,Mirage of Time,ability,,,Both Ranged and Melee attacks against the Assassin suffer -1 DICE penalty when determining if they hit.
+95,Golden Khanjar,melee,1,,"Placed on a hand of an especially favoured killer by the Old Man of the Mountain himself, these wickedly curved daggers gleam as if they were made of gold, but instead they are crystallised poison, and allow their wielder to attack twice in the same instance of time. Only the Master of Alamut himself knows the secret of making these blades."
+96,Bow of Alamut,range,2,60,"This terrifying double-stringed bow shoots its deadly barbs through both time and space. Its arrows can reach impossible distances and pass through armour by flickering through time. It leaves behind a temporal slipstream that the Assassin can travel through in an eyeblink. Made from wood taken from trees planted in the skulls of ancient assassins in the Garden of Alamut so that they might absorb mystic powers of their former owners, these bows are some of the greatest treasures of the Old Man of the Mountain for it is said that only six now remain in his secret armouries."
+97,Hashashin Leaf,equipment,,,"These leaves from the secret Garden of Alamut enhance the strength of anyone who eats them threefold. Once the effect wears off the subject will suffer from agonising muscle tears and ripping of ligaments, but many of the Order of Assassins feel that this is a small price to pay for being able to use deadlier weapons."
+98,Sacrificial Lamb,equipment,,,"Before the battle, this lamb is sacrificed to God’s glory, and the pilgrim then anoints themselves with its blood, averting the wrath of Yahweh while fighting for His cause. The model ignores the first BLOOD MARKER or INFECTION MARKER it suffers in combat."
+99,"Away, Serpents!",ability,,12,"Select any enemy within 12” of the Priest and take a RISKY ACTION (Targeting models on 40mm or larger bases incur -1 DICE penalty to this roll). If successful, the enemy model goes Down immediately, slithering on its belly like a snake."
+100,Arise and Be Healed!,ability,,3,"Select one friendly model within 3” of the Priest and take a RISKY ACTION. If successful, the warrior immediately stands up if Down, and loses up to D3 BLOOD MARKERS or INFECTION MARKERS (or any combination) of your choice."

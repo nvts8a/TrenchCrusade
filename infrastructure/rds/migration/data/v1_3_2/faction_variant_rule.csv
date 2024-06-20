@@ -1,0 +1,52 @@
+id,faction_variant_id,name,rule
+1,1,Fast as Lightning,All Models have +1 DICE when taking their Dash ACTIONS.
+2,1,Close Assault Weapons,The Warband can buy Submachine Guns for 25 ducats per weapon.
+3,1,Light Troops,The force may only include 0-1 Annointed and 0-1 Artillery Witch.
+4,1,Let Sleeping Dogs Lie,The Warband may not include a War Wolf.
+5,1,Unseen Advance,Up to three models without ELITE Keyword can be upgraded into INFILTRATORS at the cost of 10 ducats per Model.
+6,2,Horror,All models in the Warband cause FEAR.
+7,2,Semi-corporeal,All attacks against all models in the Trench Ghost Warband roll injuries with -1 DICE – the Undead are hard to kill!
+8,2,Spectral,"All models in the Warband ignore movement penalties for any terrain, though they cannot move through any objects/terrain."
+9,2,Undead,All models in the Trench Ghost Warband are immune to damage from any source that has the Keyword GAS.
+10,2,Lost Souls,"Since only mortals who have souls become ghosts, this Warband may not have any War Wolves or Artillery Witches, as they are artificial beings."
+11,2,Slow,All models in Trench Ghost Warband have -1 DICE in all their Dash ACTIONS.
+12,3,Face thy Fears,"No model in the Procession of the Sacred Affliction can wear Iron Capirotes. Those troops with Capirotes in their base profile will not have them, though their cost remains the same."
+13,3,Reliquary Armoury,"All models of this Warband (save for Anchorite) can buy Holy Icon Shields for 20 ducats, not just ELITE models. In addition, the Warband models with the ELITE Keyword may acquire Holy Icon Armour."
+14,3,Punishing Millstones,All models in the Procession of the Sacred Affliction add extra +1 DICE to Injury rolls with melee attacks against enemies who are Down.
+15,3,Melee-Focused,This Warband may not have any Machine Guns.
+16,4,Blood Sacrifice,Any model (except Ecclesiastic Prisoners who are not worthy) in the Warband can purchase a Sacrificial Lamb (see below).
+17,4,Heaven Awaits,The Cavalcade rejects the doctrine of the Meta-Christ. Their dead Pilgrims cannot be resurrected as Martyr-Penitents.
+18,4,The Unclean,The Cavalcade detests using the unclean Ecclesiastic Prisoners and may have only up to two of them.
+19,4,Day of His Wrath,"The War Prophet of this warband cannot use Laying on Hands, but can call upon the Wrath of God instead. This is a RISKY ACTION. If successful, Roll on an Injury Chart against one enemy model within 3” of the Prophet. Armour offers no protection."
+20,4,Stolen Communicants,Communicants cost extra 20 ducats for this warband due the difficulty of acquiring and indoctrinating them.
+21,5,Flock of Assassins,The Fida’i of Alamut Warband can have up to three Assassins. The Warband must include a Master Assassin that counts as one of the three listed.
+22,5,Master Assassin,A Master Assassin has the Keyword TOUGH. The Master Assassin costs 95 ducats.
+23,5,Assassin Acolytes,Up to three Azebs of the Warband can have the Keyword INFILTRATOR at the cost of +10 ducats per model.
+24,5,Alamut Alone,"The Warband may not include Yüzbaşı, Alchemist, Janissaries, Lions of Jabir or Brazen Bulls."
+25,5,Killing Squad,Any two models in the Warband may form a FIRETEAM. You may have up to two FIRETEAMS in the Warband.
+26,5,Dervishes,"The Warband may include up to four Dervishes. Dervishes use the same profile as Iron Sultanate Janissaries, but replace the Keyword STRONG with the Whirling Dervishes special rule."
+27,6,Specialist Force,Papal States Warband is recruited with 500 Ducats and 11 Glory Points.
+28,6,Swiss Guard,Up to 4 non-Elite troopers can be upgraded into Swiss Guards at the cost of 5 Ducats each. They are immune to FEAR.
+29,6,Supreme Blessing,"One model in the Warband may carry the crucifix given by the Supreme Pontiff. This model can take further ACTIONS if it fails in an attempted RISKY ACTION. Note that the action fails, but you are allowed to try any other Actions on your profile without losing the Activation."
+30,6,Far From Home,The Papal Intervention Force may have no Trench Moles.
+31,6,Vatican’s Representative,Papal States Warband must include a Trench Cleric but does not have to include a Lieutenant.
+32,7,Fianna,"Any Shocktroopers in an Eire Warband can be made a member of Fianna, the famed warrior-hunters. They cost 60 Ducats each and have the Keywords SKIRMISHER and INFILTRATOR."
+33,7,Carnyx,"One model in the warband (including ELITEs) can be made into a musician by buying Carnyx at the cost of +15 Ducats. In addition to the normal Musical Instrument rules, the musician causes FEAR."
+34,7,Hit-and-Run Tactics,"If a model of this Warband moves away from Combat, enemies have a -1 DICE penalty to hit rolls with their free attack instead of +1 DICE bonus."
+35,7,Berserker,"A single model in the Warband can be made a Berserker. This model is immune to FEAR and disregards any BLOOD MARKERS from any source. Berserkers never wear armour, though they can carry a Trench Shield. Add +15 Ducats to the cost of this model."
+36,7,Strong in Faith,"Eire is a bastion of the Church, with many famed warrior-priests who travel to war. The Warband may have up to 2 Trench Clerics, and they can choose either or instead of their standard Ability “Onward, Christian Soldiers!”"
+37,7,Loose Organization,"Eire Warband may have only a single Fireteam, and their Lieutenant has the SKIRMISHER Keyword instead of the On my Command Ability."
+38,7,Light Infantry,"The Warband is allowed to field only one Heavy Infantry Trooper. No model (save for the single Mechanised Heavy Infantry) may carry a HEAVY weapon or wear Heavy or Machine Armour. This does not apply to allies, or Combat Engineers’ Satchel Charges."
+39,7,Followers of St. Patrick,"If playing a Campaign, the patron of the Warband is automatically Saint Patrick."
+40,8,Expert Fireteams,You may have up to three FIRETEAMS in this Warband.
+41,8,Masters of the Grenade,Models of the Stoßtruppen Warband add 4” range to all of their GRENADE weapons.
+42,8,Forward Positions,Up to two Shocktroops can have the Keyword INFILTRATOR at the cost of +10 ducats.
+43,8,Rapid Assault,"At the cost of +5 ducats per model, any Shocktroopers and Lieutenants of this Warband may add +1 DICE to all their Dash ACTIONs."
+44,8,Specialized Equipment,This warband has LIMIT: 4 for Submachine guns. Automatic Shotguns and Automatic Pistols are not limited to ELITE. The Warband may have no Grenade Launchers and only one Machine Gun.
+45,8,Troop Selection,"The Warband must have at least two Shocktroops, and can have up to eight. The warband can have only one Mechanised Heavy Infantry, one Sniper Priest and no Trench Moles."
+46,8,Lightly-Armoured,"Apart from Mechanized Heavy Infantry, no model in the Warband can be equipped with Heavy or Machine Armour. This does not apply to Allies & Mercenaries."
+47,9,Rampant Charge,All models in the Warband ignore the penalty for Defended Obstacles.
+48,9,Melee-Focused,"Mechanised Heavy Infantry of this Warband have +1 DICE in melee instead of Ranged Attacks. ; Miserly Quartermasters: This Warband has LIMIT: 1 for Grenade Launchers, Submachine Guns, Machine Guns, Automatic Shotguns and Sniper Rifles."
+49,9,Bagpipes,"One non-ELITE trooper can be made into a musician by buying a bagpipe at the cost of +15 Ducats. In addition to the normal Musical Instrument rules, any member of the Warband within 8” of the Musician is not affected by the rules of FEAR."
+50,9,Brave,The warband adds +1 DICE to all Morale Tests.
+51,9,Lightly-Armoured,"Apart from Mechanized Heavy Infantry, no model in the Warband can be equipped with Heavy or Machine Armour. This does not apply to Allies & Mercenaries."

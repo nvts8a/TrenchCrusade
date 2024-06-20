@@ -1,0 +1,19 @@
+id,cost,currency,min,max,name
+1,10,,,,Melee Legionnaire
+2,10,,,,Ranged Legionnaire
+3,10,,,3,Unseen Advance
+4,45,,,,Martyr Penitent
+5,10,,,1,Master Assassin
+6,10,,,3,Assassin Acolytes
+7,,,,2,Fireteam
+8,,,,2,Fireteam (1)
+9,,,,2,Fireteam (2)
+10,10,,,2,Trench Mole
+11,5,,,4,Swiss Guard
+12,15,,,,Fianna
+13,15,,,1,Carnyx
+14,15,,,1,Berserker
+15,,,,2,Fireteam (3)
+16,10,,,2,Forward Positions
+17,5,,,,Rapid Assault
+18,,,,1,Bagpipes

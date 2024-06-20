@@ -1,8 +1,10 @@
 package io.trenchcrusade.api.rule.troop_type;
 
 import io.trenchcrusade.api.rule.equipment.Equipment;
+import io.trenchcrusade.api.rule.faction.equipment.FactionEquipment;
 import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
 import io.trenchcrusade.api.rule.keyword.Keyword;
+import io.trenchcrusade.api.rule.troop_type.upgrade.Upgrade;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -44,7 +46,7 @@ public class TroopType {
         return equipment;
     }
 
-    @OneToMany(mappedBy = "troop_type")
+    @OneToMany(mappedBy = "troopType")
     private Set<TroopTypeUpgrade> troopTypeUpgrades;
     public Set<TroopTypeUpgrade> getTroopTypeUpgrades() {
         return troopTypeUpgrades;

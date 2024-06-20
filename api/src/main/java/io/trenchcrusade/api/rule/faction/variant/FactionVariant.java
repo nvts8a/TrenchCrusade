@@ -1,6 +1,9 @@
-package io.trenchcrusade.api.rule.faction;
+package io.trenchcrusade.api.rule.faction.variant;
 
+import io.trenchcrusade.api.rule.faction.Faction;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 public class FactionVariant {
@@ -18,6 +21,12 @@ public class FactionVariant {
     @ManyToOne(optional = false)
     @JoinColumn(name = "faction_id")
     private Faction faction;
+
+    @OneToMany(mappedBy = "factionVariant")
+    private Set<FactionVariantRule> factionVariantRules;
+    public Set<FactionVariantRule> getFactionVariantRules() {
+        return factionVariantRules;
+    }
 
     // COLUMNS
     @Column(columnDefinition = "TEXT")

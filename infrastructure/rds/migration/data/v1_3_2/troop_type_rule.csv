@@ -61,3 +61,5 @@ Once the landing site of the bomb has been determined, it will detonate. Roll on
 38,Toxic,Attacks with Keyword GAS have no effect on the model.
 38,Trample,"Whenever the Amalgam is fighting any enemy model on a 32mm or smaller base in melee that is Down, it can make a single additional Melee Attack ACTION any time during its Activation against one Downed opponent. Resolve the attack as if the Amalgam was armed with a Trench Club. This attack Ignores armour as the Amalgam stomps their enemies into pulp."
 38,Unstoppable,"An Amalgam can always move out of melee combat with any enemy without the enemy having a chance to attack it. It can use Dash, Move or Charge to do so."
+39,Counter-Charge,"If the first ACTION a Janissary makes during their Activation is a Charge, they can add +1 DICE to their subsequent Melee Attack ACTIONS during this Activation."
+39,Whirling Dervishes,"The ritual Dance of the Dervishes is hypnotic to witness, and it is as graceful as it is deadly. All Ranged attacks against Dervishes suffer -1 DICE penalty. Dervishes do not suffer the normal -1 DICE to hit for fighting with a second melee weapon in off-hand."

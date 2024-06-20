@@ -1,55 +1,35 @@
 package io.trenchcrusade.api.rule.troop_type;
 
+import io.trenchcrusade.api.rule.faction.variant.FactionVariant;
+import io.trenchcrusade.api.rule.troop_type.upgrade.Upgrade;
 import jakarta.persistence.*;
 
 @Entity
 public class TroopTypeUpgrade {
     @Id // KEY
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    // ASSOCIATIONS
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "upgrade_id")
+    private Upgrade upgrade;
+    public Upgrade getUpgrade() {
+        return upgrade;
+    }
     @ManyToOne(optional = false)
     @JoinColumn(name = "troop_type_id")
     private TroopType troopType;
+    public Long getTroopTypeId() {
+        return troopType.getId();
+    }
 
-    @Column(nullable = false)
-    private Integer cost;
-    public Integer getCost() {
-        return cost;
-    }
-    @Column(nullable = false)
-    private String currency;
-    public String getCurrency() {
-        return currency;
-    }
-    private Integer max;
-    public Integer getMax() {
-        return max;
-    }
-    private Integer min;
-    public Integer getMin() {
-        return min;
-    }
-    @Column(nullable = false)
-    private String name;
-    public String getName() {
-        return name;
-    }
-    @Column(nullable = false)
-    private String type;
-    public String getType() {
-        return type;
-    }
-    @Column(nullable = false)
-    private Integer value;
-    public Integer getValue() {
-        return value;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "faction_variant_id")
+    private FactionVariant factionVariant;
+    public Long getFactionVariantId() {
+        return factionVariant != null ? factionVariant.getId() : null;
     }
 }

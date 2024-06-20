@@ -3,9 +3,8 @@ package io.trenchcrusade.api.warband;
 import io.trenchcrusade.api.security.User;
 import io.trenchcrusade.api.warband.deed.Deed;
 import io.trenchcrusade.api.rule.faction.Faction;
-import io.trenchcrusade.api.rule.faction.FactionVariant;
+import io.trenchcrusade.api.rule.faction.variant.FactionVariant;
 import io.trenchcrusade.api.warband.equipment.WarbandEquipment;
-import io.trenchcrusade.api.warband.troop.equipment.TroopEquipment;
 import io.trenchcrusade.api.warband.troop.Troop;
 import jakarta.persistence.*;
 

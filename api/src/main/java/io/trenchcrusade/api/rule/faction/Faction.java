@@ -2,6 +2,7 @@ package io.trenchcrusade.api.rule.faction;
 
 import io.trenchcrusade.api.rule.faction.equipment.FactionEquipment;
 import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
+import io.trenchcrusade.api.rule.faction.variant.FactionVariant;
 import jakarta.persistence.*;
 
 import java.util.Set;

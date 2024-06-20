@@ -62,3 +62,9 @@ equipment_id,rule
 87,All ranged attacks against a model that is in cover suffer -2 DICE penalty instead of -1 DICE. All the normal rules for cover apply otherwise.
 88,"After the deployment, a model with the Wind Amulet may move up to 3” in any direction, though this move may not take them into melee combat or from the battlefield."
 90,Ignores armour.
+92,An INFILTRATOR with this ability can be deployed anywhere on the battlefield including the enemy deployment Zone as long as the model is at least 8” away from any enemy models. The model does not have to be out of Line of Sight. Binoculars or Guard Dogs have no effect on this ability.
+93,The model has +2” movement and +1 DICE on its Dash ACTIONs.
+94,Both Ranged and Melee attacks against the Assassin suffer -1 DICE penalty when determining if they hit.
+95,A model armed with a Golden Khanjar can make two Attacks instead of one in melee per Melee Attack ACTION. This effect also applies to a Golden Khanjar wielded off-hand. Thus a model armed with Khanjar and additional 1-handed melee weapon can make a total of three Melee attacks during a single Activation.
+96,"Ignores Armour. If the Assassin hits a model and causes at least one BLOOD MARKER, the Assassin can instantly move into Melee range with the target as if the Assassin just charged the model, and can therefore use Melee ACTIONS as if they charged the enemy. Note that if the bow takes the target Out of Action, no BLOOD MARKERS are caused and the move cannot be made. Temporal Assassin ability cannot be used with the Bow of Alamut."
+97,Gives the model consuming the potion Keyword STRONG for the duration of a single battle.
