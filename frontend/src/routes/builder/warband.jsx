@@ -5,19 +5,19 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import PageLayout from '../../components/_pageLayout'
 
 // REDUX
-import { useDispatch } from 'react-redux'
-import { useWarbands } from '../../store/loaders'
-import { createWarband, removeWarband } from './_builderActions'
+import { useDispatch, useSelector } from 'react-redux'
+import { createWarband, getWarbands, removeWarband } from './_builderActions'
 
 export default function Warband() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const loader = useLoaderData()
+    const warbands = useSelector(state => state.warbands)
 
-    const warbands = useWarbands()
+    if (warbands.uninitialized && warbands.loading === 'idle') dispatch(getWarbands())
 
     const renderWarbands = () => {
-        return Object.values(warbands).map((warband) => {
+        return Object.values(warbands.values).map((warband) => {
             return(
                 <div className='row justify-content-center' key={warband.id}>
                     <div className='col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4' >

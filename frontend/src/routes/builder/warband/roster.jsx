@@ -8,8 +8,7 @@ import WarbandTroops from './_warbandTroops';
 
 // REDUX
 import axios from 'axios';
-import { useDispatch } from 'react-redux'
-import { useWarbands} from '../../../store/loaders';
+import { useDispatch, useSelector } from 'react-redux'
 import { updateWarband, createEquipment, removeEquipment } from '../_builderActions';
 
 export default function Roster() {
@@ -17,7 +16,7 @@ export default function Roster() {
     const loader = useLoaderData()
 
     const params   = useParams()
-    const warbands = useWarbands()
+    const warbands = useSelector(state => state.warbands)
     const [warbandEquipment, setWarbandEquipment]  = useState([])
     const addWarbandEquipable = (equipable) => {
         setWarbandEquipment(warbandEquipment.concat(equipable))

@@ -1,42 +1,51 @@
 import axios from 'axios';
 
-import { deleteWarband, setWarband } from '../../store/_warbandSlice'
+import { warbandDeleted, warbandRecieved, warbandsLoading, warbandsRecieved } from '../../store/_warbandsSlice'
 
-export const {  createWarband, removeWarband, updateWarband,
+export const {  getWarbands, createWarband, removeWarband, updateWarband,
                 createEquipment, removeEquipment,
                 createTroop, removeTroop,
                 createTroopEquipment, removeTroopEquipment } = {
 
     // WARBANDS
+    getWarbands: () => async dispatch => {
+        dispatch(warbandsLoading())
 
-    createWarband: (faction, dispatch, navigate) => () => {
-        axios.post('warband', { 
-            'factionId': faction.id
-        })
-        .then((response) => {
-            dispatch(setWarband(response.data))
-            navigate(`/builder/warband/${response.data.id}/roster`, { replace: true })
-        })
-        .catch((err) => console.log(err.message))
+        const warbands = await axios('warband/all')
+                            .then((response) => response.data)
+                            .catch((err)     => console.log(err.message))
+        dispatch(warbandsRecieved(warbands))
     },
 
-    removeWarband: (warbandId, dispatch) => () => {
-        axios.delete(`warband/${warbandId}`)
-        .then((response) => dispatch(deleteWarband(response.data)))
-        .catch((err)     => console.log(err.message))
+    createWarband: (faction) => async dispatch => {
+        dispatch(warbandsLoading())
+
+        const created = await axios.post('warband', { 'factionId': faction.id })
+                            .then((response) => response.data)
+                            .catch((err) => console.log(err.message))
+                            //navigate(`/builder/warband/${response.data.id}/roster`, { replace: true })
+        dispatch(warbandRecieved(created))
     },
 
-    updateWarband: (warbandId, dispatch) => (event) => {
-        console.log(event.target.id)
-        console.log(event.target.value)
+    removeWarband: (warbandId) => async dispatch => {
+        dispatch(warbandsLoading())
 
+        const deleted = await axios.delete(`warband/${warbandId}`)
+                            .then((response) => response.data)
+                            .catch((err)     => console.log(err.message))
+        dispatch(warbandDeleted(deleted))
+    },
+
+    updateWarband: (warbandId) => (event) => async dispatch => {
         let updates = {}
         updates[event.target.id] = event.target.value
 
-        console.log(updates)
-        axios.put(`warband/${warbandId}`, updates)
-        .then((response) => dispatch(setWarband(response.data)))
-        .catch((err) => console.log(err.message))
+        dispatch(warbandsLoading())
+
+        const updated = await axios.put(`warband/${warbandId}`, updates)
+                            .then((response) => response.data)
+                            .catch((err) => console.log(err.message))
+        dispatch(warbandRecieved(updated))
     },
 
     // WARBAND EQUIPMENT

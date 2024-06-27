@@ -1,5 +1,6 @@
 package io.trenchcrusade.api.warband;
 
+import io.trenchcrusade.api.rule.faction.Faction;
 import io.trenchcrusade.api.security.SessionService;
 import io.trenchcrusade.api.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(path="/warband")
@@ -18,10 +22,14 @@ public class WarbandController {
     @Autowired
     private WarbandRepository warbandRepository;
 
-    @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Warband> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken) {
+
+    @GetMapping(path="/all")
+    public @ResponseBody Map<Long, Warband> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken) {
+        Map<Long, Warband> response = new HashMap<>();
         UserDetailsImpl userDetails = sessionService.loadUserBy(authorizationToken);
-        return warbandRepository.findAllByUser(userDetails.getUser());
+        warbandRepository.findAllByUser(userDetails.getUser()).forEach(record -> response.put(record.getId(), record));
+
+        return response;
     }
 
     @GetMapping(path = "/{id}")

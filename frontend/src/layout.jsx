@@ -9,7 +9,7 @@ import NavLink from 'react-bootstrap/NavLink'
 
 // REDUX
 import { useDispatch } from 'react-redux'
-import { deleteWarbands } from './store/_warbandSlice'
+import { clearWarbands } from './store/_warbandsSlice'
 import axios from 'axios'
 
 
@@ -20,7 +20,7 @@ export default function Layout({children}) {
     const loggedIn = () => !!localStorage.getItem('authorization')
     
     const logout = () => {
-        dispatch(deleteWarbands())
+        dispatch(clearWarbands())
         localStorage.clear()
         delete axios.defaults.headers.common['Authorization']
 
