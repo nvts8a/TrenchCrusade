@@ -35,6 +35,7 @@ export default function WarbandTroops({warband, allTroopTypes, factionTroopTypes
         if (filteredTroops.length < 1) return(<></>)
 
         const troopCards = filteredTroops.map((troop) => <TroopCard key={troop.id} troop={troop} rostered
+                troopTypes={allTroopTypes}
                 factionTroopType={factionTroopTypes[troop.factionTroopTypeId]}
                 removeTroop={removeTroop(warband, dispatch, findAndRemoveTroop)}
                 factionEquipment={factionEquipment}

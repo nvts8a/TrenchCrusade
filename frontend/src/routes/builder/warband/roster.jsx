@@ -1,5 +1,5 @@
 // REACT
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PageLayout from '../../../components/_pageLayout';
 import WarbandFaction from './_warbandFaction';
@@ -9,21 +9,15 @@ import WarbandTroops from './_warbandTroops';
 // REDUX
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
-import { useEquipment, useFactionEquipment, useFactionTroopTypes, useFactions, useTroopTypes, useWarbands} from '../../../store/loaders';
+import { useWarbands} from '../../../store/loaders';
 import { updateWarband, createEquipment, removeEquipment } from '../_builderActions';
 
 export default function Roster() {
     const dispatch = useDispatch()
+    const loader = useLoaderData()
+
     const params   = useParams()
     const warbands = useWarbands()
-
-    const troopTypes = useTroopTypes()
-    const allFactionTroopTypes = useFactionTroopTypes()
-
-    const factions = useFactions()
-    const allFactionEquipment = useFactionEquipment()
-
-    const equipment = useEquipment()
     const [warbandEquipment, setWarbandEquipment]  = useState([])
     const addWarbandEquipable = (equipable) => {
         setWarbandEquipment(warbandEquipment.concat(equipable))
@@ -44,11 +38,7 @@ export default function Roster() {
     if (!warbands) return(<></>) 
     const warband = warbands[params.id]
 
-    if (    !warband ||
-            Object.keys(troopTypes).length === 0 || 
-            Object.keys(allFactionTroopTypes).length === 0 ||
-            Object.keys(equipment).length === 0
-    ) return(<></>) 
+    if (!warband) return(<></>) 
 
     return(
         <>
@@ -76,21 +66,21 @@ export default function Roster() {
             </div>
 
             <WarbandFaction warband={warband}
-                            factions={factions}
+                            factions={loader.factions}
                             updateWarband={updateWarband(params.id, dispatch)} />
 
             <WarbandAssets  warband={warband}
                             updateWarband={updateWarband(params.id, dispatch)}
 
-                            allEquipment={equipment}
-                            allFactionEquipment={allFactionEquipment}
+                            allEquipment={loader.equipment}
+                            allFactionEquipment={loader.factionEquipment}
                             warbandEquipment={warbandEquipment}
                             createEquipment={createEquipment(warband, dispatch, updateWarband, addWarbandEquipable)} 
                             removeEquipment={removeEquipment(warband, dispatch, updateWarband, findAndRemoveWarbandEquipable)} />
         </PageLayout>
         <WarbandTroops  warband={warband}
-                        allTroopTypes={troopTypes} 
-                        factionTroopTypes={allFactionTroopTypes[warband.factionId]}
-                        factionEquipment={allFactionEquipment[warband.factionId]} />
+                        allTroopTypes={loader.troopTypes} 
+                        factionTroopTypes={loader.factionTroopTypes[warband.factionId]}
+                        factionEquipment={loader.factionEquipment[warband.factionId]} />
         </>)
 }

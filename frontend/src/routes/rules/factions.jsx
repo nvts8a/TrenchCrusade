@@ -1,12 +1,12 @@
+import { useLoaderData } from 'react-router-dom'
 import FactionInsignia from '../../components/_factionInsignia'
 import PageLayout from '../../components/_pageLayout'
-import { useFactions } from '../../store/loaders'
 
 export default function Keywords() {
-    const factions = useFactions()
+    const loader = useLoaderData()
 
     const renderVariants = (factionId) => {
-        if (factions[factionId]) return(factions[factionId].variants.map((variant) => variantCard(variant)))
+        if (loader.factions[factionId]) return(loader.factions[factionId].variants.map((variant) => variantCard(variant)))
     }
 
     const variantCard = (variant) => {
@@ -19,7 +19,7 @@ export default function Keywords() {
     }
 
     const renderFactions = () => {
-        return Object.values(factions).map((faction) => factionCard(faction))
+        return Object.values(loader.factions).map((faction) => factionCard(faction))
     }
 
     const renderParagraphs = (paragraphs) => {

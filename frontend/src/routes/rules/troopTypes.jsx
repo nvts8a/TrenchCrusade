@@ -1,11 +1,11 @@
+import { useLoaderData } from 'react-router-dom'
 import PageLayout from '../../components/_pageLayout'
-//import { useTroopTypes } from '../../store/loaders'
 
 export default function Keywords() {
-    //const troopTypes = useTroopTypes()
+    const loader = useLoaderData()
 
     const renderTroopTypes = () => {
-        //return Object.values(troopTypes).map((troopType) => <TroopCard troopType={troopType} key={troopType.id} />)
+        return Object.values(loader.troopTypes).map((troopType) => <div><p>{troopType.name}</p></div>)
     }
 
     return(

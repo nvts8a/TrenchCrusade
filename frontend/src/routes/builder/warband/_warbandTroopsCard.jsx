@@ -10,11 +10,9 @@ import Rules from '../../../components/_rules'
 
 // REDUX
 import axios from 'axios';
-import { useTroopTypes } from '../../../store/loaders'
 
-export default function TroopCard({troop, factionTroopType, removeTroop, factionEquipment, createTroopEquipment, removeTroopEquipment, rostered=false}) {
+export default function TroopCard({troop, troopTypes, factionTroopType, removeTroop, factionEquipment, createTroopEquipment, removeTroopEquipment, rostered=false}) {
     const params   = useParams()
-    const troopTypes = useTroopTypes()
     const [troopEquipment, setTroopEquipment]  = useState([])
     const addTroopEquipable = (equipable) => {
         setTroopEquipment(troopEquipment.concat(equipable))

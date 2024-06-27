@@ -1,14 +1,12 @@
+import { useLoaderData } from 'react-router-dom'
 import EquipableCard from '../../components/_equipableCard'
 import PageLayout from '../../components/_pageLayout'
 
-// REDUX
-import { useEquipment } from '../../store/loaders'
-
 export default function Keywords() {
-    const equipment = useEquipment()
+    const loader = useLoaderData()
 
     const renderEquipable = () => {
-        return Object.values(equipment).map((equipable) => <EquipableCard equipable={equipable} key={equipable.id} />)
+        return Object.values(loader.equipment).map((equipable) => <EquipableCard equipable={equipable} key={equipable.id} />)
     }
 
     return(

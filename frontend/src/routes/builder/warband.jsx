@@ -1,19 +1,19 @@
 // REACT
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import ListGroup from 'react-bootstrap/ListGroup'
 import PageLayout from '../../components/_pageLayout'
 
 // REDUX
 import { useDispatch } from 'react-redux'
-import { useFactions, useWarbands } from '../../store/loaders'
+import { useWarbands } from '../../store/loaders'
 import { createWarband, removeWarband } from './_builderActions'
 
 export default function Warband() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const loader = useLoaderData()
 
-    const factions = useFactions()
     const warbands = useWarbands()
 
     const renderWarbands = () => {
@@ -51,7 +51,7 @@ export default function Warband() {
     }
 
     const renderFactionDropdownItems = () => {
-        return Object.values(factions).map((faction) => {
+        return Object.values(loader.factions).map((faction) => {
             return(
                 <Dropdown.Item id={`faction-${faction.id}`} key={faction.id} onClick={createWarband(faction, dispatch, navigate)}>
                     {faction.name}

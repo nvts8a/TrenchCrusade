@@ -30,6 +30,7 @@ import './index.css'
 
 // API AND AUTH
 import axios from 'axios'
+import { loader } from './utils/loader'
 axios.defaults.baseURL = window.location.origin + '/api'
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
 
@@ -48,27 +49,33 @@ const router = createBrowserRouter([
   },
   {
     path: '/rules/equipment',
-    element: <Layout><Equipment /></Layout>
+    element: <Layout><Equipment /></Layout>,
+    loader: () => loader({ equipment: true })
   },
   {
     path: '/rules/factions',
-    element: <Layout><Factions /></Layout>
+    element: <Layout><Factions /></Layout>,
+    loader: () => loader({ factions: true })
   },
   {
     path: '/rules/keywords',
-    element: <Layout><Keywords /></Layout>
+    element: <Layout><Keywords /></Layout>,
+    loader: () => loader({ keywords: true })
   },
   {
     path: '/rules/troop-types',
-    element: <Layout><TroopTypes /></Layout>
+    element: <Layout><TroopTypes /></Layout>,
+    loader: () => loader({ troopTypes: true })
   },
   {
     path: '/builder/warband/all',
-    element: <Layout><Warband /></Layout>
+    element: <Layout><Warband /></Layout>,
+    loader: () => loader({ factions: true })
   },
   {
     path: '/builder/warband/:id/roster',
-    element: <Layout><Roster /></Layout>
+    element: <Layout><Roster /></Layout>,
+    loader: () => loader({ equipment: true, factions: true, factionEquipment: true, factionTroopTypes: true, troopTypes: true })
   },
 ])
 

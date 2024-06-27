@@ -1,11 +1,11 @@
+import { useLoaderData } from 'react-router-dom'
 import PageLayout from '../../components/_pageLayout'
-import { useKeywords } from '../../store/loaders'
 
 export default function Keywords() {
-    const keywords = useKeywords()
+    const loader = useLoaderData()
 
     const renderKeywords = () => {
-        return Object.values(keywords).map((keyword) => keywordCard(keyword))
+        return Object.values(loader.keywords).map((keyword) => keywordCard(keyword))
     }
 
     const keywordCard = (keyword) => {
