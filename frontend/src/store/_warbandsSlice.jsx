@@ -22,14 +22,12 @@ export const warbandsSlice = createSlice({
             }
         },
         warbandRecieved(state, action) {
-            if (state.loading === PENDING) {
-                state.loading = IDLE
+            if (state.loading !== PENDING) {
                 state.values[action.payload.id] = action.payload
             }
         },
         warbandDeleted: (state, action) => {
-            if (state.loading === PENDING) {
-                state.loading = IDLE
+            if (state.loading !== PENDING) {
                 delete state.values[action.payload]
             }
         },

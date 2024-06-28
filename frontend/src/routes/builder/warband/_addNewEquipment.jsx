@@ -16,7 +16,6 @@ export default function AddNewEquipment({currentEquipment, availableEquipment, c
     const handleShow      = () => setShow(true)
 
     if (!currentEquipment) return(<></>)
-    console.log(currentEquipment)
 
     const CustomToggle = ({ children, eventKey }) => {      
         return (
