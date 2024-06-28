@@ -21,22 +21,22 @@ export const {  getWarbands, createWarband, removeWarband, updateWarband } = {
         dispatch(warbandRecieved(created))
     },
 
-    removeWarband: (warbandId) => async dispatch => {
+    removeWarband: (warband) => async dispatch => {
         dispatch(warbandsLoading())
 
-        const deleted = await axios.delete(`warband/${warbandId}`)
+        const deleted = await axios.delete(`warband/${warband.id}`)
                             .then((response) => response.data)
                             .catch((err)     => console.log(err.message))
         dispatch(warbandDeleted(deleted))
     },
 
-    updateWarband: (warbandId, event) => async dispatch => {
+    updateWarband: (warband, event) => async dispatch => {
         let updates = {}
         updates[event.target.id] = event.target.value
 
         dispatch(warbandsLoading())
 
-        const updated = await axios.put(`warband/${warbandId}`, updates)
+        const updated = await axios.put(`warband/${warband.id}`, updates)
                             .then((response) => response.data)
                             .catch((err) => console.log(err.message))
         dispatch(warbandRecieved(updated))

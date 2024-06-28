@@ -11,14 +11,12 @@ export const warbandEquipmentSlice = createSlice({
     },
     reducers: {
         equipableDeleted: (state, action) => {
-            if (state.loading === PENDING) {
-                state.loading = IDLE
-                delete state.values[action.payload]
+            if (state.loading !== PENDING) {
+                state.values[action.payload.warbandId].splice(action.payload.indexToDelete, 1)
             }
         },
         equipableRecieved(state, action) {
-            if (state.loading === PENDING) {
-                state.loading = IDLE
+            if (state.loading !== PENDING) {
                 state.values[action.payload.warbandId].push(action.payload.equipable)
             }
         },

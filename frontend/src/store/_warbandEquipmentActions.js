@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { equipableRecieved, equipmentLoading, equipmentRecieved } from './_warbandEquipmentSlice';
+import { equipableDeleted, equipableRecieved, equipmentLoading, equipmentRecieved } from './_warbandEquipmentSlice';
 
 export const { getWarbandEquipment, createWarbandEquipable, removeWarbandEquipable } = {
 
@@ -12,26 +12,20 @@ export const { getWarbandEquipment, createWarbandEquipable, removeWarbandEquipab
         dispatch(equipmentRecieved({ warbandId: warband.id, equipment: equipment }))
     },
 
-    createWarbandEquipable: (warband, equipable, factionEquipable) => async dispatch => {
-        dispatch(equipmentLoading())
-
-        const created = await axios.post(`warband/${warband.id}/equipment`, {
+    createWarbandEquipable: (warband) => (factionEquipable) => async dispatch => {
+        await axios.post(`warband/${warband.id}/equipment`, {
             'factionEquipment': factionEquipable,
-            'equipment':        equipable
-        })
-        .then((response) => response.data)
-        .catch((err) => console.log(err.message))
-
-        dispatch(equipableRecieved({ warbandId: warband.id, equipable: created }))
+            'equipment':        factionEquipable.equipment  })
+            .then((response) => dispatch(equipableRecieved({ warbandId: warband.id, equipable: response.data })))
+            .catch((err)     => console.log(err.message))
     },
 
-    removeWarbandEquipable: (warband, equipable) => async dispatch => {
-        dispatch(equipmentLoading())
-
-        const deleted = await axios.delete(`warband/${warband.id}/equipment/${equipable.id}`)
-        .then((response) => response.data)
-        .catch((err) => console.log(err.message))
-
-        dispatch(equipableRecieved({ warbandId: warband.id, equipable: deleted }))
+    removeWarbandEquipable: (warband) => (warbandEquipment, factionEquipable) => async dispatch => {
+        const indexToDelete = warbandEquipment.findIndex((currentEquipable) => currentEquipable.equipmentId === factionEquipable.equipment.id)
+        if (indexToDelete > -1) {
+            await axios.delete(`warband/${warband.id}/equipment/${warbandEquipment[indexToDelete].id}`)
+                .then(() => dispatch(equipableDeleted({ warbandId: warband.id, indexToDelete: indexToDelete })))
+                .catch((err) => console.log(err.message))
+        }
     }
 }
