@@ -46,7 +46,6 @@ public class WarbandController {
         warband.setUser(userDetails.getUser());
         warband.setDucats(700);
         warband.setGlory(0);
-        warband.setName("New Warband");
 
         return warbandRepository.save(warband.build());
     }

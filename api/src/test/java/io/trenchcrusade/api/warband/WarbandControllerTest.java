@@ -33,7 +33,7 @@ public class WarbandControllerTest {
 
     private final Faker faker = new Faker();
     private UserDetailsImpl userDetails;
-    
+
     @BeforeEach
     public void init() {
         User user = new User();

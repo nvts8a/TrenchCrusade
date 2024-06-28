@@ -1,8 +1,16 @@
-import AddNewEquipment from "./_addNewEquipment";
+import AddNewEquipment from './_addNewEquipment'
+import { createWarbandEquipable, getWarbandEquipment, removeWarbandEquipable } from '../../../store/_warbandEquipmentActions'
+import { useLoaderData } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateWarband } from '../../../store/_warbandsActions'
 
-export default function AssetDetails({
-                            warband, updateWarband, 
-                            allFactionEquipment, warbandEquipment, createEquipment, removeEquipment}) {
+export default function AssetDetails({warband}) {
+    const dispatch = useDispatch()
+    const loader = useLoaderData()
+    const warbandEquipment = useSelector(state => state.warbandEquipment)
+
+    if (!warbandEquipment[warband.id] && warbandEquipment.loading === 'idle') dispatch(getWarbandEquipment(warband.id))
+
     return(
         <>
             <div className='row justify-content-center'>
@@ -22,10 +30,6 @@ export default function AssetDetails({
                     </div>
                 </div>
             </div>
-            <AddNewEquipment 
-                currentEquipment={warbandEquipment}
-                factionEquipment={allFactionEquipment[warband.factionId]}
-                createEquipment={createEquipment} removeEquipment={removeEquipment}/>
         </>
     )
 }

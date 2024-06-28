@@ -1,16 +1,15 @@
 // REACT
-import { Link, useLoaderData, useNavigate } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import ListGroup from 'react-bootstrap/ListGroup'
 import PageLayout from '../../components/_pageLayout'
 
 // REDUX
 import { useDispatch, useSelector } from 'react-redux'
-import { createWarband, getWarbands, removeWarband } from './_builderActions'
+import { createWarband, getWarbands, removeWarband } from '../../store/_warbandsActions';
 
 export default function Warband() {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const loader = useLoaderData()
     const warbands = useSelector(state => state.warbands)
 
@@ -26,7 +25,7 @@ export default function Warband() {
                                 <Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link>
                             </ListGroup.Item>
                             <ListGroup.Item className='col-2'>
-                                <div className='icon-link icon-link-hover' onClick={removeWarband(warband.id, dispatch)}>
+                                <div className='icon-link icon-link-hover' onClick={() => dispatch(removeWarband(warband.id))}>
                                     <i className='bi bi-trash-fill'></i>
                                 </div>
                             </ListGroup.Item>
@@ -53,7 +52,7 @@ export default function Warband() {
     const renderFactionDropdownItems = () => {
         return Object.values(loader.factions).map((faction) => {
             return(
-                <Dropdown.Item id={`faction-${faction.id}`} key={faction.id} onClick={createWarband(faction, dispatch, navigate)}>
+                <Dropdown.Item id={`faction-${faction.id}`} key={faction.id} onClick={() => dispatch(createWarband(faction))}>
                     {faction.name}
                 </Dropdown.Item>
             )

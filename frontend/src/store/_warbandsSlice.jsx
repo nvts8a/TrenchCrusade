@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const IDLE        = 'idle'
 const PENDING     = 'pending'
 
-export const warbandSlice = createSlice({
+export const warbandsSlice = createSlice({
     name: 'warbands',
     initialState: {
         loading: IDLE,
@@ -41,6 +41,6 @@ export const warbandSlice = createSlice({
     }
 })
 
-export const { clearWarbands, warbandDeleted, warbandRecieved, warbandsLoading, warbandsRecieved } = warbandSlice.actions
+export const { clearWarbands, warbandDeleted, warbandRecieved, warbandsLoading, warbandsRecieved } = warbandsSlice.actions
 
-export default warbandSlice.reducer
+export default warbandsSlice.reducer

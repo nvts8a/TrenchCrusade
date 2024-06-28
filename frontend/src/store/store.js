@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import warbandsSlice   from './_warbandsSlice'
+import warbandsSlice from './_warbandsSlice'
+import warbandEquipmentSlice from './_warbandEquipmentSlice'
 
 export default configureStore({
   reducer: {
-    warbands: warbandsSlice,
+    warbandEquipment: warbandEquipmentSlice,
+    warbands: warbandsSlice
   }
 })

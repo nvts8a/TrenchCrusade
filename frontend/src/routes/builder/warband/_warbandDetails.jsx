@@ -1,5 +1,8 @@
-export default function WarbandDetails({warband, updateWarband}) {
-    
+import { useDispatch } from "react-redux"
+import { updateWarband } from "../../../store/_warbandsActions"
+
+export default function WarbandDetails({warband}) {
+    const dispatch = useDispatch()
 
     return(
         <>
@@ -8,7 +11,7 @@ export default function WarbandDetails({warband, updateWarband}) {
                     <div className='input-group'>
                         <span className='input-group-text font-english-towne' id='basic-addon1'>Warband Name</span>
                         <input type='text' className='form-control' placeholder='Warband Name' aria-label='Warband Name' aria-describedby='basic-addon2'
-                            id='name' defaultValue={warband.name} onInput={updateWarband}/>
+                            id='name' defaultValue={warband.name} onInput={(event) => dispatch(updateWarband(warband.id, event))}/>
                     </div>
                 </div>
             </div>
@@ -18,7 +21,7 @@ export default function WarbandDetails({warband, updateWarband}) {
                     <div className='input-group'>
                         <span className='input-group-text font-english-towne' id='basic-addon1'>Chronology</span>
                         <textarea type='text' className='form-control' placeholder='Written by a highly unreliable narrator' aria-label='Chronology' aria-describedby='basic-addon2'
-                            id='chronology' defaultValue={warband.chronology} onInput={updateWarband}/>
+                            id='chronology' defaultValue={warband.chronology} onInput={(event) => dispatch(updateWarband(warband.id, event))}/>
                     </div>
                 </div>
             </div>

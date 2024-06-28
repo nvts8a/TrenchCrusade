@@ -1,54 +1,6 @@
-import axios from 'axios';
+/*
+export const { } = {
 
-import { warbandDeleted, warbandRecieved, warbandsLoading, warbandsRecieved } from '../../store/_warbandsSlice'
-
-export const {  getWarbands, createWarband, removeWarband, updateWarband,
-                createEquipment, removeEquipment,
-                createTroop, removeTroop,
-                createTroopEquipment, removeTroopEquipment } = {
-
-    // WARBANDS
-    getWarbands: () => async dispatch => {
-        dispatch(warbandsLoading())
-
-        const warbands = await axios('warband/all')
-                            .then((response) => response.data)
-                            .catch((err)     => console.log(err.message))
-        dispatch(warbandsRecieved(warbands))
-    },
-
-    createWarband: (faction) => async dispatch => {
-        dispatch(warbandsLoading())
-
-        const created = await axios.post('warband', { 'factionId': faction.id })
-                            .then((response) => response.data)
-                            .catch((err) => console.log(err.message))
-                            //navigate(`/builder/warband/${response.data.id}/roster`, { replace: true })
-        dispatch(warbandRecieved(created))
-    },
-
-    removeWarband: (warbandId) => async dispatch => {
-        dispatch(warbandsLoading())
-
-        const deleted = await axios.delete(`warband/${warbandId}`)
-                            .then((response) => response.data)
-                            .catch((err)     => console.log(err.message))
-        dispatch(warbandDeleted(deleted))
-    },
-
-    updateWarband: (warbandId) => (event) => async dispatch => {
-        let updates = {}
-        updates[event.target.id] = event.target.value
-
-        dispatch(warbandsLoading())
-
-        const updated = await axios.put(`warband/${warbandId}`, updates)
-                            .then((response) => response.data)
-                            .catch((err) => console.log(err.message))
-        dispatch(warbandRecieved(updated))
-    },
-
-    // WARBAND EQUIPMENT
 
     createEquipment: (warband, dispatch, updateWarband, addWarbandEquipment) => (factionEquipable, equipable) => () => {
         axios.post(`warband/${warband.id}/equipment`, {
@@ -153,3 +105,4 @@ export const {  getWarbands, createWarband, removeWarband, updateWarband,
         }
     }
 }
+*/
