@@ -22,7 +22,6 @@ public class WarbandController {
     @Autowired
     private WarbandRepository warbandRepository;
 
-
     @GetMapping(path="/all")
     public @ResponseBody Map<Long, Warband> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken) {
         Map<Long, Warband> response = new HashMap<>();

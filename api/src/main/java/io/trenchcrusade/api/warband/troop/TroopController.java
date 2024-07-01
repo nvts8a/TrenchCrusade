@@ -20,9 +20,6 @@ public class TroopController {
     @Autowired
     private TroopRepository troopRepository;
 
-    @Autowired
-    private WarbandRepository warbandRepository;
-
     @GetMapping(path = "/all")
     public @ResponseBody Map<Long, Troop> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                              @PathVariable Long warbandId) {

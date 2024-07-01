@@ -1,20 +1,11 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getTroops } from '../../../store/_warbandTroopsActions'
 import { useLoaderData } from 'react-router-dom'
 
 import Accordion from 'react-bootstrap/Accordion'
 import AddNewTroop from './_addNewTroop'
 import TroopCard from './_warbandTroopCard'
 
-export default function WarbandTroops({warband}) {
-    const dispatch = useDispatch()
+export default function WarbandTroops({warband, troops}) {
     const loader = useLoaderData()
-    const troops = useSelector(state => state.warbandTroops)
-
-    useEffect(() => {
-        if (warband && !troops.values[warband.id] && troops.loading === 'idle') dispatch(getTroops(warband))
-    })
 
     if (!troops.values[warband.id]) return(<></>)
 

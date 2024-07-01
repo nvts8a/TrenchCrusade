@@ -1,18 +1,12 @@
 import AddNewEquipment from './_addNewEquipment'
-import { createWarbandEquipable, getWarbandEquipment, removeWarbandEquipable } from '../../../store/_warbandEquipmentActions'
+import { useDispatch } from 'react-redux'
 import { useLoaderData } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { createWarbandEquipable, removeWarbandEquipable } from '../../../store/_warbandEquipmentActions'
 import { updateWarband } from '../../../store/_warbandsActions'
-import { useEffect } from 'react'
 
-export default function WarbandAssets({warband}) {
+export default function WarbandAssets({warband, warbandEquipment}) {
     const dispatch = useDispatch()
     const loader = useLoaderData()
-    const warbandEquipment = useSelector(state => state.warbandEquipment)
-
-    useEffect(() => {
-        if (warband && !warbandEquipment.values[warband.id] && warbandEquipment.loading === 'idle') dispatch(getWarbandEquipment(warband))
-    })
     
     return(
         <>
