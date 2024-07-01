@@ -21,7 +21,7 @@ export const { getTroopEquipment, createTroopEquipable, removeTroopEquipable } =
     },
 
     removeTroopEquipable: (troop) => (troopEquipment, factionEquipable) => async dispatch => {
-        const indexToDelete = troopEquipment.findIndex((currentEquipable) => currentEquipable.equipmentId === factionEquipable.equipment.id)
+        const indexToDelete = troopEquipment.findIndex((currentEquipable) => currentEquipable.equipment.id === factionEquipable.equipment.id)
         if (indexToDelete > -1) {
             await axios.delete(`warband/${troop.warbandId}/troop/${troop.id}/equipment/${troopEquipment[indexToDelete].id}`)
                 .then(() => dispatch(equipableDeleted({ troopId: troop.id, indexToDelete: indexToDelete })))
