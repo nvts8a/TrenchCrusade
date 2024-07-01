@@ -6,6 +6,8 @@ import Keyword from '../../../components/_keyword'
 import Rules from '../../../components/_rules'
 import { useDispatch } from 'react-redux'
 import { removeTroop } from '../../../store/_warbandTroopsActions'
+import { createTroopEquipable, removeTroopEquipable } from '../../../store/_troopsEquipmentActions'
+import AddNewEquipment from './_addNewEquipment'
 
 export default function TroopCard({troop, warband, rostered=false}) {
     const dispatch = useDispatch()
@@ -38,8 +40,16 @@ export default function TroopCard({troop, warband, rostered=false}) {
     }
 
     const buttons = () => {
-        const armoryButton = rostered ? <Button variant='danger ms-2'><i className='bi bi-shield-fill-plus px-5' /></Button> : <></>
-        const trashButton  = rostered ? <Button variant='danger ms-2' onClick={() => dispatch(removeTroop(warband, troop))}><i className='bi bi-trash-fill px-5' /></Button> : <></>
+        const armoryButton = rostered
+                                ? <AddNewEquipment
+                                    currentEquipment={[]}
+                                    availableEquipment={loader.factionEquipment[warband.factionId]} 
+                                    createEquipment={createTroopEquipable(troop)}
+                                    removeEquipment={removeTroopEquipable(troop)} /> 
+                                : <></>
+        const trashButton  = rostered
+                                ? <Button variant='danger ms-2' onClick={() => dispatch(removeTroop(warband, troop))}><i className='bi bi-trash-fill px-5' /></Button>
+                                : <></>
 
         return(           
             <h5 className='text-center'>

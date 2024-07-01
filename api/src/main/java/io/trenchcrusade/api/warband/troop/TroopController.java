@@ -2,7 +2,6 @@ package io.trenchcrusade.api.warband.troop;
 
 import io.trenchcrusade.api.security.SessionService;
 import io.trenchcrusade.api.warband.Warband;
-import io.trenchcrusade.api.warband.WarbandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
