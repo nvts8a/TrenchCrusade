@@ -9,6 +9,7 @@ import AddNewEquipment from './_addNewEquipment'
 import Button from 'react-bootstrap/esm/Button'
 import Keyword from '../../../components/_keyword'
 import Rules from '../../../components/_rules'
+import Equipment from '../../../components/_equipment'
 
 export default function TroopCard({troop, warband, rostered=false}) {
     const dispatch = useDispatch()
@@ -24,15 +25,22 @@ export default function TroopCard({troop, warband, rostered=false}) {
     }, [dispatch, troop, troopsEquipment])
 
     const troopType = loader.troopTypes[troop.troopTypeId]
-    const troopEquipment = troopsEquipment.values[troop.id]
+    const troopEquipment = troopsEquipment.values[troop.id] ? troopsEquipment.values[troop.id] : []
 
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const troopMelee    = () => troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
     const troopArmor    = () => {
         let armor = troopType.armour
-
-        return armor
+        troopEquipment.map((equipable) => equipable.equipment)
+            .concat(troopType.equipment)
+            .filter((equipable) => equipable.modifiers && equipable.modifiers.length > 0)
+            .forEach((equipable) => {
+                equipable.modifiers.forEach((modifier) => {
+                    if(modifier.type === 'armor') armor = armor + modifier.value
+                })
+            })
+        return troopType.melee ? (armor < 0) ? `${armor} Dice` : `+${armor} Dice` : '-'
     }
     const troopKeywords = () => {
         if (troopType.keywords.length > 0) return troopType.keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
@@ -71,6 +79,16 @@ export default function TroopCard({troop, warband, rostered=false}) {
         )
     }
 
+    const renderTroopEquipment = () => {
+        if (troopType.equipment.length > 0 || (troopEquipment && troopEquipment.length > 0)) {
+            const mapped = troopEquipment.map((troopEquipable) => troopEquipable.equipment)
+
+            return(
+                <Equipment equipment={troopType.equipment.concat(mapped)} />
+            )
+        }
+    }
+
     return(
         <Accordion.Item eventKey={troop.id}>
             <Accordion.Header>
@@ -90,6 +108,7 @@ export default function TroopCard({troop, warband, rostered=false}) {
             <Accordion.Body className='fs-7'>
                 {buttons()}
                 {troopRules()}
+                {renderTroopEquipment()}
             </Accordion.Body>
         </Accordion.Item>
     )
