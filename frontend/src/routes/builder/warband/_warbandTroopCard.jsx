@@ -1,18 +1,30 @@
-// REACT
+import { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLoaderData } from 'react-router-dom'
+import { removeTroop } from '../../../store/_warbandTroopsActions'
+import { createTroopEquipable, getTroopEquipment, removeTroopEquipable } from '../../../store/_troopsEquipmentActions'
+
 import Accordion from 'react-bootstrap/Accordion'
+import AddNewEquipment from './_addNewEquipment'
 import Button from 'react-bootstrap/esm/Button'
 import Keyword from '../../../components/_keyword'
 import Rules from '../../../components/_rules'
-import { useDispatch } from 'react-redux'
-import { removeTroop } from '../../../store/_warbandTroopsActions'
-import { createTroopEquipable, removeTroopEquipable } from '../../../store/_troopsEquipmentActions'
-import AddNewEquipment from './_addNewEquipment'
 
 export default function TroopCard({troop, warband, rostered=false}) {
     const dispatch = useDispatch()
     const loader = useLoaderData()
+    const troopsEquipment = useSelector(state => state.troopsEquipment)
+    const equipmentLoading = useRef(false)
+
+    useEffect(() => {
+        if (!equipmentLoading.current && !troopsEquipment.values[troop.id] && troopsEquipment.loading === 'idle') {
+            equipmentLoading.current = true
+            dispatch(getTroopEquipment(troop))
+        }
+    }, [dispatch, troop, troopsEquipment])
+
     const troopType = loader.troopTypes[troop.troopTypeId]
+    const troopEquipment = troopsEquipment.values[troop.id]
 
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
@@ -42,7 +54,7 @@ export default function TroopCard({troop, warband, rostered=false}) {
     const buttons = () => {
         const armoryButton = rostered
                                 ? <AddNewEquipment
-                                    currentEquipment={[]}
+                                    currentEquipment={troopEquipment}
                                     availableEquipment={loader.factionEquipment[warband.factionId]} 
                                     createEquipment={createTroopEquipable(troop)}
                                     removeEquipment={removeTroopEquipable(troop)} /> 

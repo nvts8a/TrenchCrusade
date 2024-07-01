@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const IDLE    = 'idle'
 const PENDING = 'pending'
 
-export const troopEquipmentSlice = createSlice({
+export const troopsEquipmentSlice = createSlice({
     name: 'troopEquipment',
     initialState: {
         loading: IDLE,
@@ -36,6 +36,6 @@ export const troopEquipmentSlice = createSlice({
     }
 })
 
-export const { equipableDeleted, equipableRecieved, equipmentLoading, equipmentRecieved, clearEquipment } = troopEquipmentSlice.actions
+export const { equipableDeleted, equipableRecieved, equipmentLoading, equipmentRecieved, clearEquipment } = troopsEquipmentSlice.actions
 
-export default troopEquipmentSlice.reducer
+export default troopsEquipmentSlice.reducer
