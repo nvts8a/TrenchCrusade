@@ -1,15 +1,14 @@
-// REACT
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getWarbands } from '../../../store/_warbandsActions'
 import { useParams } from 'react-router-dom'
+
 import PageLayout from '../../../components/_pageLayout'
 import WarbandFaction from './_warbandFaction'
 import WarbandAssets from './_warbandAssets'
-//import WarbandTroops from './_warbandTroops'
-
-// REDUX
-import { useDispatch, useSelector } from 'react-redux'
-import { getWarbands } from '../../../store/_warbandsActions'
 import WarbandDetails from './_warbandDetails'
+import WarbandTroops from './_warbandTroops'
+
 
 export default function Roster() {
     const dispatch = useDispatch()
@@ -31,6 +30,7 @@ export default function Roster() {
                 <WarbandFaction warband={warband} />
                 <WarbandAssets  warband={warband} />
             </PageLayout>
+            <WarbandTroops warband={warband} />
         </>
     )
 }

@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 
 export default function AddNewEquipment({currentEquipment, availableEquipment, createEquipment, removeEquipment}) {
     const dispatch        = useDispatch()
+
     const [show, setShow] = useState(false)
     const handleClose     = () => setShow(false)
     const handleShow      = () => setShow(true)

@@ -1,17 +1,26 @@
 import { useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
-import Accordion from 'react-bootstrap/Accordion'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLoaderData } from 'react-router-dom'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
+
+import Accordion from 'react-bootstrap/Accordion'
+import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card';
-import TroopCard from './_warbandTroopsCard'
+import Modal from 'react-bootstrap/Modal'
+import TroopCard from './_warbandTroopCard'
+import { createTroop } from '../../../store/_warbandTroopsActions'
 
-export default function AddNewTroop({currentTroops, factionTroopTypes, allTroopTypes, createTroop}) {
+export default function AddNewTroop({warband}) {
+    const dispatch = useDispatch()
+    const loader = useLoaderData()
+    const troops = useSelector(state => state.warbandTroops)
+
     const [showAddTroop, setShowAddTroop] = useState(false)
-    const handleClose     = () => setShowAddTroop(false)
-    const handleShow      = () => setShowAddTroop(true)
+    const handleClose = () => setShowAddTroop(false)
+    const handleShow  = () => setShowAddTroop(true)
 
-    if (!factionTroopTypes || !allTroopTypes) return (<></>)
+    const currentTroops = Object.values(troops.values[warband.id])
+    const factionTroopTypes = loader.factionTroopTypes[warband.factionId]
     
     function CustomToggle({ eventKey, currentCount, factionTroopType, name }) {
         const invalidMin = factionTroopType.min && currentCount < factionTroopType.min
@@ -31,13 +40,13 @@ export default function AddNewTroop({currentTroops, factionTroopTypes, allTroopT
 
     const renderTroopTypes = () => {
         return(Object.values(factionTroopTypes).map((factionTroopType) => {
-            const troopType = allTroopTypes[factionTroopType.troopTypeId]
+            const troopType = loader.troopTypes[factionTroopType.troopTypeId]
             const currentCount = currentTroops.filter((troop) => troop.factionTroopTypeId === factionTroopType.id).length
 
             return(
                 <Card key={factionTroopType.id}>
                     <Card.Header>
-                        <span className='icon-link icon-link-hover me-3' onClick={createTroop(factionTroopType, allTroopTypes[factionTroopType.troopTypeId])}>
+                        <span className='icon-link icon-link-hover me-3' onClick={() => dispatch(createTroop(warband, factionTroopType, loader.troopTypes[factionTroopType.troopTypeId]))}>
                             <i className='bi bi-plus-square'/>
                         </span>
                         <CustomToggle eventKey={factionTroopType.id} currentCount={currentCount} factionTroopType={factionTroopType} name={troopType.name} />

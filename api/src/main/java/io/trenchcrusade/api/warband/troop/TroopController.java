@@ -8,6 +8,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping(path="/warband/{warbandId}/troop")
 public class TroopController {
@@ -21,10 +24,13 @@ public class TroopController {
     private WarbandRepository warbandRepository;
 
     @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Troop> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
+    public @ResponseBody Map<Long, Troop> all(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationToken,
                                              @PathVariable Long warbandId) {
+        Map<Long, Troop> response = new HashMap<>();
         Warband warband = sessionService.authorizeUserForWarband(authorizationToken, warbandId);
-        return troopRepository.findAllByWarband(warband);
+        troopRepository.findAllByWarband(warband).forEach(record -> response.put(record.getId(), record));
+
+        return response;
     }
 
     @PostMapping("")
