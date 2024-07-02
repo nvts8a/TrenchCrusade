@@ -1,13 +1,13 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Accordion from 'react-bootstrap/Accordion'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import EquipableCard from '../../../components/_equipableCard'
 import Modal from 'react-bootstrap/Modal'
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import { useDispatch } from 'react-redux'
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
 
 export default function AddNewEquipment({currentEquipment, availableEquipment, createEquipment, removeEquipment}) {
     const dispatch        = useDispatch()
@@ -18,11 +18,11 @@ export default function AddNewEquipment({currentEquipment, availableEquipment, c
 
     if (!currentEquipment) return(<></>)
 
-    const CustomToggle = ({ children, eventKey }) => {      
+    const CustomToggle = ({ label, eventKey }) => {      
         return (
             <>
                 <div className='d-inline-block w-75' onClick={useAccordionButton(eventKey)}>
-                    {children}
+                    {label}
                 </div>
             </>
         )
@@ -34,7 +34,7 @@ export default function AddNewEquipment({currentEquipment, availableEquipment, c
 
             return(
                 <Card key={factionEquipable.id}>
-                    <Card.Header className=''>
+                    <Card.Header>
                         <span className='icon-link icon-link-hover me-3' onClick={() => dispatch(removeEquipment(currentEquipment, factionEquipable))}>
                             <i className='bi bi-dash-circle'></i>
                         </span>
@@ -44,7 +44,7 @@ export default function AddNewEquipment({currentEquipment, availableEquipment, c
                         <span className='icon-link icon-link-hover me-3' onClick={() => dispatch(createEquipment(factionEquipable))}>
                             <i className='bi bi-plus-circle'></i>
                         </span>
-                        <CustomToggle eventKey={factionEquipable.id}>{factionEquipable.equipment.name}</CustomToggle>
+                        <CustomToggle eventKey={factionEquipable.id} label={factionEquipable.equipment.name} />
                         <span>
                             {factionEquipable.cost} {factionEquipable.currency ? factionEquipable.currency : 'ducats'}
                         </span>

@@ -18,10 +18,10 @@ export const { getTroopUpgrades, createTroopUpgrade, removeTroopUpgrade } = {
             .catch((err)     => console.log(err.message))
     },
 
-    removeTroopUpgrade: (troop, troopUpgrades, troopUpgrade) => async dispatch => {
-        const indexToDelete = troopUpgrades.findIndex((currentUpgrade) => currentUpgrade.upgrade.id === troopUpgrade.upgrade.id)
+    removeTroopUpgrade: (troop, troopUpgrades, upgrade) => async dispatch => {
+        const indexToDelete = troopUpgrades.findIndex((currentUpgrade) => currentUpgrade.upgrade.id === upgrade.id)
         if (indexToDelete > -1) {
-            await axios.delete(`warband/${troop.warbandId}/troop/${troop.id}/upgrade/${troopUpgrade.id}`)
+            await axios.delete(`warband/${troop.warbandId}/troop/${troop.id}/upgrade/${troopUpgrades[indexToDelete].id}`)
                 .then(() => dispatch(upgradeDeleted({ troopId: troop.id, indexToDelete: indexToDelete })))
                 .catch((err) => console.log(err.message))
         }

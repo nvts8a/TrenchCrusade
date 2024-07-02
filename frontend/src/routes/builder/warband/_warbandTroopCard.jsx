@@ -10,12 +10,16 @@ import Button from 'react-bootstrap/esm/Button'
 import Keyword from '../../../components/_keyword'
 import Rules from '../../../components/_rules'
 import Equipment from '../../../components/_equipment'
+import AddNewUpgrade from './_addNewUpgrade'
+import { getTroopUpgrades } from '../../../store/_troopsUpgradesActions'
 
 export default function TroopCard({troop, warband, rostered=false}) {
     const dispatch = useDispatch()
-    const loader = useLoaderData()
-    const troopsEquipment = useSelector(state => state.troopsEquipment)
+    const loader   = useLoaderData()
+    const troopsEquipment  = useSelector(state => state.troopsEquipment)
     const equipmentLoading = useRef(false)
+    const troopsUpgrades   = useSelector(state => state.troopsUpgrades)
+    const upgradesLoading  = useRef(false)
 
     useEffect(() => {
         if (rostered && !equipmentLoading.current && !troopsEquipment.values[troop.id] && troopsEquipment.loading === 'idle') {
@@ -24,8 +28,16 @@ export default function TroopCard({troop, warband, rostered=false}) {
         }
     }, [dispatch, troop, rostered, troopsEquipment])
 
+    useEffect(() => {
+        if (rostered && !upgradesLoading.current && !troopsUpgrades.values[troop.id] && troopsUpgrades.loading === 'idle') {
+            upgradesLoading.current = true
+            dispatch(getTroopUpgrades(troop))
+        }
+    }, [dispatch, troop, rostered, troopsUpgrades])
+
     const troopType = loader.troopTypes[troop.troopTypeId]
     const troopEquipment = troopsEquipment.values[troop.id] ? troopsEquipment.values[troop.id] : []
+    const troopUpgrades  =  troopsUpgrades.values[troop.id] ?  troopsUpgrades.values[troop.id] : []
 
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
@@ -60,20 +72,30 @@ export default function TroopCard({troop, warband, rostered=false}) {
     }
 
     const buttons = () => {
-        const armoryButton = rostered
+        const armoryButton  = rostered
                                 ? <AddNewEquipment
                                     currentEquipment={troopEquipment}
                                     availableEquipment={loader.factionEquipment[warband.factionId]} 
                                     createEquipment={createTroopEquipable(troop)}
-                                    removeEquipment={removeTroopEquipable(troop)} /> 
+                                    removeEquipment={removeTroopEquipable(troop)} />
                                 : <></>
-        const trashButton  = rostered
+
+        const upgradeButton = rostered && troopType.troopTypeUpgrades.length > 0
+                                ? <AddNewUpgrade
+                                    warband={warband}
+                                    troop={troop} 
+                                    troopType={troopType} 
+                                    currentUpgrades={troopUpgrades} />
+                                : <></>
+
+        const trashButton   = rostered
                                 ? <Button variant='danger ms-2' onClick={() => dispatch(removeTroop(warband, troop))}><i className='bi bi-trash-fill px-5' /></Button>
                                 : <></>
 
         return(           
             <h5 className='text-center'>
                 {armoryButton}
+                {upgradeButton}
                 {trashButton}
             </h5>
         )
