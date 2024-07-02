@@ -52,7 +52,7 @@ export default function AddNewTroop({warband}) {
                         <CustomToggle eventKey={factionTroopType.id} currentCount={currentCount} factionTroopType={factionTroopType} name={troopType.name} />
                     </Card.Header>
                     <Accordion.Collapse eventKey={factionTroopType.id}>
-                        <TroopCard troop={factionTroopType} />
+                        <TroopCard troop={factionTroopType} rostered={false} />
                     </Accordion.Collapse>
                 </Card>
             )

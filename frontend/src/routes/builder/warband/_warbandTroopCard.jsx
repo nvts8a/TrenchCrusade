@@ -18,11 +18,11 @@ export default function TroopCard({troop, warband, rostered=false}) {
     const equipmentLoading = useRef(false)
 
     useEffect(() => {
-        if (!equipmentLoading.current && !troopsEquipment.values[troop.id] && troopsEquipment.loading === 'idle') {
+        if (rostered && !equipmentLoading.current && !troopsEquipment.values[troop.id] && troopsEquipment.loading === 'idle') {
             equipmentLoading.current = true
             dispatch(getTroopEquipment(troop))
         }
-    }, [dispatch, troop, troopsEquipment])
+    }, [dispatch, troop, rostered, troopsEquipment])
 
     const troopType = loader.troopTypes[troop.troopTypeId]
     const troopEquipment = troopsEquipment.values[troop.id] ? troopsEquipment.values[troop.id] : []
