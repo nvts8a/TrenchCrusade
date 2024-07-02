@@ -12,6 +12,7 @@ import Rules from '../../../components/_rules'
 import Equipment from '../../../components/_equipment'
 import AddNewUpgrade from './_addNewUpgrade'
 import { getTroopUpgrades } from '../../../store/_troopsUpgradesActions'
+import Upgrade from '../../../components/_upgrade'
 
 export default function TroopCard({troop, warband, rostered=false}) {
     const dispatch = useDispatch()
@@ -37,7 +38,7 @@ export default function TroopCard({troop, warband, rostered=false}) {
 
     const troopType = loader.troopTypes[troop.troopTypeId]
     const troopEquipment = troopsEquipment.values[troop.id] ? troopsEquipment.values[troop.id] : []
-    const troopUpgrades  =  troopsUpgrades.values[troop.id] ?  troopsUpgrades.values[troop.id] : []
+    const currentUpgrades  =  troopsUpgrades.values[troop.id] ?  troopsUpgrades.values[troop.id] : []
 
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
@@ -57,6 +58,9 @@ export default function TroopCard({troop, warband, rostered=false}) {
     const troopKeywords = () => {
         if (troopType.keywords.length > 0) return troopType.keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
         return '-'
+    }
+    const troopUpgrades = () => {
+        if (rostered && troopType.keywords.length > 0) return currentUpgrades.map((currentUpgrade) => <Upgrade upgrade={currentUpgrade.upgrade} key={currentUpgrade.id}/>)
     }
     const troopRules = () => {
         if (troopType.rules.length > 0) return(<Rules rules={troopType.rules} />)
@@ -85,7 +89,7 @@ export default function TroopCard({troop, warband, rostered=false}) {
                                     warband={warband}
                                     troop={troop} 
                                     troopType={troopType} 
-                                    currentUpgrades={troopUpgrades} />
+                                    currentUpgrades={currentUpgrades} />
                                 : <></>
 
         const trashButton   = rostered
@@ -120,6 +124,7 @@ export default function TroopCard({troop, warband, rostered=false}) {
                     </div>
                     <div className='col-6 col-md-2 font-english-towne'>
                         {troopKeywords()}
+                        {troopUpgrades()}
                     </div>
                     {statBlock('Movement', troopMovement())}
                     {statBlock('Ranged',   troopRanged())}
