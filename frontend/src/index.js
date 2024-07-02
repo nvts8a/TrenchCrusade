@@ -75,7 +75,7 @@ const router = createBrowserRouter([
   {
     path: '/builder/warband/:id/roster',
     element: <Layout><Roster /></Layout>,
-    loader: () => loader({ equipment: true, factions: true, factionEquipment: true, factionTroopTypes: true, troopTypes: true })
+    loader: () => loader({ equipment: true, factions: true, factionEquipment: true, factionTroopTypes: true, keywords: true, troopTypes: true })
   },
 ])
 

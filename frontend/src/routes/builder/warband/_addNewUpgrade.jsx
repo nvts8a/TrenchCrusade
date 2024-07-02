@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useLoaderData } from 'react-router-dom'
 import { createTroopUpgrade, removeTroopUpgrade } from '../../../store/_troopsUpgradesActions'
 import { useAccordionButton } from 'react-bootstrap/AccordionButton'
 import Accordion from 'react-bootstrap/Accordion'
@@ -7,9 +8,11 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
+import Rules from '../../../components/_rules'
 
 export default function AddNewUpgrade({warband, troop, troopType, currentUpgrades}) {
-    const dispatch        = useDispatch()
+    const dispatch = useDispatch()
+    const loader = useLoaderData()
 
     const [show, setShow] = useState(false)
     const handleClose     = () => setShow(false)
@@ -32,10 +35,41 @@ export default function AddNewUpgrade({warband, troop, troopType, currentUpgrade
     }
 
     const renderUpgrades = () => {
-        return(troopType.troopTypeUpgrades.map((troopTypeUpgrade) => {
+        return(troopType.troopTypeUpgrades
+            .filter((troopTypeUpgrade) => !troopTypeUpgrade.factionVariantId || troopTypeUpgrade.factionVariantId === warband.variantId)
+            .sort((upgradeA, upgradeB) => upgradeA.upgrade.name.localeCompare(upgradeB.upgrade.name))
+            .map((troopTypeUpgrade) => {
             const currentlyUpgraded = currentUpgrades.filter((currentUpgrade) => currentUpgrade.upgrade.id === troopTypeUpgrade.upgrade.id).length > 0
-            console.log(troopTypeUpgrade)
-            console.log(currentlyUpgraded)
+
+            const upgradeModifiers = () => {
+                if (troopTypeUpgrade.upgrade.upgradeModifiers.length > 0) {
+                    const modifiersAsRules = troopTypeUpgrade.upgrade.upgradeModifiers.map((modifier) => {
+                        switch (modifier.type) {
+                            case 'keyword':
+                                return({name: loader.keywords[modifier.value].name, rule: loader.keywords[modifier.value].definition})
+                            case 'equipment':
+                                return({name: 'Equipment', rule: loader.equipment[modifier.value].name})
+                            case 'armor':
+                                return({name: 'Armour', rule: modifier.value})
+                            case 'melee':
+                                return({name: 'Melee',  rule: (modifier.value < 0) ? `${modifier.value} Dice` : `+${modifier.value} Dice` })
+                            case 'range':
+                                return({name: 'Ranged', rule: (modifier.value < 0) ? `${modifier.value} Dice` : `+${modifier.value} Dice` })
+                            default:
+                                return({name: modifier.type, rule: modifier.value })
+                        }
+                    })
+                    return(<Rules rules={modifiersAsRules} />)
+                }
+            }
+
+            const upgradeRules = () => {
+                if (troopTypeUpgrade.upgrade.upgradeRules.length > 0) {
+                    const upgradeRules = troopTypeUpgrade.upgrade.upgradeRules.map((upgradeRules) => upgradeRules.factionVariantRule)
+                    return(<Rules rules={upgradeRules} />)
+                }
+            }
+
             return(
                 <Card key={troopTypeUpgrade.upgrade.id}>
                     <Card.Header>
@@ -46,7 +80,10 @@ export default function AddNewUpgrade({warband, troop, troopType, currentUpgrade
                         <CustomToggle upgrade={troopTypeUpgrade.upgrade} />
                     </Card.Header>
                     <Accordion.Collapse eventKey={troopTypeUpgrade.upgrade.id}>
-                        <>UPGRADE</>
+                        <>
+                            {upgradeRules()}
+                            {upgradeModifiers()}
+                        </>
                     </Accordion.Collapse>
                 </Card>
             )
