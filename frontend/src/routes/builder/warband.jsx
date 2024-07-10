@@ -1,16 +1,15 @@
 // REACT
-import { Link, useLoaderData } from 'react-router-dom'
-import Dropdown from 'react-bootstrap/Dropdown'
+import { Link } from 'react-router-dom'
 import ListGroup from 'react-bootstrap/ListGroup'
 import PageLayout from '../../components/_pageLayout'
 
 // REDUX
 import { useDispatch, useSelector } from 'react-redux'
-import { createWarband, getWarbands, removeWarband } from '../../store/_warbandsActions';
+import { getWarbands, removeWarband } from '../../store/_warbandsActions';
+import AddNewWarband from './warband/_addNewWarband'
 
 export default function Warband() {
     const dispatch = useDispatch()
-    const loader = useLoaderData()
     const warbands = useSelector(state => state.warbands)
 
     if (warbands.uninitialized && warbands.loading === 'idle') dispatch(getWarbands())
@@ -36,35 +35,12 @@ export default function Warband() {
         })
     }
 
-    const renderAddNewWarband = () => {
-        return(
-            <Dropdown drop='down-centered' className='font-artisan m-3' id='new-warband'>
-                <Dropdown.Toggle variant='danger'>
-                    New Warband
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    {renderFactionDropdownItems()}
-                </Dropdown.Menu>
-            </Dropdown>
-        )
-    }
-
-    const renderFactionDropdownItems = () => {
-        return Object.values(loader.factions).map((faction) => {
-            return(
-                <Dropdown.Item id={`faction-${faction.id}`} key={faction.id} onClick={() => dispatch(createWarband(faction))}>
-                    {faction.name}
-                </Dropdown.Item>
-            )
-        })
-    }
-
     return(
         <PageLayout pageName='Warbands'>
             <div className='container' style={{minHeight: '150px'}}>
                 {renderWarbands()}
             </div>
-            {renderAddNewWarband()}
+            <AddNewWarband />
         </PageLayout>
     )
 }
