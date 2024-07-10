@@ -87,7 +87,6 @@ export default function TroopCard({troop, warband, rostered=false}) {
     const presentArmor    = calculatedArmor ? calculatedArmor : '-'
 
     const troopRules    = <Rules rules={troopType.rules} />
-    const allEquipment  = troopType.equipment.concat( troop.equipment ? troop.equipment.map((e) => e.equipment) : [] )
 
     return(
         <Accordion.Item eventKey={troop.id}>
@@ -113,7 +112,8 @@ export default function TroopCard({troop, warband, rostered=false}) {
                     {trashButton}
                 </h5>
                 {troopRules}
-                <Equipment equipment={allEquipment} />
+                <Equipment equipment={troopType.equipment} />
+                <Equipment equipment={troop.equipment} />
             </Accordion.Body>
         </Accordion.Item>
     )
