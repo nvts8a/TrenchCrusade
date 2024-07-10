@@ -89,9 +89,12 @@ export default function Layout({children}) {
                     <div className='collapse navbar-collapse' id='navbarSupportedContent'>
                         {renderNavItems()}
                     </div>
-                    <a className='navbar-brand' href='https://www.trenchcrusade.com/' rel='noreferrer' target='_blank'>
-                        <img src='/img/trench+crusade+site+logo.png' alt='Trench Crusade Logo' height='24'/>
-                    </a>
+                    <div>
+                        <a className='navbar-brand' href='https://www.trenchcrusade.com/' rel='noreferrer' target='_blank'>
+                            <img src='/img/trench+crusade+site+logo.png' alt='Trench Crusade Logo' height='24'/>
+                        </a>
+                        1.3.2
+                    </div>
                     {renderToggler()}
                 </div>
             </nav>

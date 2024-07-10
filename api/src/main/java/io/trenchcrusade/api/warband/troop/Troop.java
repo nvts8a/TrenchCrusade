@@ -5,6 +5,7 @@ import io.trenchcrusade.api.rule.faction.troop_type.FactionTroopType;
 import io.trenchcrusade.api.rule.troop_type.TroopType;
 import io.trenchcrusade.api.warband.Warband;
 import io.trenchcrusade.api.warband.troop.equipment.TroopEquipment;
+import io.trenchcrusade.api.warband.troop.upgrade.TroopUpgrade;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -57,7 +58,19 @@ public class Troop {
             mappedBy = "troop",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<TroopEquipment> troopEquipment;
+    private Set<TroopEquipment> equipment = Set.of();
+    public Set<TroopEquipment> getEquipment() {
+        return equipment;
+    }
+
+    @OneToMany(
+            mappedBy = "troop",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<TroopUpgrade> upgrades = Set.of();
+    public Set<TroopUpgrade> getUpgrades() {
+        return upgrades;
+    }
 
     // COLUMNS
     private Integer experience = 0;

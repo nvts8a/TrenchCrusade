@@ -1,51 +1,37 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLoaderData } from 'react-router-dom'
-import { removeTroop } from '../../../store/_warbandTroopsActions'
-import { createTroopEquipable, getTroopEquipment, removeTroopEquipable } from '../../../store/_troopsEquipmentActions'
+import { removeTroop } from '../../../../store/_troopsActions'
+import { createTroopEquipable, getTroopEquipment, removeTroopEquipable } from '../../../../store/_troopsEquipmentActions'
 
 import Accordion from 'react-bootstrap/Accordion'
-import AddNewEquipment from './_addNewEquipment'
+import AddNewEquipment from '../_addNewEquipment'
 import Button from 'react-bootstrap/esm/Button'
-import Keyword from '../../../components/_keyword'
-import Rules from '../../../components/_rules'
-import Equipment from '../../../components/_equipment'
+import Keyword from '../../../../components/_keyword'
+import Rules from '../../../../components/_rules'
+import Equipment from '../../../../components/_equipment'
 import AddNewUpgrade from './_addNewUpgrade'
-import { getTroopUpgrades } from '../../../store/_troopsUpgradesActions'
-import Upgrade from '../../../components/_upgrade'
+import { getTroopUpgrades } from '../../../../store/_troopsUpgradesActions'
+import Upgrade from '../../../../components/_upgrade'
 
-export default function TroopCard({troop, warband, rostered=false}) {
+export default function TroopCardBackup({troop, warband, rostered=false}) {
     const dispatch = useDispatch()
     const loader   = useLoaderData()
+
     const troopsEquipment  = useSelector(state => state.troopsEquipment)
-    const equipmentLoading = useRef(false)
-    const troopsUpgrades   = useSelector(state => state.troopsUpgrades)
-    const upgradesLoading  = useRef(false)
+    useEffect(() => { dispatch(getTroopEquipment(troop))} , [])
 
-    useEffect(() => {
-        if (rostered && !equipmentLoading.current && !troopsEquipment.values[troop.id] && troopsEquipment.loading === 'idle') {
-            equipmentLoading.current = true
-            dispatch(getTroopEquipment(troop))
-        }
-    }, [dispatch, troop, rostered, troopsEquipment])
-
-    useEffect(() => {
-        if (rostered && !upgradesLoading.current && !troopsUpgrades.values[troop.id] && troopsUpgrades.loading === 'idle') {
-            upgradesLoading.current = true
-            dispatch(getTroopUpgrades(troop))
-        }
-    }, [dispatch, troop, rostered, troopsUpgrades])
+    const troopsUpgrades = useSelector(state => state.troopsUpgrades)
+    useEffect(() => { dispatch(getTroopUpgrades(troop)) }, [])
 
     const troopType = loader.troopTypes[troop.troopTypeId]
-    const troopEquipment = troopsEquipment.values[troop.id] ? troopsEquipment.values[troop.id] : []
-    const currentUpgrades  =  troopsUpgrades.values[troop.id] ?  troopsUpgrades.values[troop.id] : []
 
     const troopMovement = () => `${troopType.movement}"/${troopType.movementType}`
     const troopRanged   = () => troopType.range ? (troopType.range < 0) ? `${troopType.range} Dice` : `+${troopType.range} Dice` : '-'
     const troopMelee    = () => troopType.melee ? (troopType.melee < 0) ? `${troopType.melee} Dice` : `+${troopType.melee} Dice` : '-'
     const troopArmor    = () => {
         let armor = troopType.armour
-        troopEquipment.map((equipable) => equipable.equipment)
+        equipment.current.map((equipable) => equipable.equipment)
             .concat(troopType.equipment)
             .filter((equipable) => equipable.modifiers && equipable.modifiers.length > 0)
             .forEach((equipable) => {
@@ -53,18 +39,18 @@ export default function TroopCard({troop, warband, rostered=false}) {
                     if(modifier.type === 'armor') armor = armor + modifier.value
                 })
             })
+        upgrades.current
+            .filter((troopUpgrade) => troopUpgrade.upgradeModifiers && troopUpgrade.upgradeModifiers.length > 0)
+            .forEach((troopUpgrade) => {
+                troopUpgrade.upgrade.upgradeModifiers.forEach((modifier) => {
+                    console.log(modifier)
+                    if(modifier.type === 'armor') armor = armor + modifier.value
+                })
+            })
         return troopType.melee ? (armor < 0) ? `${armor} Dice` : `+${armor} Dice` : '-'
     }
-    const troopKeywords = () => {
-        if (troopType.keywords.length > 0) return troopType.keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>)
-        return '-'
-    }
-    const troopUpgrades = () => {
-        if (rostered && troopType.keywords.length > 0) return currentUpgrades.map((currentUpgrade) => <Upgrade upgrade={currentUpgrade.upgrade} key={currentUpgrade.id}/>)
-    }
-    const troopRules = () => {
-        if (troopType.rules.length > 0) return(<Rules rules={troopType.rules} />)
-    }
+    const troopRules    = <Rules rules={troopType.rules} />
+    const troopKeywords = (troopType.keywords.length > 0) ? troopType.keywords.map((keyword) => <Keyword keyword={keyword} key={keyword.id}/>) : '-'
 
     const statBlock = (label, stat) => {
         return(
@@ -75,10 +61,10 @@ export default function TroopCard({troop, warband, rostered=false}) {
         )
     }
 
-    const buttons = () => {
+    const Buttons = ({currentEquipment, currentUpgrades}) => {
         const armoryButton  = rostered
                                 ? <AddNewEquipment
-                                    currentEquipment={troopEquipment}
+                                    currentEquipment={currentEquipment}
                                     availableEquipment={loader.factionEquipment[warband.factionId]} 
                                     createEquipment={createTroopEquipable(troop)}
                                     removeEquipment={removeTroopEquipable(troop)} />
@@ -106,8 +92,8 @@ export default function TroopCard({troop, warband, rostered=false}) {
     }
 
     const renderTroopEquipment = () => {
-        if (troopType.equipment.length > 0 || (troopEquipment && troopEquipment.length > 0)) {
-            const mapped = troopEquipment.map((troopEquipable) => troopEquipable.equipment)
+        if (troopType.equipment.length > 0 || (equipment.current && equipment.current.length > 0)) {
+            const mapped = equipment.current.map((troopEquipable) => troopEquipable.equipment)
 
             return(
                 <Equipment equipment={troopType.equipment.concat(mapped)} />
@@ -123,8 +109,8 @@ export default function TroopCard({troop, warband, rostered=false}) {
                         <h5><strong>{troopType.name}</strong></h5>
                     </div>
                     <div className='col-6 col-md-2 font-english-towne'>
-                        {troopKeywords()}
-                        {troopUpgrades()}
+                        {troopKeywords}
+                        {upgradeBadges.current}
                     </div>
                     {statBlock('Movement', troopMovement())}
                     {statBlock('Ranged',   troopRanged())}
@@ -133,8 +119,8 @@ export default function TroopCard({troop, warband, rostered=false}) {
                 </div>
             </Accordion.Header>
             <Accordion.Body className='fs-7'>
-                {buttons()}
-                {troopRules()}
+                <Buttons currentEquipment={[]} currentUpgrades={[]} />
+                {troopRules}
                 {renderTroopEquipment()}
             </Accordion.Body>
         </Accordion.Item>

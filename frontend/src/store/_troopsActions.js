@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { troopDeleted, troopRecieved, troopsLoading, troopsRecieved } from './_warbandTroopsSlice';
+import { troopDeleted, troopRecieved, troopsLoading, troopsRecieved } from './_troopsSlice';
 
 export const { getTroops, createTroop, removeTroop } = {
 

@@ -7,11 +7,15 @@ export const warbandsSlice = createSlice({
     name: 'warbands',
     initialState: {
         loading: IDLE,
+        uninitialized: true,
         values: {},
     },
     reducers: {
         warbandsLoading(state) {
-            if (state.loading === IDLE) state.loading = PENDING
+            if (state.loading === IDLE) {
+                state.uninitialized = false
+                state.loading = PENDING
+            }
         },
         warbandsRecieved(state, action) {
             if (state.loading === PENDING) {
@@ -32,6 +36,7 @@ export const warbandsSlice = createSlice({
         clearWarbands: (state) => {
             state.values = {}
             state.loading = IDLE
+            state.uninitialized = true
         }
     }
 })

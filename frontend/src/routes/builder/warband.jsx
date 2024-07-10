@@ -25,7 +25,7 @@ export default function Warband() {
                                 <Link className='font-artisan' to={`/builder/warband/${warband.id}/roster`}>{warband.name}</Link>
                             </ListGroup.Item>
                             <ListGroup.Item className='col-2'>
-                                <div className='icon-link icon-link-hover' onClick={() => dispatch(removeWarband(warband.id))}>
+                                <div className='icon-link icon-link-hover' onClick={() => dispatch(removeWarband(warband))}>
                                     <i className='bi bi-trash-fill'></i>
                                 </div>
                             </ListGroup.Item>

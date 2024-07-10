@@ -7,13 +7,13 @@ import Accordion from 'react-bootstrap/Accordion'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal'
-import TroopCard from './_warbandTroopCard'
-import { createTroop } from '../../../store/_warbandTroopsActions'
+import TroopCard from './_troopCard'
+import { createTroop } from '../../../../store/_troopsActions'
 
 export default function AddNewTroop({warband}) {
     const dispatch = useDispatch()
     const loader = useLoaderData()
-    const troops = useSelector(state => state.warbandTroops)
+    const troops = useSelector(state => state.troops)
 
     const [showAddTroop, setShowAddTroop] = useState(false)
     const handleClose = () => setShowAddTroop(false)
