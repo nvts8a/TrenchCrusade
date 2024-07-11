@@ -67,7 +67,7 @@ export default function Root() {
 
     return (
       <>
-      <div className='landing w-100 pt-5' style={style}>
+      <div className='w-100 h-83 pt-5' style={style}>
           <div className='row justify-content-center m-1'>
             <div className='col-sm-12 col-md-2'>
               <label htmlFor='username' className='visually-hidden'>Email</label>

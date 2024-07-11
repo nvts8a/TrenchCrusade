@@ -31,6 +31,7 @@ import './index.css'
 // API AND AUTH
 import axios from 'axios'
 import { loader } from './utils/loader'
+import ErrorBoundary from './routes/error'
 axios.defaults.baseURL = window.location.origin + '/api'
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
 
@@ -41,41 +42,49 @@ const router = createBrowserRouter([
   },
   {
     path: '/rules/charts',
-    element: <Layout><Charts /></Layout>
+    element: <Layout><Charts /></Layout>,
+    errorElement: <ErrorBoundary />
   },
   {
     path: '/rules/core',
-    element: <Layout><Core /></Layout>
+    element: <Layout><Core /></Layout>,
+    errorElement: <ErrorBoundary />
   },
   {
     path: '/rules/equipment',
     element: <Layout><Equipment /></Layout>,
-    loader: () => loader({ equipment: true })
+    loader: () => loader({ equipment: true }),
+    errorElement: <ErrorBoundary />
   },
   {
     path: '/rules/factions',
     element: <Layout><Factions /></Layout>,
-    loader: () => loader({ factions: true })
+    loader: () => loader({ factions: true }),
+    errorElement: <ErrorBoundary />
   },
   {
     path: '/rules/keywords',
     element: <Layout><Keywords /></Layout>,
-    loader: () => loader({ keywords: true })
+    loader: () => loader({ keywords: true }),
+    errorElement: <ErrorBoundary />
   },
   {
     path: '/rules/troop-types',
     element: <Layout><TroopTypes /></Layout>,
-    loader: () => loader({ troopTypes: true })
+    loader: () => loader({ troopTypes: true }),
+    errorElement: <ErrorBoundary />
   },
   {
     path: '/builder/warband/all',
     element: <Layout><Warband /></Layout>,
-    loader: () => loader({ factions: true })
+    loader: () => loader({ factions: true }),
+    errorElement: <ErrorBoundary />
   },
   {
     path: '/builder/warband/:id/roster',
     element: <Layout><Roster /></Layout>,
-    loader: () => loader({ equipment: true, factions: true, factionEquipment: true, factionTroopTypes: true, keywords: true, troopTypes: true })
+    loader: () => loader({ equipment: true, factions: true, factionEquipment: true, factionTroopTypes: true, keywords: true, troopTypes: true }),
+    errorElement: <ErrorBoundary />
   },
 ])
 

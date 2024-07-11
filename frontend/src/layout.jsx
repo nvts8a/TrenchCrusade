@@ -10,7 +10,10 @@ import NavLink from 'react-bootstrap/NavLink'
 // REDUX
 import { useDispatch } from 'react-redux'
 import { clearWarbands } from './store/_warbandsSlice'
+import { clearTroops } from './store/_troopsSlice'
+import { clearEquipment } from './store/_warbandEquipmentSlice'
 import axios from 'axios'
+
 
 
 export default function Layout({children}) {
@@ -21,9 +24,10 @@ export default function Layout({children}) {
     
     const logout = () => {
         dispatch(clearWarbands())
+        dispatch(clearTroops())
+        dispatch(clearEquipment())
         localStorage.clear()
         delete axios.defaults.headers.common['Authorization']
-
     }
 
     useEffect(() => {
@@ -94,6 +98,15 @@ export default function Layout({children}) {
                             <img src='/img/trench+crusade+site+logo.png' alt='Trench Crusade Logo' height='24'/>
                         </a>
                         1.3.2
+                        <a className='text-secondary ps-3' href='https://discord.com/invite/trenchcrusade' rel='noreferrer' target='_blank'>
+                            <i className='bi bi-discord'></i>
+                        </a>
+                        <a className='text-secondary ps-3' href='https://www.instagram.com/trench_crusade' rel='noreferrer' target='_blank'>
+                            <i className='bi bi-instagram'></i>
+                        </a>
+                        <a className='text-secondary px-3' href='https://twitter.com/TrenchCrusade' rel='noreferrer' target='_blank'>
+                            <i className='bi bi-twitter'></i>
+                        </a>
                     </div>
                     {renderToggler()}
                 </div>

@@ -58,7 +58,7 @@ button, input {
   --background-end-rgb:   33, 35, 35;
 }
 
-.landing {
+.h-83 {
   height: 83%;
 }
 
@@ -85,10 +85,6 @@ button.nav-link:hover {
   padding-top: 0px;
   padding-bottom: 0px;
 }
-
-
-
-
 
 @layer utilities {
   .text-balance {
