@@ -1,5 +1,5 @@
 // @src/components/ErrorBoundary.jsx
-import { Link, useRouteError } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { clearWarbands } from '../store/_warbandsSlice'
 import { clearTroops } from '../store/_troopsSlice'
 import { clearEquipment } from '../store/_warbandEquipmentSlice'
@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux'
 import axios from 'axios'
 
 const ErrorBoundary = () => {
-    const error = useRouteError()
     const dispatch = useDispatch()
 
     const logout = () => {
@@ -30,7 +29,6 @@ const ErrorBoundary = () => {
             <div className='p-5'>
                 <h1>What a horrible night to have a curse.</h1>
                 <p>An error has occured. The best next step would be to try and <Link className='text-danger' to='/' onClick={logout}>logout</Link> and log back in.</p>
-                <p><small className='p-5'>{error?.message}</small></p>
             </div>
         </section>
     )
