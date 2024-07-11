@@ -22,7 +22,7 @@ const ErrorBoundary = () => {
         backgroundImage: `url('/img/error.jpg')`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        backgroundSize: '100%'
+        backgroundSize: 'cover'
     }
 
     return (
@@ -30,7 +30,7 @@ const ErrorBoundary = () => {
             <div className='p-5'>
                 <h1>What a horrible night to have a curse.</h1>
                 <p>An error has occured. The best next step would be to try and <Link className='text-danger' to='/' onClick={logout}>logout</Link> and log back in.</p>
-                <small className='p-5'>{error?.message}</small>
+                <p><small className='p-5'>{error?.message}</small></p>
             </div>
         </section>
     )

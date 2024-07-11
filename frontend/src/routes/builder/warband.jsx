@@ -15,7 +15,7 @@ export default function Warband() {
     if (warbands.uninitialized && warbands.loading === 'idle') dispatch(getWarbands())
 
     const renderWarbands = () => {
-        return Object.values(warbands.values).map((warband) => {
+        return Object.values(null).map((warband) => {
             return(
                 <div className='row justify-content-center' key={warband.id}>
                     <div className='col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4' >
