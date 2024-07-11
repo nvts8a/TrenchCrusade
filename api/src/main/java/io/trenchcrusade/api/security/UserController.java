@@ -27,9 +27,10 @@ public class UserController {
     public ResponseEntity<User> create(@RequestBody User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
+
         user.setPassword(encodedPassword);
         user.setToken(sessionService.getAuthToken());
-
+        user.setTokenExpiration();
         userRepository.save(user);
 
         HttpHeaders headers = new HttpHeaders();
@@ -40,7 +41,6 @@ public class UserController {
     @PutMapping("")
     public ResponseEntity<User>  login(@RequestBody User login) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
-
         Authentication authentication = authenticationManager.authenticate(token);
         if (!authentication.isAuthenticated()) return ResponseEntity.badRequest().body(login);
 
@@ -48,9 +48,10 @@ public class UserController {
         if (user == null) return ResponseEntity.badRequest().body(login);
 
         user.setToken(sessionService.getAuthToken());
+        user.setTokenExpiration();
         userRepository.save(user);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", user.getToken());
         return ResponseEntity.ok().headers(headers).body(user);

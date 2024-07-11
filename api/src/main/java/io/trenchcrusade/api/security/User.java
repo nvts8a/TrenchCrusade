@@ -1,6 +1,10 @@
 package io.trenchcrusade.api.security;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "users")
@@ -9,6 +13,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @CreatedDate
+    private Instant createdDate;
 
     @Column(nullable = false, unique = true, length = 45)
     private String username;
@@ -24,6 +31,9 @@ public class User {
 
     @Column
     private String token;
+
+    @Column
+    private Instant tokenExpiration;
 
     public Long getId() {
         return id;
@@ -67,5 +77,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Instant getTokenExpiration() {
+        return tokenExpiration;
+    }
+
+    public void setTokenExpiration() {
+        this.tokenExpiration = Instant.now().plus(30, ChronoUnit.DAYS);
     }
 }
