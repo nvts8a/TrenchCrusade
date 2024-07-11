@@ -36,7 +36,6 @@ export default function Roster() {
     return(
         <>
             <PageLayout pageName='Roster'>
-                <h5 className='display-5 font-english-towne text-center text-danger'>Warband</h5>
                 <WarbandDetails warband={warband} />
                 <WarbandFaction warband={warband} />
                 <WarbandAssets  warband={warband} warbandEquipment={warbandEquipment}/>
