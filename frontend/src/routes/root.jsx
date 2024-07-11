@@ -67,7 +67,7 @@ export default function Root() {
 
     return (
       <>
-      <div className='w-100 h-83 pt-5' style={style}>
+      <section className='w-100 h-83 pt-5' style={style}>
           <div className='row justify-content-center m-1'>
             <div className='col-sm-12 col-md-2'>
               <label htmlFor='username' className='visually-hidden'>Email</label>
@@ -106,12 +106,23 @@ export default function Root() {
             </a>
           </div>
           <Alert message={alertMessage} show={alertShow} setShow={setAlertShow}/>
-      </div>
-      <div className='row text-center'>
+      </section>
+      <section className='row text-center'>
           <div className='col-12'><sub>This site is a free community project.</sub></div>
           <div className='col-12'><sub>Trench Crusade and all artwork copyright © 2024 Mike Franchina.</sub></div>
           <div className='col-12'><sub>Trench Crusade playtest rules copyright © 2024 Tuomas Pirinen.</sub></div>
-      </div>
+      </section>
+      <section className='p-1 row justify-content-center text-center'>
+          <a className='col-1 text-secondary ps-3' href='https://discord.com/invite/trenchcrusade' rel='noreferrer' target='_blank'>
+              <i className='bi bi-discord'></i>
+          </a>
+          <a className='col-1 text-secondary ps-3' href='https://www.instagram.com/trench_crusade' rel='noreferrer' target='_blank'>
+              <i className='bi bi-instagram'></i>
+          </a>
+          <a className='col-1 text-secondary px-3' href='https://twitter.com/TrenchCrusade' rel='noreferrer' target='_blank'>
+              <i className='bi bi-twitter'></i>
+          </a>
+      </section>
       </>
     )
   }
