@@ -32,6 +32,8 @@ import './index.css'
 import axios from 'axios'
 import { loader } from './utils/loader'
 import ErrorBoundary from './routes/error'
+import ContentManagement from './routes/cms'
+import { cmsLoader } from './utils/cmsLoader'
 axios.defaults.baseURL = window.location.origin + '/api'
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('authorization')
 
@@ -86,6 +88,11 @@ const router = createBrowserRouter([
     loader: () => loader({ equipment: true, factions: true, factionEquipment: true, factionTroopTypes: true, keywords: true, troopTypes: true }),
     errorElement: <ErrorBoundary />
   },
+  {
+    path: '/cms',
+    element: <Layout><ContentManagement /></Layout>,
+    loader: () => cmsLoader()
+  }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

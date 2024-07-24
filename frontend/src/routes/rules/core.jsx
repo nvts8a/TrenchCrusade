@@ -107,12 +107,18 @@ export default function Core() {
                     <p>Each player leads a Warband, which typically consists of 10-30 models. While there is no ironclad rule on the scale of models, the heroic 32mm scale is what we use in our games. If you prefer another scale, do not worry - Witchburners will not be dispatched to cleanse you for your lack of scale purity!</p>
                     <p>Common ACTIONS that all models can take are listed below. Be sure to consult the profile of each warrior in your warband to see what ACTIONS their abilities allow them to perform in addition to these. Some ACTIONS are classed as RISKY ACTIONS and these are noted as such. RISKY ACTIONS require you to roll on the <strong>Action Success Chart</strong> (see below) to see if you succeed. On a success, the model performs the RISKY ACTION successfully. On a failure, the Activation of the model ends immediately before taking the RISKY ACTION!</p>
                     <Action title='Move'>
-                        <span>The model may move its full Movement Speed. Normal Movement requires no roll on the <strong>Action Success Chart</strong>. You cannot Move if you Charge (see below).</span>
-                    </Action>
-                    <Action title='Charge'>
-                        <span>A player can choose to Charge instead of moving during its Activation. Choose a specific enemy model within your model’s line of sight and declare it to be the target. A distance check should be made to see if the target is within 12” inches of your attacking model. If they are within 12”, roll a D6 and add the result to your model’s movement speed. Use this modified movement value to move towards the target by the most direct route. If you get within 1”, the model is now in Melee Combat with the target. You may charge more than one model if you can get within 1” of them.</span>
-                        <p>If you don’t reach the target, simply move your model by the amount indicated by the dice roll plus the Movement rate of the model. Charging requires no roll on the Action Success Chart. The maximum charge distance is always 12”, even if the charge move would allow you to travel further. Remember, you cannot get closer than 1” to any enemy model without charging them, so any enemy models between you and your target by the most direct route would negate a charge.</p>
-                        <p>If the Charge fails, you may not use any ranged weapons afterwards during this Activation. You can charge an enemy if you cannot see them, but this requires you to succeed in a RISKY ACTION first</p>
+                        <p>When a model takes this ACTION during its activation, choose one of the three options below. The Move ACTION does not require a roll on the ACTION SUCCESS CHART.</p>
+                        <Action title='Standard Move'>
+                            <span>The model moves up to its Movement characteristic.</span>
+                        </Action>
+                        <Action title='Charge'>
+                            <span>A player can choose to Charge instead of moving during its Activation. Choose a specific enemy model within your model's line of sight and declare it to be the target. A distance check should be made to see if the target is within 12” inches of your attacking model. If they are within 12”, roll a D6 and add the result to your model's movement speed. Use this modified movement value to move towards the target by the shortest and most effective route determined by distance.</span>
+                            <p>Using Jumping Climbing or going through Dangerous terrain is always optional during a Charge move even if it is the shortest route, though the route avoiding such obstacles must still be as short as possible.</p>
+                            <p>If you get within 1”, the model is now in Melee Combat with the target. You may charge more than one model if you can get within 1” of them.</p>
+                        </Action>
+                        <Action title='Retreat'>
+                            <span>The model moves up to its Movement characteristic and it may leave Melee Combat during this movement. Each enemy model in Melee Combat with the retreating model may immediately take a Melee Attack ACTION with a single melee weapon that it has. Resolve the effects of this attack before moving the retreating model.</span>
+                        </Action>
                     </Action>
                     <Action title='Dash'>
                         <span>All models, unless otherwise noted, can move a second time up to their full Movement speed if they succeed in a RISKY ACTION. All normal rules for movement apply. This can be done in addition to a normal Move or Charging, at any point of the Activation.</span>
@@ -126,14 +132,11 @@ export default function Core() {
                     <Action title='Jumping down'>
                         <span>You may jump down from heights of up to 3” voluntarily, with no ill effect or reduction to your Movement. If you do this as part of your charge move, you must succeed in a RISKY ACTION. If you succeed, you gain +1 BONUS DICE to your hit rolls. If you fail, place the model as close to the edge it jumped from as possible, but 1” away from the enemy. The model did not make the charge in this case.</span>
                     </Action>
-                    <Action title='Retreat from combat'>
-                        <span>A model may move away from Melee combat during their normal Move. However, every enemy that is in Melee combat with the retreating model may immediately use one of their Melee ACTIONS against the retreating model. Resolve the effects of this attack before moving the retreating model.</span>
-                    </Action>
                     <Action title='Attack with a Ranged Weapon'>
-                        <span>If the model has a ranged weapon and it is not engaged in Melee combat, it may attack with the weapon as detailed in its profile in the rules. Note that you cannot make a Ranged Attack and Charge afterwards, unless the Ranged Weapon has the ASSAULT Keyword.</span>
+                        <span>The model may shoot with a ranged weapon that it is equipped with. A model engaged in Melee Combat cannot shoot. A model cannot both Shoot and then Charge during the same Activation, unless they made a single ranged attack with a weapon that has the ASSAULT keyword.</span>
                     </Action>
                     <Action title='Attack with a Melee Weapon'>
-                        <span>If the model is engaged in Melee combat, it may attack as detailed in the Melee Weapon's entry in the rules.</span>
+                        <span>If the model is engaged in Melee combat, it may attack as detailed in the Melee Weapon's entry in the rules. The attacker must see at least part of the target -no Melee attacks through walls!</span>
                     </Action>
                     <Action title='Any other ACTIONS'>
                         <span>Many models have other possible ACTIONS they can take during their Activations. Refer to the Warband Lists for details.</span>
@@ -153,10 +156,37 @@ export default function Core() {
                 <p>Each time one of your models suffers such damage, place a BLOOD MARKER (red dice) next to the model to track this damage. Use the pip number on each dice to indicate the number of BLOOD MARKERS the model has. Every time this model takes an ACTION (shooting, melee attacks and so on), your opponent can declare that they are spending one or more BLOOD MARKERS it has to add -1 DICE to the dice pool when the roll on the <strong>Action Success Chart</strong> is made. Multiple markers can be applied to any single roll if the target model has multiple BLOOD MARKERS to be converted.</p>
                 <p>The BLOOD MARKERS can also be used by your opponent when the model suffers damage. Each marker can be converted into +1 DICE on the <strong>Injury Chart</strong> roll, making a serious injury far more likely, and just like with ACTIONS, multiple markers can be used to influence a single roll on the <strong>Injury Chart</strong>.</p>
                 <p>Lastly, BLOOD MARKERS can also be used by your opponent to reduce the effectiveness of the armour the model may be wearing. Before rolling to injure a model that is Down, one BLOOD MARKER can be spent to reduce the effectiveness of any armour by one point (so Heavy Armour would reduce the injury roll by -1 instead of -2 for example), making a serious injury far more likely. Only a single marker can be used in this way by one model per Activation.</p>
+                <Concept title='Bloodbath'>
+                    <span>You can roll an additional D6 on Injury rolls at the cost of 6 BLOOD MARKERS on any model, or at the cost of 3 BLOOD MARKERS if the target is Down. This means that instead of rolling 2D6 on your typical weapon, you roll 3D6 on your injury roll and add the numbers together. Weapons such as Artillery Witch's Infernal Bomb would therefore roll 4D6 and add the results together (3D6+1D6).</span>
+                </Concept>
             </Section>
             <Section title='Blessing Markers'>
                 <p>BLESSING MARKERS are similar to BLOOD MARKERS. Supernatural powers, holy relics and many other sources may grant these to a model, which can then be expended to aid the ACTIONS of the model.</p>
                 <p>Every time the model takes an ACTION (shooting, dashing, melee attacks and so on), you can declare that they are spending one or more of any BLESSING MARKERS the model has. You can add +1 DICE to the dice pool when any roll on the <strong>Action Success Chart</strong> is made. Multiple BLESSING MARKERS can be applied to any single roll if the target model has more than one BLESSING MARKER.</p>
+            </Section>
+            <Section title='Weapons, Armour, and Equipment'>
+                <p>Unless otherwise stated in the rules, each warrior in your warband may carry one or more of the following Ranged weapons:</p>
+                <ul>
+                    <li>One two-handed ranged weapon</li>
+                    <li>Up to two one-handed ranged weapons</li>
+                </ul>
+                <p>In addition, they may carry the following Melee weapons:</p>
+                <ul>
+                    <li>One two-handed melee weapon</li>
+                    <li>Up to two single-handed melee weapons</li>
+                </ul>
+                <p>All weapon entries clearly indicate if you need one or two hands to effectively use the given weapon. Unless clearly stated in the Range characteristic, a ranged weapon cannot be used in Melee combat. Uness they can be used in Melee, Ranged weapons do not use either hand in melee (leaving both hands free for melee weapons).</p>
+                <ul>
+                    <li>Each model can wear a single suit of armour and wear one type of headgear/helmet</li>
+                    <li>Each model can carry one type of grenade</li>
+                    <li>A model can have any number of Equipment items, but only one of each type per model</li>
+                </ul>
+                <p>The following pieces of Equipment or Amour can be carried by models as indicated by the rules and take one of the hands of the character at all times, thus limiting which weapons they may use in combat:</p>
+                <ul>
+                    <li>One shield (most commonly, a trench shield) which always takes one hand to use in both melee and in ranged combat and cannot be switched out</li>
+                    <li>One Standard/banner/flag which always takes one hand to use in both melee and in ranged combat and cannot be switched out</li>
+                    <li>One musical instrument which always takes one hand to use in both melee and in ranged combat and cannot be switched out</li>
+                </ul>
             </Section>
             <Section title='Movement'>
                 <p>All models in the game can Move when Activated unless otherwise indicated in the rules. Each model can move up to the number of inches indicated in their profile when Activated, though they can move less and not at all if you wish.</p>
@@ -177,6 +207,9 @@ export default function Core() {
                     <p>A model will also fall if they fail when taking a Jump RISKY ACTION and suffer damage as explained above.</p>
                     <p><strong>Flying models</strong> ignore penalties for difficult terrain, can cross/land on dangerous terrain safely and can move vertically without the need to take Climbing tests.</p>
                 </Concept>
+                <Concept title='Flying'>
+                    <span>Flying models ignore penalties for difficult terrain, can cross/land on dangerous terrain (including mines etc) safely and can move vertically without the need to take Climbing tests. Additionally, they can jump across gaps up to their Movement characteristic and do not need to make a roll on the Action Success Chart to do so. Models only ever have 1 type of movement, either Flying or Infantry.</span>
+                </Concept>
             </Section>
             <Section title='Combat'>
                 <p>Combat is divided into <strong>Ranged</strong> and <strong>Melee</strong> Combat. A model may fight in Melee Combat or with any ranged weapons it has.</p>
@@ -191,8 +224,9 @@ export default function Core() {
                         <li>If you hit the enemy, roll on the <strong>Injury Chart</strong>.</li>
                         <li>If the weapon can shoot multiple times per Activation, resolve the shots one at a time.</li>
                     </ol>
-                </Concept>
-                <Concept title='Modifiers'>
+                    <Action title='Enemy behind Cover'>
+                        <span>Add -1 DICE to the roll. A model is considered to be in cover if it is touching a piece of scenery. If the shooter can see the model in its entirety (including the entire base), despite it touching a scenery piece, then this penalty does not apply. The piece of cover must be big enough that it is horizontally at least as long as the base of the model taking cover in order to count.</span>
+                    </Action>
                 </Concept>
                 <Concept title='Melee Combat'>
                     <p><img className='lh-1 float-end' style={{ width: '50%', maxWidth: '150px' }} src='/img/core/combat.png' alt='Trench Crusade Combat' />An activated model can use any of its Melee ACTIONS if it is in contact (i.e. within 1”) with one or more enemies. Select any melee weapon or attack action available to the model - these are clearly indicated in the characteristics of each weapon entry.</p>
@@ -202,6 +236,18 @@ export default function Core() {
                         <li>If the result is successful, roll on the <strong>Injury Chart</strong> to determine what happens to the target (unless some Equipment or Special Ability of the model indicates otherwise).</li>
                     </ol>
                     <p>Generally, each model can only attack once in melee, but some can execute multiple attacks due to their natural abilities or special weapons.</p>
+                    <Action title='Two Melee Weapons'>
+                        <span>A model armed with two melee weapons can take two separate Melee Attack ACTIONS, one with each weapon. One of these weapons, determined before you make your first ACTION roll, is an Off-Hand weapon. Off-Hand weapons suffer -1 DICE to hit. If a STRONG model wields a two-handed melee weapon in one hand and a one-handed melee weapon in the other, the one-handed weapon is always regarded as the Off-Hand weapon. Resolve attacks made by a model wielding two melee weapons one at a time and resolve attacks with the Off-Hand weapon last.</span>
+                    </Action>
+                    <Action title='Tough Creatures'>
+                        <span>If a TOUGH model would be taken Out Of Action, it is taken Down instead. After a TOUGH model is taken Down in this way, it can be taken Out of Action as normal.</span>
+                    </Action>
+                    <Action title='Defended Obstacle'>
+                        <span>If the target of a melee attack is defending a stone wall, earthen rampart, fighting from a trench and so on (a simple hedge, bush or low fence is not enough), the attacker suffers -1 DICE to all rolls to see if their melee attacks hit. A model that is Down cannot benefit from a defended obstacle. The obstacle must be at least 1/2” high, it must be between the attacker and defender, with the defender touching it.</span>
+                    </Action>
+                    <Action title='Moving in Combat'>
+                        <span>If a model is in Melee combat at the start of their Activation, they may use their Standard Move ACTION while staying within 1” of the enemies they are engaged in combat with. This is most often used to negate the Defended Obstacle bonus. No roll is needed to do this.</span>
+                    </Action>
                 </Concept>
             </Section>
             <Section title='End of Activation'>
@@ -238,7 +284,7 @@ export default function Core() {
                     <p className='text-center'>"Be strict with yourself but lenient with others."</p>
                 </Concept>
                 <Concept title='Shooting into Melee' sidebar>
-                    <p>If you shoot at any models engaged in melee, roll a D6 for each shot to determine which model is hit: on 1-3 you target one of your own models, on 4-6 you hit the enemy model you were aiming for. Roll to hit as normal once the target has been determined.</p>
+                    <p>If you shoot at any models engaged in melee, roll a D6 for each shot (or automatic hit) to determine which model is hit: on a 1-3, the attack targets one of your models at random within 1” of the target, on a 4-6, the attack targets an enemy model at random within 1” of the target. Resolve the attack as normal once the target is determined.</p>
                 </Concept>
             </Section>
         </PageLayout>

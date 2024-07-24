@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class SessionService {
+    // TODO: Make this some sort of user db property
+    static final List<String> CMS_USERS = Arrays.asList("nvts8a", "nevets138");
+
     @Autowired
     private UserRepository userRepository;
 
@@ -43,6 +43,12 @@ public class SessionService {
         User user = userRepository.findByToken(authHeader);
         if (user == null) return null;
         return new UserDetailsImpl(user);
+    }
+
+    public void authorizeUserForCms(String authorizationToken) throws ResponseStatusException {
+        UserDetailsImpl userDetails = loadUserBy(authorizationToken);
+        if (!CMS_USERS.contains(userDetails.getUser().getUsername()))
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 
     public Warband authorizeUserForWarband(String authorizationToken, Long warbandId) throws ResponseStatusException {
